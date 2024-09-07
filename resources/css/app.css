@@ -1,0 +1,120 @@
+/* INICIO */
+.filter-section {
+    border: 1px solid #000000;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.075);
+}
+
+.filter-section h6 {
+    font-size: 1rem;
+}
+
+.filter-section .form-check {
+    margin-bottom: 0.5rem;
+}
+
+.filter-section .form-range {
+    width: 100%;
+}
+
+/* ADMINISTRACIÓN */
+.icon-lg {
+    font-size: 2rem;
+}
+
+.card-custom {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-custom:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* TABLA COLORES */
+.container {
+    margin-top: 1em;
+    text-align: center;
+}
+
+.custom-table {
+    width: 60%;
+    border-radius: 0.5em;
+    overflow: hidden;
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+.btn-success {
+    width: 15%;
+
+    display: inline-block;
+}
+
+.custom-table th,
+.custom-table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.75em;
+}
+
+.col-id {
+    width: 10%;
+}
+
+.col-nombre {
+    width: 50%;
+}
+
+.col-acciones {
+    width: 30%;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-accion {
+    margin: 0 0.5em;
+    /* font-weight: bold; */
+    padding: 0.5em 1em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: black;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: black;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    color: white;
+}
+
+/* BOTÓN DE AÑADIR */
+.circle-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.29em;
+    height: 1.29em;
+    border: 0.125em solid white;
+    border-radius: 50%;
+    font-size: 1.29rem;
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+}
