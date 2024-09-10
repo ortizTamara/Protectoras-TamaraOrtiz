@@ -10,6 +10,10 @@ class Especie extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nombre',
+    ];
+
     public function animals(): HasMany
     {
         return $this->hasMany(Animal::class);

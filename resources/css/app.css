@@ -118,3 +118,14 @@
     text-decoration: none;
     background-color: transparent;
 }
+
+/* PAGINACIÓN */
+.custom-text {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.custom-text .highlight {
+    color: #000000c6;
+    font-weight: bold;
+}

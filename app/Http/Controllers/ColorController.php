@@ -49,7 +49,7 @@ class ColorController extends Controller
      */
     public function edit(Color $color)
     {
-        return view('administrador.colores.edit');
+        return view('administrador.colores.edit', compact('color'));
     }
 
     /**
@@ -57,7 +57,11 @@ class ColorController extends Controller
      */
     public function update(UpdateColorRequest $request, Color $color)
     {
-        //
+        $validated = $request->validated();
+
+        $color->update($validated);
+
+        return redirect()->route('color.index')->with('success', "$color->name has sido actualizado exitosamente.");
     }
 
     /**

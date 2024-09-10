@@ -11,7 +11,7 @@ class StoreRazaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class StoreRazaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre' => ['required', 'string'],
+            'especie_id' => ['required', 'exists:especies,id'],
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'nombre.required' => 'Nombre obligatorio',
         ];
     }
 }

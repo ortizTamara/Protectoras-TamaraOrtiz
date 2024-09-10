@@ -9,7 +9,7 @@
             @csrf
 
             <div class="row mb-3 align-items-center">
-                <label for="nombre" class="col-form-label col-sm-2">Nombre:</label>
+                <label for="nombre" class="col-form-label col-sm-1">Nombre:</label>
                 <div class="col-sm-10">
                     <input type="text" name="nombre" class="form-control " required>
                     @error('nombre')

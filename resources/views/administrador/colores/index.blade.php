@@ -30,7 +30,26 @@
                     </tr>
                 @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="mb-0 custom-text">
+                                    Mostrando
+                                    <span class="highlight">{{ $colores->firstItem() }}</span> a
+                                    <span class="highlight">{{ $colores->lastItem() }}</span> de
+                                    <span class="highlight">{{ $colores->total() }}</span> resultado
+                                </p>
+                            </div>
+                            <div>
+                                {{ $colores->links() }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
-        {{ $colores->links() }}
+        {{-- {{ $colores->links() }} --}}
     </div>
 @endsection

@@ -19,7 +19,8 @@
 
             <!-- Tarjeta de Razas -->
             <div class="col-md-3 mb-3">
-                <a href="#" class="card card-custom shadow-sm rounded text-decoration-none text-dark">
+                <a href="{{ route('raza.index') }}"
+                    class="card card-custom shadow-sm rounded text-decoration-none text-dark">
                     <div class="card-body text-center">
                         <h5 class="card-title mb-3">
                             <i class="bi bi-egg icon-lg"></i>
@@ -31,7 +32,8 @@
 
             <!-- Tarjeta de Especies -->
             <div class="col-md-3 mb-3">
-                <a href="#" class="card card-custom shadow-sm rounded text-decoration-none text-dark">
+                <a href="{{ route('especie.index') }}"
+                    class="card card-custom shadow-sm rounded text-decoration-none text-dark">
                     <div class="card-body text-center">
                         <h5 class="card-title mb-3">
                             <i class="bi bi-paw icon-lg"></i>
