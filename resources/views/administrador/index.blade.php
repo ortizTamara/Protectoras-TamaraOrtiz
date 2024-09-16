@@ -45,11 +45,26 @@
 
             <!-- Tarjeta de Comportamientos -->
             <div class="col-md-3 mb-3">
-                <a href="#" class="card card-custom shadow-sm rounded text-decoration-none text-dark">
+                <a href="{{ route('comportamiento.index') }}"
+                    class="card card-custom shadow-sm rounded text-decoration-none text-dark">
                     <div class="card-body text-center">
                         <h5 class="card-title mb-3">
                             <i class="bi bi-braces icon-lg"></i>
                             Comportamientos
+                        </h5>
+                    </div>
+                </a>
+            </div>
+
+
+            <!-- Tarjeta de Protectoras -->
+            <div class="col-md-3 mb-3">
+                <a href="{{ route('administracion.protectora.index') }}"
+                    class="card card-custom shadow-sm rounded text-decoration-none text-dark">
+                    <div class="card-body text-center">
+                        <h5 class="card-title mb-3">
+                            <i class="bi bi-braces icon-lg"></i>
+                            Protectoras
                         </h5>
                     </div>
                 </a>

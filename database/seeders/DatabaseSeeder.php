@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
             ColorSeeder::class,
             EspecieSeeder::class,
             RazaSeeder::class,
+            PaisSeeder::class,
+            ComunidadAutonomaSeeder::class,
+            ProvinciaSeeder::class,
+            GeneroSeeder::class,
         ]);
         // User::factory(10)->create();
 

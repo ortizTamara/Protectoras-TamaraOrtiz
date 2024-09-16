@@ -5,23 +5,34 @@
         <div class="row g-5 w-100">
             <div class="col-md-2 filter-section">
                 {{-- Buscador --}}
-                {{-- Opciones --}}
+
+                {{-- ESPECIE --}}
                 <div class="mb-4">
-                    <h6>Categoría</h6>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filter1" checked>
-                        <label class="form-check-label" for="filter1">Perros</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filter2" checked>
-                        <label class="form-check-label" for="filter2">Gatos</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filter3" checked>
-                        <label class="form-check-label" for="filter3">Otros</label>
-                    </div>
+                    <h6>Tipo de animal</h6>
+                    <select name="especie_id" class="form-control">
+                        <option value="">Todos</option>
+                        @foreach ($especies as $especie)
+                            <option value="{{ $especie->id }}" @selected($especie->especie_id === $especie->id)>
+                                {{ $especie->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
-                {{-- Edad --}}
+
+                {{-- RAZA --}}
+                <div class="mb-4">
+                    <h6>Raza</h6>
+                    <select name="raza_id" class="form-control">
+                        <option value="">Todas</option>
+                        @foreach ($razas as $raza)
+                            <option value="{{ $raza->id }}" @selected($raza->raza_id === $raza->id)>
+                                {{ $raza->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- EDAD --}}
                 <div class="mb-4">
                     <h6 class="fs-6">Edad</h6>
                     <input type="range" class="form-range" id="ageRange" min="1" max="20">
@@ -30,40 +41,33 @@
                         <span>20</span>
                     </div>
                 </div>
-                {{-- Color --}}
+
+                {{-- COLOR --}}
                 <div class="mb-4">
                     <h6>Color</h6>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="colorDropdown"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Seleccionar
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="colorDropdown">
-                            <li><a class="dropdown-item" href="#">Blanco</a></li>
-                            <li><a class="dropdown-item" href="#">Negro</a></li>
-                            <li><a class="dropdown-item" href="#">Naranja</a></li>
-                            <li><a class="dropdown-item" href="#">Atigrado</a></li>
-                            <li><a class="dropdown-item" href="#">Bicolor</a></li>
-                            <li><a class="dropdown-item" href="#">Tricolor</a></li>
-                            <li><a class="dropdown-item" href="#">Gris</a></li>
-                            <li><a class="dropdown-item" href="#">Marrón</a></li>
-                            <li><a class="dropdown-item" href="#">Crema</a></li>
-                        </ul>
-                    </div>
+                    <select name="color_id" class="form-control">
+                        <option value="">Todos</option>
+                        @foreach ($colores as $color)
+                            <option value="{{ $color->id }}" @selected($color->color_id === $color->id)>
+                                {{ $color->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
+
                 {{-- Tamaño --}}
                 <div class="mb-4">
                     <h6>Tamaño</h6>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filter1" checked>
+                        <input class="form-check-input" type="checkbox" value="" id="filter1">
                         <label class="form-check-label" for="filter1">Pequeño (Menos de 5kg)</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filter2" checked>
+                        <input class="form-check-input" type="checkbox" value="" id="filter2">
                         <label class="form-check-label" for="filter2">Mediano (5-10kg)</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filter3" checked>
+                        <input class="form-check-input" type="checkbox" value="" id="filter3">
                         <label class="form-check-label" for="filter3">Grande (Más de 20kg)</label>
                     </div>
                 </div>
@@ -87,8 +91,7 @@
                         <div class="col-2">
                             <div class="card">
                                 {{-- <div class="ratio" style="--bs-aspect-ratio: 115%;"> --}}
-                                <img src="{{ asset('imagenes/loki.jpg') }}" class="card-img-top img-fluid "
-                                    alt="...">
+                                <img src="{{ asset('imagenes/loki.jpg') }}" class="card-img-top img-fluid " alt="...">
                                 {{-- </div> --}}
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $animal->nombre }}</h5>
@@ -99,59 +102,6 @@
                             </div>
                         </div>
                     @endforeach
-                    {{-- <div class="col-2"></div>
-                    <div class="col-2"></div>
-                    <div class="col-2"></div>
-                    <div class="col-2"></div>
-                    <div class="col-2">
-                        <div class="card">
-                            <div class="ratio" style="--bs-aspect-ratio: 115%;">
-                            <img src="{{ asset('imagenes/loki.jpg') }}" class="card-img-top img-fluid " alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Lokito</h5>
-                                <p class="card-text">Tamara</p>
-                            </div>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="col-2">
-                        <div class="card">
-                            <div class="ratio" style="--bs-aspect-ratio: 115%;">
-                                <img src="{{ asset('imagenes/mushi.jpg') }}" class="card-img-top img-fluid"
-                                    alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Mushito</h5>
-                                <p class="card-text">Tamara</p>
-                            </div>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="col-2">
-                        <div class="card ">
-                            <div class="ratio" style="--bs-aspect-ratio: 115%;">
-                                <img src="..." class="card-img-top img-small" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                    to
-                                    additional content.</p>
-                            </div>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="col-2">
-                        <div class="card ">
-                            <div class="ratio" style="--bs-aspect-ratio: 115%;">
-                                <img src="..." class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                    to
-                                    additional content. This content is a little bit longer.</p>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>

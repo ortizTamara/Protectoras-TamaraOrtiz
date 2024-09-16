@@ -32,24 +32,11 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <p class="mb-0 custom-text">
-                                    Mostrando
-                                    <span class="highlight">{{ $especies->firstItem() }}</span> a
-                                    <span class="highlight">{{ $especies->lastItem() }}</span> de
-                                    <span class="highlight">{{ $especies->total() }}</span> resultado
-                                </p>
-                            </div>
-                            <div>
-                                {{ $especies->links() }}
-                            </div>
-                        </div>
+                    <td colspan="4">
+                        {{ $especies->links() }}
                     </td>
                 </tr>
             </tfoot>
         </table>
-        {{-- {{ $colores->links() }} --}}
     </div>
 @endsection

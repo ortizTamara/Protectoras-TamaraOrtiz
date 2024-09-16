@@ -26,6 +26,10 @@
 .card-custom {
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -webkit-transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -moz-transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -ms-transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -o-transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card-custom:hover {
@@ -119,13 +123,39 @@
     background-color: transparent;
 }
 
-/* PAGINACIÓN */
-.custom-text {
-    font-size: 0.8rem;
-    color: #6c757d;
+/* REGISTRARSE */
+
+#shelterForm {
+    display: none;
 }
 
-.custom-text .highlight {
-    color: #000000c6;
-    font-weight: bold;
+.register-title-style {
+    font-family: "Roboto", sans-serif;
+}
+.card-header-transparent {
+    background-color: transparent !important;
+}
+.card-footer {
+    border-top: none;
+    padding-top: 0;
+}
+
+/* LOGIN */
+
+.login-card {
+    width: 100%;
+    max-width: 25rem;
+    margin: auto;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #ffffff;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin: 0;
 }

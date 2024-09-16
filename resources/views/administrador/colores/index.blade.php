@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container">
-        {{-- <a href="{{ route('colorCreate') }}" class="btn btn-success mb-3">Crear Nuevo Color</a> --}}
         <table class="table custom-table table-striped table-hover table-bordered mx-auto">
             <thead class="table-dark">
                 <tr>
@@ -32,24 +31,11 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <p class="mb-0 custom-text">
-                                    Mostrando
-                                    <span class="highlight">{{ $colores->firstItem() }}</span> a
-                                    <span class="highlight">{{ $colores->lastItem() }}</span> de
-                                    <span class="highlight">{{ $colores->total() }}</span> resultado
-                                </p>
-                            </div>
-                            <div>
-                                {{ $colores->links() }}
-                            </div>
-                        </div>
+                    <td colspan="4">
+                        {{ $colores->links() }}
                     </td>
                 </tr>
             </tfoot>
         </table>
-        {{-- {{ $colores->links() }} --}}
     </div>
 @endsection

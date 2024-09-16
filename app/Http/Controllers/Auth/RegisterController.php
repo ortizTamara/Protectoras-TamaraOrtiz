@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\ComunidadAutonoma;
+use App\Models\Pais;
+use App\Models\Provincia;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -39,6 +42,25 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+
+
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        // Obtener los datos de País, Provincia y Comunidad Autónoma desde la base de datos
+        $paises = Pais::all();
+        $provincias = Provincia::all();
+        $comunidades = ComunidadAutonoma::all();
+
+        // Pasar los datos a la vista
+        return view('auth.register', compact('paises', 'provincias', 'comunidades'));
+    }
+
 
     /**
      * Get a validator for an incoming registration request.

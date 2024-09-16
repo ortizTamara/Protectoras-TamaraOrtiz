@@ -18,9 +18,11 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
 
+
 </head>
 
 <body>
+
     <div id="app">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
 
@@ -36,7 +38,8 @@
                     </a>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 nav-underline">
                         <li class="nav-item">
-                            <a class="nav-link @if (request()->is('/')) active @endif" aria-current="page" href="{{ route('home') }}">Inicio</a>
+                            <a class="nav-link @if (request()->is('/')) active @endif" aria-current="page"
+                                href="{{ route('home') }}">Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " href="#">Protectoras</a>
@@ -56,23 +59,25 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contacto</a>
+                            <a class="nav-link @if (request()->is('contacto')) active @endif"
+                                href="{{ route('contacto') }}">Contacto</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  @if (request()->is('administracion')) active @endif" href="{{ route('administracion') }}">Administrador</a>
+                            <a class="nav-link  @if (request()->is('administracion')) active @endif"
+                                href="{{ route('administracion') }}">Administrador</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto me-4">
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar sesión') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                                 </li>
                             @endif
                         @else
@@ -104,6 +109,7 @@
             @yield('content')
         </main>
     </div>
+    {{-- @stack('script') --}}
 </body>
 
 </html>
