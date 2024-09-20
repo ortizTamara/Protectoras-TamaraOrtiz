@@ -140,6 +140,15 @@
     padding-top: 0;
 }
 
+.card-header {
+    border-bottom: none;
+}
+.full-width-line {
+    border-top: 0.16em solid #DEE2E6;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
 /* LOGIN */
 
 .login-card {

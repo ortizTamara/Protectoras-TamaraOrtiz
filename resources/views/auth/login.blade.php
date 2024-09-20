@@ -5,9 +5,8 @@
         <div class="card login-card shadow-sm">
             <div class="card-header text-center">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <a href="#" class="btn btn-link text-dark">
-                        <i class="bi bi-arrow-left me-2"></i>
-                        Volver
+                    <a href="{{ route('home') }}" class="btn p-1 text-decoration-none">
+                        <i class="bi bi-arrow-left"></i> Volver
                     </a>
                 </div>
                 <h5 class="text-center card-title mb-0">Iniciar Sesión</h5>

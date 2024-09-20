@@ -18,7 +18,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
 
-
+    @stack('scripts')
 </head>
 
 <body>
@@ -109,7 +109,7 @@
             @yield('content')
         </main>
     </div>
-    {{-- @stack('script') --}}
+
 </body>
 
 </html>
