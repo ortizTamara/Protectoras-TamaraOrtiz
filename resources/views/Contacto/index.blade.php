@@ -104,7 +104,7 @@
         </div>
 
         <!-- Formulario para Voluntariado -->
-        <div class="row mt-4">
+        {{-- <div class="row mt-4">
             <div class="col-lg-12">
                 <h2 class="h3 mb-4">Únete como Voluntario</h2>
                 <div class="card shadow-sm">
@@ -134,6 +134,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection

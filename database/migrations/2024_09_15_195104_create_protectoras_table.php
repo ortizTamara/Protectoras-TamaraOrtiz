@@ -14,13 +14,12 @@ return new class extends Migration
         Schema::create('protectoras', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->foreignId('pais_id')->constrained();
+            $table->string('numero_registro_oficial');
+            $table->integer('capacidad_alojamiento');
+            $table->text('proceso_adopcion');
             $table->foreignId('provincia_id')->constrained();
-            $table->foreignId('comunidad_autonoma')->constrained();
-            $table->string('codigo_postal');
             $table->string('direccion');
-            $table->string('numero_telefono');
-            $table->string('email')->unique();
+            $table->string('telefono_contacto');
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
