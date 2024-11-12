@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\AdminProtectoraController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ComportamientoController;
 use App\Http\Controllers\EspecieController;
 use App\Http\Controllers\RazaController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +27,26 @@ Route::prefix('administracion')->name('administracion.')->group(function () {
 });
 
 Route::get('/provincias/{comunidad_id}', [RegisterController::class, 'getProvincias']);
+Route::resource('/usuario', UsuarioController::class);
+
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 
+// PARA VERIFICAR SI SE HA CREADO CORRECTAMENTE
+// Route::get('/verificar-admin', function () {
+//     $admin = App\Models\Usuario::where('email', 'admin@example.com')->first();
+//     if ($admin) {
+//         return response()->json([
+//             'nombre' => $admin->nombre,
+//             'rol_id' => $admin->rol_id,
+//             'email' => $admin->email
+//         ]);
+//     } else {
+//         return "No se encontró el usuario administrador.";
+//     }
+// });
 // Route::get('color', [App\Http\Controllers\ColorController::class, 'index'])->name('color');
 // Route::get('colorCreate', [App\Http\Controllers\ColorController::class, 'create'])->name('colorCreate');
 // Route::get('colorEdit', [App\Http\Controllers\ColorController::class, 'edit'])->name('colorEdit');

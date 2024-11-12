@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
     use HasFactory, Notifiable;
 
- /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $table = 'usuarios';
+
     protected $fillable = [
         'nombre',
         'apellidos',
@@ -22,40 +22,87 @@ class Usuario extends Model
         'genero_id',
         'email',
         'password',
-        'telefono',
+        'numero_telefono',
         'pais_id',
         'comunidad_autonoma_id',
-        'provincia_id',
         'codigo_postal',
         'rol_id',
         'protectora_id',
     ];
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'fecha_nacimiento' => 'date',
+    ];
+
+    public function setPasswordAttribute($value)
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        $this->attributes['password'] = Hash::needsRehash($value) ? Hash::make($value) : $value;
+
     }
 
-    // Relación con el modelo ROL, de tipo belongsTo, ya que el Rol pertenece a un único registro del modelo Usuario
-    public function rol()
+    // Asigna el rol por defecto al usuario
+    protected static function boot()
     {
-        return $this->belongsTo(Rol::class);
+        parent::boot();
+
+        static::creating(function ($usuario) {
+            if (is_null($usuario->rol_id)) {
+                $usuario->rol_id = 2; // 2 es el ID del ROL de USUARIO
+            }
+        });
+    }
+
+    // Relación con el modelo ROL
+    public function rol(): BelongsTo
+    {
+        return $this->belongsTo(Rol::class)->withDefault();
+    }
+
+    // Relación con el modelo GENERO
+    public function genero(): BelongsTo
+    {
+        return $this->belongsTo(Genero::class);
+    }
+
+    // Relación con el modelo PAIS
+    public function pais(): BelongsTo
+    {
+        return $this->belongsTo(Pais::class);
+    }
+
+    // Relación con el modelo COMUNIDAD AUTONOMA
+    public function comunidadAutonoma(): BelongsTo
+    {
+        return $this->belongsTo(ComunidadAutonoma::class);
+    }
+
+    // Relación con el modelo Protectora
+    public function protectora(): BelongsTo
+    {
+        return $this->belongsTo(Protectora::class)->withDefault();
+    }
+
+    // Verifica si el usuario tiene un rol específico
+    public function hasRole($roleName)
+    {
+        return optional($this->rol)->nombre === $roleName;
+    }
+
+    public function hasRoleId($roleId)
+    {
+        return $this->rol_id == $roleId;
+    }
+
+    // Verifica si el usuario tiene un permiso específico
+    public function permisos()
+    {
+        return $this->belongsToMany(Permiso::class, 'permiso_roles');
     }
 }

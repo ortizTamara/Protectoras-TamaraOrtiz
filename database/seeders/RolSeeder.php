@@ -13,6 +13,7 @@ class RolSeeder extends Seeder
      */
     public function run(): void
     {
+
        $roles = [
             'Administrador',
             'Usuario',

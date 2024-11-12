@@ -62,13 +62,19 @@
                             <a class="nav-link @if (request()->is('contacto')) active @endif"
                                 href="{{ route('contacto') }}">Contacto</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link  @if (request()->is('administracion')) active @endif"
-                                href="{{ route('administracion') }}">Administrador</a>
-                        </li>
+
+                        {{-- Solo se muestra al Administrador --}}
+                        @auth
+                            @if (Auth::user()->rol_id == 1)
+                                <li class="nav-item">
+                                    <a class="nav-link @if (request()->is('administracion')) active @endif" href="{{ route('administracion') }}">Administrador</a>
+                                </li>
+                            @endif
+                        @endauth
                     </ul>
                     <ul class="navbar-nav ms-auto me-4">
                         @guest
+                            <!-- Mostrar Iniciar sesión y Registrarse solo si el usuario no está autenticado -->
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar sesión') }}</a>
@@ -81,17 +87,20 @@
                                 </li>
                             @endif
                         @else
+                            <!-- Mostrar Perfil y Cerrar sesión si el usuario está autenticado -->
+                            {{-- <li class="nav-item">
+                                <a class="nav-link" href="{{ route('perfil') }}">Perfil</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->nombre }}
+                                </a> --}}
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        {{ __('Cerrar sesión') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

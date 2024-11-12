@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Protectora extends Model
 {
@@ -23,4 +24,9 @@ class Protectora extends Model
         'facebook',
         'web',
     ];
+
+    public function usuario(): HasOne
+    {
+        return $this->hasOne(Usuario::class);
+    }
 }

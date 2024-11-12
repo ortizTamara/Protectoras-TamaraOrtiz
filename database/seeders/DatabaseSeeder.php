@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Usuario;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +22,8 @@ class DatabaseSeeder extends Seeder
             ComunidadAutonomaSeeder::class,
             ProvinciaSeeder::class,
             GeneroSeeder::class,
+            RolSeeder::class,
+            UsuarioSeeder::class,
         ]);
         // User::factory(10)->create();
 

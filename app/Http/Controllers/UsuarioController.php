@@ -13,7 +13,11 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        // Carga los usuarios con las relaciones rol y protectora
+        $usuarios = Usuario::with('rol', 'protectora')->get();
+
+        // Retorna la vista con los usuarios
+        return view('usuarios.index', compact('usuarios'));
     }
 
     /**
@@ -21,7 +25,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        return "Nuevo Usuario";
     }
 
     /**
@@ -37,7 +41,10 @@ class UsuarioController extends Controller
      */
     public function show(Usuario $usuario)
     {
-        //
+    // Cargar las relaciones 'rol' y 'protectora' en el objeto $usuario
+    $usuario->load('rol', 'protectora');
+
+    return view('usuarios.show', compact('usuario'));
     }
 
     /**
