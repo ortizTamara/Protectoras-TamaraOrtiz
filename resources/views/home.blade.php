@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid px-5 mx-5">
+    <div class="container-fluid px-5">
+        {{-- Después del px-5 había un mx-5 --}}
         <div class="row g-5 w-100">
             <div class="col-md-2 filter-section">
                 {{-- Buscador --}}

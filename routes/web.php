@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ComportamientoController;
 use App\Http\Controllers\EspecieController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\RazaController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,8 @@ Route::resource('/usuario', UsuarioController::class);
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('perfil', [App\Http\Controllers\PerfilController::class, 'index'])->name('perfil');
 
 
 // PARA VERIFICAR SI SE HA CREADO CORRECTAMENTE

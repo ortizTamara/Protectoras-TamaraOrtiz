@@ -17,6 +17,7 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
     @stack('scripts')
 </head>
@@ -74,40 +75,59 @@
                     </ul>
                     <ul class="navbar-nav ms-auto me-4">
                         @guest
-                            <!-- Mostrar Iniciar sesión y Registrarse solo si el usuario no está autenticado -->
+                            <!-- Mostrar "Iniciar sesión" y "Registrarse" solo si el usuario no está autenticado -->
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar sesión') }}</a>
+                                    <a class="nav-link @if (request()->is('login')) active @endif" href="{{ route('login') }}">Iniciar sesión</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
+                                    <a class="nav-link @if (request()->is('register')) active @endif" href="{{ route('register') }}">Registrarse</a>
                                 </li>
                             @endif
                         @else
-                            <!-- Mostrar Perfil y Cerrar sesión si el usuario está autenticado -->
-                            {{-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('perfil') }}">Perfil</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->nombre }}
-                                </a> --}}
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('Cerrar sesión') }}
+                            <!-- Mostrar "Perfil" y "Cerrar sesión" si el usuario está autenticado -->
+                            <div class="profile-bar d-flex align-items-center justify-content-between px-3 py-2">
+                                <!-- Contenedor de Usuario con Nombre y Avatar -->
+                                <div class="profile-bar__user d-flex align-items-center gap-2">
+                                    <a href="{{ route('perfil') }}"
+                                       class="text-decoration-none d-flex align-items-center gap-2
+                                       @if (request()->is('perfil')) active @endif">
+                                        <span class="profile-bar__name">{{ Auth::user()->nombre }}</span>
+                                        <div class="profile-bar__avatar rounded-circle d-flex align-items-center justify-content-center">
+                                            <span class="profile-bar__initial">
+                                                {{-- Con esto mostramos la primera Inicial en mayusculas --}}
+                                                {{ strtoupper(substr(Auth::user()->nombre, 0, 1)) }}
+                                            </span>
+                                        </div>
                                     </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
                                 </div>
+
+                                <!-- Botón de Cerrar Sesión con Icono de Bootstrap y margen -->
+                                <a href="{{ route('logout') }}" class="profile-bar__logout btn btn-link p-0 ms-4" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" aria-label="Logout">
+                                    <i class="bi bi-box-arrow-right profile-bar__logout-icon"></i>
+                                </a>
+
+                                <!-- Formulario de Cerrar Sesión -->
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+
+                            {{-- <li class="nav-item">
+                                <a class="nav-link @if (request()->is('perfil')) active @endif" href="{{ route('perfil', Auth::user()->id) }}">Perfil</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Cerrar sesión
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li> --}}
                         @endguest
                     </ul>
                 </div>

@@ -168,3 +168,41 @@
     font-size: 1.25rem;
     margin: 0;
 }
+
+
+/* Contenedor principal del perfil */
+
+.profile-bar__user {
+    gap: 0.5rem; /* Ajusta según el espacio que desees */
+}
+/* Avatar */
+.profile-bar__avatar {
+    width: 32px;
+    height: 32px;
+    background-color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.profile-bar__initial {
+    color: #40B3B7;
+    font-weight: bold;
+}
+
+/* Nombre de usuario */
+.profile-bar__name {
+    font-weight: 500;
+    color: black;
+}
+
+/* Botón de Cerrar Sesión con Imagen */
+.profile-bar__logout {
+    color: black;
+}
+
+.profile-bar__logout:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.profile-bar__logout-icon {
+    font-size: 1.25rem;
+}
