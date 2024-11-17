@@ -35,6 +35,10 @@ Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('perfil', [App\Http\Controllers\PerfilController::class, 'index'])->name('perfil');
+Route::post('perfil/change-password', [PerfilController::class, 'changePassword'])->name('changePassword');
+
+
+
 
 
 // PARA VERIFICAR SI SE HA CREADO CORRECTAMENTE

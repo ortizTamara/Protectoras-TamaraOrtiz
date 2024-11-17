@@ -70,4 +70,15 @@ class UsuarioController extends Controller
     {
         //
     }
+
+    /**
+     * Muestra el perfil del usuario autenticado.
+     */
+    public function showProfile(Usuario $usuario)
+    {
+        $usuario = auth()->$usuario(); // Obtiene al usuario autenticado
+
+        // Retorna la vista con los datos del usuario
+        return view('usuarios.profile', compact('usuario'));
+    }
 }

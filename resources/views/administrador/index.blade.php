@@ -10,7 +10,7 @@
                     class="card card-custom shadow-sm rounded text-decoration-none text-dark">
                     <div class="card-body text-center">
                         <h5 class="card-title mb-3">
-                            <i class="bi bi-palette icon-lg"></i>
+                            <i class="bi icon-lg"></i>
                             Colores
                         </h5>
                     </div>
@@ -23,7 +23,7 @@
                     class="card card-custom shadow-sm rounded text-decoration-none text-dark">
                     <div class="card-body text-center">
                         <h5 class="card-title mb-3">
-                            <i class="bi bi-egg icon-lg"></i>
+                            <i class="bi icon-lg"></i>
                             Razas
                         </h5>
                     </div>
@@ -36,7 +36,7 @@
                     class="card card-custom shadow-sm rounded text-decoration-none text-dark">
                     <div class="card-body text-center">
                         <h5 class="card-title mb-3">
-                            <i class="bi bi-paw icon-lg"></i>
+                            <i class="bi icon-lg"></i>
                             Especies
                         </h5>
                     </div>
@@ -49,7 +49,7 @@
                     class="card card-custom shadow-sm rounded text-decoration-none text-dark">
                     <div class="card-body text-center">
                         <h5 class="card-title mb-3">
-                            <i class="bi bi-braces icon-lg"></i>
+                            <i class="bi icon-lg"></i>
                             Comportamientos
                         </h5>
                     </div>
@@ -63,7 +63,7 @@
                     class="card card-custom shadow-sm rounded text-decoration-none text-dark">
                     <div class="card-body text-center">
                         <h5 class="card-title mb-3">
-                            <i class="bi bi-braces icon-lg"></i>
+                            <i class="bi icon-lg"></i>
                             Protectoras
                         </h5>
                     </div>

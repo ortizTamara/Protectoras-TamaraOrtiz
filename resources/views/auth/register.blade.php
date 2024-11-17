@@ -50,10 +50,11 @@
                                 <div class="col-md-12 mb-3">
                                     <label for="sex" class="form-label">Sexo</label>
                                     <select id="sex" name="sex" class="form-select" required>
-                                        <option value="">Selecciona el sexo</option>
-                                        <option value="male">Masculino</option>
-                                        <option value="female">Femenino</option>
-                                        <option value="other">Otro</option>
+                                        <option value="">Selecciona tu genero</option>
+                                            @foreach ($generos as $genero)
+                                                <option value="{{ $genero->id }}">{{ $genero->nombre }}</option>
+                                            @endforeach
+                                     </option>
                                     </select>
                                 </div>
 
@@ -81,7 +82,7 @@
                                 <div class="col-md-12 mb-3">
                                     <label for="country" class="form-label">País</label>
                                     <select id="country" name="country" class="form-select" required>
-                                        {{-- <option value="">Selecciona un país</option> --}}
+                                        <option value="">Selecciona un país</option>
                                         @foreach ($paises as $pais)
                                             <option value="{{ $pais->id }}" @selected($pais->pais_id === $pais->id)>
                                                 {{ $pais->nombre }}
@@ -93,9 +94,11 @@
                                     <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
                                     <select id="autonomousCommunity" name="autonomousCommunity" class="form-select"
                                         required>
-                                        @foreach ($comunidades as $comunidad)
-                                            <option value="{{ $comunidad->id }}">{{ $comunidad->nombre }}</option>
-                                        @endforeach
+                                        <option value="">Selecciona una comunidad</option>
+                                            @foreach ($comunidades as $comunidad)
+                                                <option value="{{ $comunidad->id }}">{{ $comunidad->nombre }}</option>
+                                            @endforeach
+                                        </option>
                                     </select>
                                 </div>
 

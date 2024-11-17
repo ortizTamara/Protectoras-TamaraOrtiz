@@ -19,7 +19,7 @@ class UsuarioSeeder extends Seeder
                 'nombre' => 'Administrador',
                 'apellidos' => 'Principal',
                 'fecha_nacimiento' => '2000-10-16',
-                'genero_id' => 1,
+                'genero_id' => 2,
                 'email' => 'admin@example.com',
                 'password' => Hash::make('admin123'),
                 'numero_telefono' => '123456789',

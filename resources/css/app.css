@@ -206,3 +206,60 @@
 .profile-bar__logout-icon {
     font-size: 1.25rem;
 }
+
+
+
+/* PERFIL */
+.profile-image {
+    margin-bottom: 1rem;
+    margin-top: -1.5rem;
+}
+
+.profile-pic-container {
+    width: 7.5rem;
+    height: 7.5rem;
+}
+.profile-title{
+    font-size: 2rem;
+    font-weight: bold;
+}
+.profile-pic-container {
+    width: 7.5rem;
+    height: 7.5rem;
+}
+
+.profile-icon {
+    font-size: 3rem;
+    color: #6c757d;
+    width: 100%;
+    height: 100%;
+}
+
+.update-photo-btn {
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+}
+
+.profile-pic-container .rounded-circle {
+    border: 0.2rem solid #ccc;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-pic-container:hover .update-photo-btn {
+    visibility: visible;
+}
+
+.update-photo-btn {
+    visibility: hidden;
+}
+
+.profile-image .btn {
+    font-size: 1rem;
+    padding: 0.4rem 1rem;
+    border-radius: 0.5rem;
+    width:20%;
+    max-width: 9rem;
+}
+

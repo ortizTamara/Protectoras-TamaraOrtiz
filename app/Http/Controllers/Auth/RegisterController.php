@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\ComunidadAutonoma;
+use App\Models\Genero;
 use App\Models\Pais;
 use App\Models\Provincia;
 use App\Models\User;
@@ -56,9 +57,10 @@ class RegisterController extends Controller
         $paises = Pais::all();
         $provincias = Provincia::all();
         $comunidades = ComunidadAutonoma::all();
+        $generos = Genero::all();
 
         // Pasar los datos a la vista
-        return view('auth.register', compact('paises', 'provincias', 'comunidades'));
+        return view('auth.register', compact('generos', 'paises', 'provincias', 'comunidades' ));
     }
 
 
