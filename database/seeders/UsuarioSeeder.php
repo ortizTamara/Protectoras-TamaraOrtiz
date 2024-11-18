@@ -25,10 +25,12 @@ class UsuarioSeeder extends Seeder
                 'numero_telefono' => '123456789',
                 'pais_id' => 1,
                 'comunidad_autonoma_id' => 8,
+                'provincia_id' => 34,
                 'codigo_postal' => '13670',
                 'rol_id' => 1,
                 'protectora_id' => null,
-            ]
+            ],
+
         ];
 
         foreach ($usuarios as $usuario) {

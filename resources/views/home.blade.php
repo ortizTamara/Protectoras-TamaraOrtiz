@@ -92,7 +92,7 @@
                         <div class="col-2">
                             <div class="card">
                                 {{-- <div class="ratio" style="--bs-aspect-ratio: 115%;"> --}}
-                                <img src="{{ asset('imagenes/loki.jpg') }}" class="card-img-top img-fluid " alt="...">
+                                    <img src="{{ asset($animal->imagen) }}" class="card-img-top img-fluid" alt="{{ $animal->nombre }}">
                                 {{-- </div> --}}
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $animal->nombre }}</h5>

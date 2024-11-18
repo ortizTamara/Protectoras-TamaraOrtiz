@@ -1,18 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid min-vh-100 d-flex flex-column">
-    <div class="row flex-grow-1">
+<div class="container-fluid  d-flex flex-column">
+    <div class="row flex-grow-9">
         <!-- BARRA LATERAL -->
         <div class="col-md-3 bg-white p-4 shadow-sm sidebar">
             <nav class="nav flex-column">
                 <a href="#" class="btn btn-secondary w-100 mb-2">Perfil</a>
-                <a href="#" class="btn btn-outline-secondary w-100 mb-2">Perfil protectora</a>
+                @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
+                    <a href="{{ route('perfil-protectora.index') }}" class="btn btn-outline-secondary w-100 mb-2">Perfil protectora</a>
+                @endif
                 <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis favoritos</a>
                 <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis protectoras</a>
+                @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
                 <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis ayudantes</a>
-                <a href="{{ route('logout') }}" class="btn btn-outline-danger w-100 mb-2"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @endif
+                <a href="{{ route('logout') }}" class="btn btn-outline-danger w-100 mb-2" onclick="event.preventDefault(); document.getElementById('logout-form-profile').submit();">Cerrar sesión</a>
+                <form id="logout-form-profile" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
             </nav>

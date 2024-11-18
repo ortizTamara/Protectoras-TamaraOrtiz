@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('numero_registro_oficial');
             $table->integer('capacidad_alojamiento');
             $table->text('proceso_adopcion');
-            $table->foreignId('provincia_id')->constrained();
             $table->string('direccion');
             $table->string('telefono_contacto');
             $table->string('instagram')->nullable();

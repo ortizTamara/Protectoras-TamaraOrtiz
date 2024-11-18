@@ -56,6 +56,12 @@ class HomeController extends Controller
         //     $query->where('nombre', 'Gato');
         // })->whereBetween('peso', [3, 10])->get()
 
+        $animales = $query->get()->map(function ($animal) {
+            // Si el campo 'imagen' está vacío, asigna una imagen predeterminada
+            $animal->imagen = $animal->imagen ? 'storage/' . $animal->imagen : 'imagenes/placeholder.jpg';
+            return $animal;
+        });
+
         $especies = Especie::all();
         $razas = Raza::all();
         $colores = Color::all();

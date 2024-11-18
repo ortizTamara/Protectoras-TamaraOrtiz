@@ -62,4 +62,13 @@ class ProvinciaController extends Controller
     {
         //
     }
+
+    public function getProvincias($comunidadAutonomaId)
+    {
+        // Obtenemos las provincias relacionadas con la comunidad autónoma
+        $provincias = Provincia::where('comunidad_autonoma_id', $comunidadAutonomaId)->get();
+
+        // Devolvemos las provincias en formato JSON para JavaScript
+        return response()->json($provincias);
+    }
 }

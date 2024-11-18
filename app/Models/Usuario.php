@@ -25,6 +25,7 @@ class Usuario extends Authenticatable
         'numero_telefono',
         'pais_id',
         'comunidad_autonoma_id',
+        'provincia_id',
         'codigo_postal',
         'rol_id',
         'protectora_id',
@@ -81,6 +82,12 @@ class Usuario extends Authenticatable
     public function comunidadAutonoma(): BelongsTo
     {
         return $this->belongsTo(ComunidadAutonoma::class);
+    }
+
+    // Relacion con el modelo PROVINCIA
+    public function provincia(): BelongsTo
+    {
+    return $this->belongsTo(Provincia::class);
     }
 
     // Relación con el modelo Protectora

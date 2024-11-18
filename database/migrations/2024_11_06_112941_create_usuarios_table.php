@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('numero_telefono');
             $table->foreignId('pais_id')->constrained();
             $table->foreignId('comunidad_autonoma_id')->constrained();
+            $table->foreignId('provincia_id')->constrained();
             $table->string('codigo_postal');
             $table->foreignId('rol_id')->constrained();
             // $table->foreignId('rol_id')->default(2)->constrained(); //Por defecto 2 que es el usuario, 1 sería el Administrador y 3 ayudante (Esta es otra forma de hacerlo, pero hay que asegurarse que el ID no cambia)

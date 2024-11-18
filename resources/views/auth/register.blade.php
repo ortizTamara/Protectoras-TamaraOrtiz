@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @pushOnce('scripts')
-    @vite(['resources/js/registrarse.js'])
+    @vite(['resources/js/registrarse.js', 'resources/js/validador.js'])
 @endPushOnce
 
 @section('content')
@@ -26,6 +26,16 @@
                 <div class="full-width-line"></div>
 
             <div class="card-body text-start">
+                     {{-- Muestra errores de validación aquí --}}
+                     @if ($errors->any())
+                     <div class="alert alert-danger">
+                         <ul>
+                             @foreach ($errors->all() as $error)
+                                 <li>{{ $error }}</li>
+                             @endforeach
+                         </ul>
+                     </div>
+                 @endif
                 <form id="registerForm" method="POST" action="{{ route('register') }}" onsubmit="handleSubmit(event)">
                     @csrf
                     <div id="formContainer" class="row">
@@ -34,17 +44,20 @@
                             <div class="row">
                                 <div class="col-md-12 mb-3">
                                     <label for="name" class="form-label">Nombre</label>
-                                    <input id="name" name="name" type="text" class="form-control" required>
+                                    <input id="name" name="name" type="text" class="form-control" value="{{ old('name') }}" required>
+                                    <div id="nameError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
                                     <label for="surname" class="form-label">Apellidos</label>
-                                    <input id="surname" name="surname" type="text" class="form-control" required>
+                                    <input id="surname" name="surname" type="text" class="form-control" value="{{ old('surname') }}" required>
+                                    <div id="surnameError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
                                     <label for="birthDate" class="form-label">Fecha de nacimiento</label>
-                                    <input id="birthDate" name="birthDate" type="date" class="form-control" required>
+                                    <input id="birthDate" name="birthDate" type="date" class="form-control" value="{{ old('birthDate') }}" required>
+                                    <div id="birthDateError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
@@ -52,31 +65,36 @@
                                     <select id="sex" name="sex" class="form-select" required>
                                         <option value="">Selecciona tu genero</option>
                                             @foreach ($generos as $genero)
-                                                <option value="{{ $genero->id }}">{{ $genero->nombre }}</option>
+                                            <option value="{{ $genero->id }}" {{ old('sex') == $genero->id ? 'selected' : '' }}>{{ $genero->nombre }}</option>
                                             @endforeach
                                      </option>
                                     </select>
+                                    <div id="sexError" class="text-danger"></div>
+
                                 </div>
 
                                 <div class="col-md-12 mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input id="email" name="email" type="email" class="form-control" required>
+                                    <input id="email" name="email" type="email" class="form-control" value="{{ old('email') }}" required>
+                                    <div id="emailError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
                                     <label for="password" class="form-label">Contraseña</label>
                                     <input id="password" name="password" type="password" class="form-control" required>
+                                    <div id="passwordError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
                                     <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
-                                    <input id="confirmPassword" name="confirmPassword" type="password" class="form-control"
-                                        required>
+                                    <input id="confirmPassword" name="password_confirmation" type="password" class="form-control" required>
+                                    <div id="confirmPasswordError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
                                     <label for="phone" class="form-label">Número de teléfono</label>
-                                    <input id="phone" name="phone" type="tel" class="form-control" required>
+                                    <input id="phone" name="phone" type="tel" class="form-control" value="{{ old('phone') }}" required>
+                                    <div id="phoneError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
@@ -89,24 +107,36 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
-                                    <select id="autonomousCommunity" name="autonomousCommunity" class="form-select"
-                                        required>
-                                        <option value="">Selecciona una comunidad</option>
-                                            @foreach ($comunidades as $comunidad)
-                                                <option value="{{ $comunidad->id }}">{{ $comunidad->nombre }}</option>
-                                            @endforeach
-                                        </option>
-                                    </select>
+                                    <div id="countryError" class="text-danger"></div>
                                 </div>
 
+                                <div class="col-md-12 mb-3" id="communityContainer" style="display: none;">
+                                    <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
+                                    <select id="autonomousCommunity" name="autonomousCommunity" class="form-select" required>
+                                        <option value="">Selecciona una comunidad</option>
+                                        @foreach ($comunidades as $comunidad)
+                                            <option value="{{ $comunidad->id }}">{{ $comunidad->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div id="autonomousCommunityError" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-12 mb-3" id="provinceContainer" style="display: none;">
+                                    <label for="province" class="form-label">Provincia</label>
+                                    <select id="province" name="province" class="form-select" required>
+                                        <option value="">Selecciona una provincia</option>
+                                        @foreach ($provincias as $provincia)
+                                            <option value="{{ $provincia->id }}" @selected($provincia->provincia_id === $provincia->id)>
+                                                {{ $provincia->nombre }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <div id="provinceError" class="text-danger"></div>
+                                </div>
 
                                 <div class="col-md-12 mb-3">
                                     <label for="postalCode" class="form-label">Código Postal</label>
-                                    <input id="postalCode" name="postalCode" type="text" class="form-control"
-                                        required>
+                                    <input id="postalCode" name="postalCode" type="text" class="form-control" required>
+                                    <div id="postalCodeError" class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
@@ -135,16 +165,7 @@
                                     <label for="adoptionProcess" class="form-label">Proceso de adopción</label>
                                     <textarea id="adoptionProcess" name="adoptionProcess" class="form-control"></textarea>
                                 </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="province" class="form-label">Provincia</label>
-                                    <select id="province" name="province" class="form-select" required>
-                                        @foreach ($provincias as $provincia)
-                                            <option value="{{ $provincia->id }}" @selected($provincia->provincia_id === $provincia->id)>
-                                                {{ $provincia->nombre }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+
 
                                 <div class="col-md-12 mb-3">
                                     <label for="address" class="form-label">Dirección</label>
