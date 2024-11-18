@@ -13,8 +13,20 @@ document.addEventListener('DOMContentLoaded', function() {
         country: false,
         autonomousCommunity: false,
         province: false,
-        postalCode: false
+        postalCode: false,
 
+        // PROTECTORAS
+        shelterName:false,
+        registrationNumber:false,
+        capacity:false,
+        adoptionProcess:false,
+        address:false,
+        contactPhone:false,
+        // opcionales
+        instagram:false,
+        twitter:false,
+        facebook:false,
+        website:false
     };
 
     // RANGO DE CÓDIGOS POSTALES VÁLIDOS PARA CADA PROVINCIA
@@ -74,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     // Hacemos una funcion por cada validador para que se muestre más limpio el código
 
+    // USUARIOS
     // NOMBRE -> Validamos que solo haya letras y espacios, con un mínimo de 3 caracteres.
     function validateName() {
         const name = document.getElementById('name').value;
@@ -81,7 +94,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const namePattern = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
 
         if (touchedFields.name) {
-            if (!namePattern.test(name)) {
+            if (name.trim() === '') {
+                nameError.textContent = 'El nombre es obligatorio.';
+                return false;
+            } else if (!namePattern.test(name)) {
                 nameError.textContent = 'El nombre solo puede contener letras y espacios.';
                 return false;
             } else if (name.length < 3) {
@@ -101,7 +117,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const surnamePattern = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
 
         if (touchedFields.surname) {
-            if (!surnamePattern.test(surname)) {
+            if (surname.trim() === '') {
+                surnameError.textContent = 'Los apellidos son obligatorios.';
+                return false;
+            } else if (!surnamePattern.test(surname)) {
                 surnameError.textContent = 'Los apellidos solo pueden contener letras y espacios.';
                 return false;
             } else if (surname.length < 3) {
@@ -120,7 +139,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const birthDateError = document.getElementById('birthDateError');
 
         if (touchedFields.birthDate) {
-            if (!isAdult(birthDate)) {
+            if (birthDate.trim() === '') {
+                birthDateError.textContent = 'La fecha de nacimiento es obligatoria.';
+                return false;
+            } else if (!isAdult(birthDate)) {
                 birthDateError.textContent = 'Debes ser mayor de edad para registrarte.';
                 return false;
             } else {
@@ -152,14 +174,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const emailError = document.getElementById('emailError');
         const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-        if (touchedFields.email) {
-            if (!emailPattern.test(email)) {
+         if (touchedFields.email) {
+            if (email.trim() === '') {
+                emailError.textContent = 'El email es obligatorio.';
+                return false;
+            } else if (!emailPattern.test(email)) {
                 emailError.textContent = 'Ingresa un email válido.';
                 return false;
             } else {
-                // Verificar si el correo ya está en uso
-                checkEmailAvailability(email, emailError);
-                emailError.textContent = ''; // Limpiar el error si el formato es válido
+                checkEmailAvailability(email, emailError); // Verificar disponibilidad del correo
+                emailError.textContent = '';
             }
         }
         return true;
@@ -195,7 +219,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const passwordPattern = /^(?=.*[!@#$%^&*.,-])[A-Za-z\d!@#$%^&*.,-]{6,}$/;
 
         if (touchedFields.password) {
-            if (!passwordPattern.test(password)) {
+            if (password.trim() === '') {
+                passwordError.textContent = 'La contraseña es obligatoria.';
+                return false;
+            } else if (!passwordPattern.test(password)) {
                 passwordError.textContent = 'La contraseña debe tener al menos 6 caracteres y un carácter especial.';
                 return false;
             } else {
@@ -212,7 +239,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const confirmPasswordError = document.getElementById('confirmPasswordError');
 
         if (touchedFields.confirmPassword) {
-            if (confirmPassword !== password) {
+            if (confirmPassword.trim() === '') {
+                confirmPasswordError.textContent = 'La confirmación de contraseña es obligatoria.';
+                return false;
+            } else if (confirmPassword !== password) {
                 confirmPasswordError.textContent = 'Las contraseñas no coinciden.';
                 return false;
             } else {
@@ -349,9 +379,192 @@ document.addEventListener('DOMContentLoaded', function() {
         return (age > 18) || (age === 18 && monthDiff > 0) || (age === 18 && monthDiff === 0 && dayDiff >= 0);
     }
 
+    // PROTECTORAS
+    // NOMBRE DE LA PROTECTORA -> Validamos que solo haya letras y espacios
+    function validateShelterName() {
+        const shelterName = document.getElementById('shelterName').value;
+        const shelterNameError = document.getElementById('shelterNameError');
+        const namePattern = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
+
+        if (touchedFields.shelterName) {
+            if (shelterName.trim() === '') {
+                shelterNameError.textContent = 'El nombre de la protectora es obligatorio.';
+                return false;
+            } else if (!namePattern.test(shelterName)) {
+                shelterNameError.textContent = 'El nombre solo puede contener letras y espacios.';
+                return false;
+            } else {
+                shelterNameError.textContent = '';
+            }
+        }
+        return true;
+    }
+
+    // NÚMERO DE REGISTRO -> Es la entidad que le asigna el ayuntamiento a la protectora (puede llevar números y letras)
+    // Entonces la validación es "orientativo"
+    function validateRegistrationNumber() {
+        const registrationNumber = document.getElementById('registrationNumber').value;
+        const registrationNumberError = document.getElementById('registrationNumberError');
+        const registrationPattern = /^[A-Za-z0-9]{5,15}$/;
+
+        if (touchedFields.registrationNumber) {
+            if (registrationNumber.trim() === '') {
+                registrationNumberError.textContent = 'El número de registro es obligatorio.';
+                return false;
+            } else if (!registrationPattern.test(registrationNumber)) {
+                registrationNumberError.textContent = 'El número de registro debe tener entre 5 y 15 caracteres alfanuméricos.';
+                return false;
+            } else {
+                registrationNumberError.textContent = '';
+            }
+        }
+        return true;
+    }
+
+    // CAPACIDAD DE ALOJAMIENTO -> Valiamos que solo se pueda introducir números y no sea menor a 0
+    function validateCapacity() {
+        const capacity = document.getElementById('capacity').value;
+        const capacityError = document.getElementById('capacityError');
+
+        if (touchedFields.capacity) {
+            if (capacity.trim() === '') {
+                capacityError.textContent = 'La capacidad de alojamiento es obligatoria.';
+                return false;
+            } else if (isNaN(capacity) || capacity <= 0) {
+                capacityError.textContent = 'Ingresa un número válido para la capacidad.';
+                return false;
+            } else {
+                capacityError.textContent = '';
+            }
+        }
+        return true;
+    }
+
+    // PROCESO DE ADOPCIÓN -> Validamos que el campo no este vacio
+    function validateAdoptionProcess() {
+        const adoptionProcess = document.getElementById('adoptionProcess').value;
+        const adoptionProcessError = document.getElementById('adoptionProcessError');
+
+        if (touchedFields.adoptionProcess) {
+            if (adoptionProcess.trim() === '') {
+                adoptionProcessError.textContent = 'El proceso de adopción es obligatorio.';
+                return false;
+            } else {
+                adoptionProcessError.textContent = '';
+            }
+        }
+        return true;
+    }
+
+    // DIRECCIÓN -> Validamos
+    function validateAddress() {
+        const address = document.getElementById('address').value;
+        const addressError = document.getElementById('addressError');
+
+        if (touchedFields.address) {
+            if (address.trim() === '') {
+                addressError.textContent = 'La dirección es obligatoria.';
+                return false;
+            } else {
+                addressError.textContent = '';
+            }
+        }
+        return true;
+    }
+
+        // TELEFONO CONTACTO -> Validamos que sean solos dígitos (tiene que ser 9)
+        function validateContactPhone() {
+            const contactPhone = document.getElementById('contactPhone').value;
+            const contactPhoneError = document.getElementById('contactPhoneError');
+            const phonePattern = /^(?:(?:\+34|0034)\s?)?(6|7|8|9)\d{8}$/;
+
+            if (touchedFields.contactPhone) {
+                if (contactPhone === '') {
+                    contactPhoneError.textContent = 'El número de teléfono es obligatorio.';
+                    return false;
+                } else if (!phonePattern.test(contactPhone)) {
+                    if (!/^\d+$/.test(contactPhone.replace(/\s+/g, ''))) {
+                        contactPhoneError.textContent = 'El número de teléfono solo puede contener dígitos.';
+                    } else if (contactPhone.length !== 9 && !contactPhone.startsWith('+34')) {
+                        contactPhoneError.textContent = 'El número de teléfono debe tener 9 dígitos si no incluye el +34.';
+                    } else {
+                        contactPhoneError.textContent = 'El número debe comenzar con 6, 7, 8 o 9.';
+                    }
+                    return false;
+                } else {
+                    contactPhoneError.textContent = '';
+                }
+            }
+            return true;
+        }
+
+    // OPCIONALES
+    // INSTAGRAM -> Validamos que la URL sea correcta o el nombre de usuario
+    function validateInstagram() {
+        const instagram = document.getElementById('instagram').value;
+        const instagramError = document.getElementById('instagramError');
+        const instagramPattern = /^(https?:\/\/(www\.)?instagram\.com\/)?[A-Za-z0-9._-]+\/?$/;
+
+        if (instagram.trim() && !instagramPattern.test(instagram)) {
+            instagramError.textContent = 'Ingresa una URL de Instagram válida o el nombre de usuario.';
+            return false;
+        } else {
+            instagramError.textContent = '';
+        }
+        return true;
+    }
+
+    // TWITTER -> Validamos el URL o el nombre de Usuario
+    function validateTwitter() {
+        const twitter = document.getElementById('twitter').value;
+        const twitterError = document.getElementById('twitterError');
+        const twitterPattern = /^(https?:\/\/(www\.)?twitter\.com\/)?[A-Za-z0-9_]+\/?$/;
+
+        if (twitter.trim() && !twitterPattern.test(twitter)) {
+            twitterError.textContent = 'Ingresa una URL de Twitter válida o el nombre de usuario.';
+            return false;
+        } else {
+            twitterError.textContent = '';
+        }
+        return true;
+    }
+
+      // FACEBOOK -> Validamos la URL o el nombre de usuario
+      function validateFacebook() {
+        const facebook = document.getElementById('facebook').value;
+        const facebookError = document.getElementById('facebookError');
+        const facebookPattern = /^(https?:\/\/(www\.)?facebook\.com\/)?[A-Za-z0-9.]+\/?$/;
+
+        if (facebook.trim() && !facebookPattern.test(facebook)) {
+            facebookError.textContent = 'Ingresa una URL de Facebook válida o el nombre de usuario.';
+            return false;
+        } else {
+            facebookError.textContent = '';
+        }
+        return true;
+    }
+
+    // PÁGINA WEB -> Validamos la URL
+    function validateWebsite() {
+        const website = document.getElementById('website').value;
+        const websiteError = document.getElementById('websiteError');
+        const websitePattern = /^(https?:\/\/)?(www\.)?[A-Za-z0-9.-]+\.[A-Za-z]{2,6}(\/.*)?$/;
+
+        if (website.trim() && !websitePattern.test(website)) {
+            websiteError.textContent = 'Ingresa una URL de sitio web válida.';
+            return false;
+        } else {
+            websiteError.textContent = '';
+        }
+        return true;
+    }
+
+
+
     // Ejecutamos todas las funciones de validación y devuelve si el formato es válido
     function validateForm() {
         let isValid = true;
+        // USUARIO
         isValid = validateName() && isValid;
         isValid = validateSurname() && isValid;
         isValid = validateBirthDate() && isValid;
@@ -364,6 +577,21 @@ document.addEventListener('DOMContentLoaded', function() {
         isValid = validateAutonomousCommunity() && isValid;
         isValid = validateProvince() && isValid;
         isValid = validatePostalCode() && isValid;
+
+        // PROTECTORA
+        isValid = validateShelterName() && isValid;
+        isValid = validateRegistrationNumber() && isValid;
+        isValid = validateCapacity() && isValid;
+        isValid = validateAdoptionProcess() && isValid;
+        isValid = validateAddress() && isValid;
+        isValid = validateContactPhone() && isValid;
+
+        // OPCIONALES
+        isValid = validateInstagram() && isValid;
+        isValid = validateTwitter() && isValid;
+        isValid = validateFacebook() && isValid;
+        isValid = validateWebsite() && isValid;
+
         return isValid;
     }
 
@@ -381,6 +609,16 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('autonomousCommunity').addEventListener('change', () => { touchedFields.autonomousCommunity = true; validateForm(); });
     document.getElementById('province').addEventListener('change', () => { touchedFields.province = true; validateForm(); });
     document.getElementById('postalCode').addEventListener('input', () => { touchedFields.postalCode = true; validatePostalCode(); });
+    document.getElementById('shelterName').addEventListener('input', () => { touchedFields.shelterName = true; validateForm(); });
+    document.getElementById('registrationNumber').addEventListener('input', () => { touchedFields.registrationNumber = true; validateForm(); });
+    document.getElementById('capacity').addEventListener('input', () => { touchedFields.capacity = true; validateForm(); });
+    document.getElementById('adoptionProcess').addEventListener('input', () => { touchedFields.adoptionProcess = true; validateForm(); });
+    document.getElementById('address').addEventListener('input', () => { touchedFields.address = true; validateForm(); });
+    document.getElementById('contactPhone').addEventListener('input', () => { touchedFields.contactPhone = true; validateForm(); });
+    document.getElementById('instagram').addEventListener('input', () => { validateInstagram(); });
+    document.getElementById('twitter').addEventListener('input', () => { validateTwitter(); });
+    document.getElementById('facebook').addEventListener('input', () => { validateFacebook(); });
+    document.getElementById('website').addEventListener('input', () => { validateWebsite(); });
 
 
     // Asignamos la función de validación al evento de envío del formulario

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ComunidadAutonoma;
 use App\Models\Genero;
 use App\Models\Pais;
+use App\Models\Protectora;
 use App\Models\Provincia;
 use App\Models\Usuario;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -118,6 +119,27 @@ class RegisterController extends Controller
                 },
             ],
         ]);
+
+        if (!empty($data['shelterName'])) {
+            $rules = array_merge($rules, [
+                'shelterName' => 'required|string|max:255',
+                'registrationNumber' => 'required|integer',
+                'capacity' => 'required|integer',
+                'adoptionProcess' => 'required|string',
+                'address' => 'required|string',
+                'contactPhone' => [
+                    'required',
+                    'regex:/^(?:(?:\+34|0034)?\s?(6|7|9)\d{8})$/',
+                    'max:20'
+                ],
+                'instagram' => 'nullable|string',
+                'twitter' => 'nullable|string',
+                'facebook' => 'nullable|string',
+                'website' => 'nullable|string',
+            ]);
+        }
+
+        return Validator::make($data, $rules);
     }
 
        // Función personalizada para validar el código postal según la provincia
@@ -205,8 +227,9 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(array $data, $protectoraId = null)
     {
+
         return Usuario::create([
             'nombre' => $data['name'],
             'apellidos' => $data['surname'],
@@ -220,17 +243,40 @@ class RegisterController extends Controller
             'provincia_id' => $data['province'],
             'codigo_postal' => $data['postalCode'],
             'rol_id' => 2,
-            'protectora_id' => null,
+            'protectora_id' => $protectoraId,
         ]);
+
+
+
     }
 
     public function register(Request $request){
     // dd($request->all());
     // Validar los datos del formulario
+    // Validar los datos del formulario
     $this->validator($request->all())->validate();
 
-    // Crear el usuario en la base de datos
-    $usuario = $this->create($request->all());
+    // Verificar si se están enviando datos de protectora
+    $protectoraId = null;
+    if (!empty($request->input('shelterName'))) {
+        $protectora = Protectora::create([
+            'nombre' => $request->input('shelterName'),
+            'numero_registro_oficial' => $request->input('registrationNumber'),
+            'capacidad_alojamiento' => $request->input('capacity'),
+            'proceso_adopcion' => $request->input('adoptionProcess'),
+            'direccion' => $request->input('address'),
+            'telefono_contacto' => $request->input('contactPhone'),
+            'instagram' => $request->input('instagram'),
+            'twitter' => $request->input('twitter'),
+            'facebook' => $request->input('facebook'),
+            'web' => $request->input('website'),
+        ]);
+
+        $protectoraId = $protectora->id; // Obtener el ID de la protectora creada
+    }
+
+    // Crear el usuario en la base de datos, pasando el ID de la protectora si aplica
+    $usuario = $this->create($request->all(), $protectoraId);
 
     // Autenticar al usuario
     Auth::login($usuario);

@@ -60,10 +60,6 @@
                                 <textarea class="form-control" id="proceso_adopcion" rows="1" readonly>{{ optional($protectora)->proceso_adopcion }}</textarea>
                             </div>
                             <div class="col-md-6">
-                                <label for="provincia" class="form-label">Provincia</label>
-                                <input type="text" class="form-control" id="provincia"placeholder="Provincia"  value="{{ optional($protectora?->provincia)->nombre }}" readonly>
-                            </div>
-                            <div class="col-md-6">
                                 <label for="direccion" class="form-label">Dirección</label>
                                 <input type="text" class="form-control" id="direccion" placeholder="Dirección" value="{{ optional($protectora)->direccion }}" readonly>
                             </div>

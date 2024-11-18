@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="telefono" class="form-label">Número de Teléfono</label>
-                                <input type="tel" class="form-control" id="telefono" placeholder="+34 XXX XXX XXX" value="{{ auth()->user()->telefono }}" readonly>
+                                <input type="tel" class="form-control" id="telefono" placeholder="+34 XXX XXX XXX" value="{{ auth()->user()->numero_telefono }}" readonly>
                             </div>
                             <div class="col-md-6">
                                 <label for="pais" class="form-label">País</label>
@@ -68,6 +68,10 @@
                             <div class="col-md-6">
                                 <label for="comunidad" class="form-label">Comunidad Autónoma</label>
                                 <input type="text" class="form-control" id="comunidad" value="{{ auth()->user()->comunidadAutonoma['nombre'] ?? '' }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="provincia" class="form-label">Provincia</label>
+                                <input type="text" class="form-control" id="provincia"placeholder="Provincia"  value="{{  auth()->user()->provincia['nombre'] ?? '' }}" readonly>
                             </div>
                             <div class="col-md-6">
                                 <label for="codigo-postal" class="form-label">Código Postal</label>

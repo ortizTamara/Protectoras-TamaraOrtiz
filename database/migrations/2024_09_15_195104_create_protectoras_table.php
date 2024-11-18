@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('protectoras', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('numero_registro_oficial');
+            $table->string('numero_registro_oficial')->unique();
             $table->integer('capacidad_alojamiento');
             $table->text('proceso_adopcion');
             $table->string('direccion');

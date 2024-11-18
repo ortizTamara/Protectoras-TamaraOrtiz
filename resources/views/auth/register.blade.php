@@ -148,28 +148,38 @@
                                 <div class="col-md-12 mb-3">
                                     <label for="shelterName" class="form-label">Nombre de la protectora</label>
                                     <input id="shelterName" name="shelterName" type="text" class="form-control">
+                                    <div id="shelterNameError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
                                     <label for="registrationNumber" class="form-label">Número de registro oficial</label>
                                     <input id="registrationNumber" name="registrationNumber" type="text"
                                         class="form-control">
+                                        <div id="registrationNumberError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
                                     <label for="capacity" class="form-label">Capacidad de alojamiento</label>
                                     <input id="capacity" name="capacity" type="number" class="form-control">
+                                    <div id="capacityError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
                                     <label for="adoptionProcess" class="form-label">Proceso de adopción</label>
                                     <textarea id="adoptionProcess" name="adoptionProcess" class="form-control"></textarea>
+                                    <div id="adoptionProcessError" class="text-danger"></div>
                                 </div>
-
 
                                 <div class="col-md-12 mb-3">
                                     <label for="address" class="form-label">Dirección</label>
                                     <input id="address" name="address" type="text" class="form-control">
+                                    <div id="addressError" class="text-danger"></div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label for="contactPhone" class="form-label">Teléfono de contacto</label>
+                                    <input id="contactPhone" name="contactPhone" type="tel" class="form-control" required>
+                                    <div id="contactPhoneError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
@@ -177,18 +187,25 @@
                                     <div class="form-group">
                                         <input id="instagram" name="instagram" type="text" class="form-control"
                                             placeholder="Instagram">
+                                            <div id="instagramError" class="text-danger"></div>
                                     </div>
+
                                     <div class="form-group mt-3">
                                         <input id="twitter" name="twitter" type="text" class="form-control"
                                             placeholder="Twitter">
+                                            <div id="twitterError" class="text-danger"></div>
                                     </div>
+
                                     <div class="form-group mt-3">
                                         <input id="facebook" name="facebook" type="text" class="form-control"
                                             placeholder="Facebook">
+                                            <div id="facebookError" class="text-danger"></div>
                                     </div>
+
                                     <div class="form-group mt-3">
                                         <input id="website" name="website" type="text" class="form-control"
                                             placeholder="Web">
+                                            <div id="websiteError" class="text-danger"></div>
                                     </div>
                                 </div>
                             </div>
