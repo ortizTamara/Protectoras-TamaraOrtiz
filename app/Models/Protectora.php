@@ -22,6 +22,7 @@ class Protectora extends Model
         'twitter',
         'facebook',
         'web',
+        'logo',
     ];
 
     public function usuario(): HasOne

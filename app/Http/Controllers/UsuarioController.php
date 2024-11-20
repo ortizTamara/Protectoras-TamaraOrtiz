@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
+use App\Models\Protectora;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UsuarioController extends Controller
 {
@@ -81,4 +85,72 @@ class UsuarioController extends Controller
         // Retorna la vista con los datos del usuario
         return view('usuarios.profile', compact('usuario'));
     }
+
+
+    // FOTO USUARIO
+    public function updateFoto(Request $request)
+    {
+        // Validamos la foto
+        $request->validate([
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $usuario = Auth::user();
+
+        if (!$usuario || !$usuario instanceof \App\Models\Usuario) {
+            return redirect()->back()->with('error', 'Usuario no autenticado o inválido.');
+        }
+
+        // Verificamos si el usuario subió una foto, si es asi eliminamos la anterior.
+        if ($request->hasFile('foto')) {
+            if ($usuario->foto) {
+                Storage::disk('public')->delete($usuario->foto);
+            }
+
+            // Generamos el nombre personalizado
+            $fileName = $usuario->id . '_' . date('Y-m-d_H-i-s') . '.' . $request->file('foto')->getClientOriginalExtension();
+
+            // Guardamos la imagen en /fotos con el nombre personalizado
+            $path = $request->file('foto')->storeAs('fotos', $fileName, 'public');
+
+            // Verficiamos que la imagen se haya almacenado
+            if ($path) {
+                // Lo guardamos con update
+                $usuario->update(['foto' => $path]);
+                return redirect()->back()->with('success', 'Foto actualizada correctamente.');
+            }
+
+            return redirect()->back()->with('error', 'No se pudo guardar la imagen.');
+        }
+
+        return redirect()->back()->with('error', 'No se recibió ninguna foto.');
+    }
+
+    // BORRAR IMAGEN
+    public function deleteLogo()
+    {
+        // Obtener la protectora asociada al usuario autenticado
+        $usuario = Auth::user();
+        $protectora = Protectora::find($usuario->protectora_id);
+
+        if (!$protectora || !$protectora->logo) {
+            return redirect()->back()->with('error', 'No hay logo para eliminar.');
+        }
+
+        // Verificar si el archivo existe antes de intentar eliminarlo
+        if (Storage::disk('public')->exists($protectora->logo)) {
+            Storage::disk('public')->delete($protectora->logo);
+        } else {
+            return redirect()->back()->with('error', 'El archivo no existe en el almacenamiento.');
+        }
+
+        // Actualizar el campo `logo` a null en la base de datos
+        $protectora->logo = null;
+        $protectora->save();
+
+        return redirect()->back()->with('success', 'Logo eliminado correctamente.');
+    }
+
+
+
 }

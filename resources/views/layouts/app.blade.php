@@ -89,21 +89,29 @@
                             @endif
                         @else
                             <!-- Mostrar "Perfil" y "Cerrar sesión" si el usuario está autenticado -->
-                            <div class="profile-bar d-flex align-items-center justify-content-between px-3 py-2">
-                                <!-- Contenedor de Usuario con Nombre y Avatar -->
-                                <div class="profile-bar__user d-flex align-items-center gap-2">
-                                    <a href="{{ route('perfil') }}"
-                                       class="text-decoration-none d-flex align-items-center gap-2
-                                       @if (request()->is('perfil')) active @endif">
-                                        <span class="profile-bar__name">{{ Auth::user()->nombre }}</span>
-                                        <div class="profile-bar__avatar rounded-circle d-flex align-items-center justify-content-center">
+                            <div class="profile-bar__user d-flex align-items-center gap-2">
+                                <a href="{{ route('perfil') }}"
+                                   class="text-decoration-none d-flex align-items-center gap-2
+                                   @if (request()->is('perfil')) active @endif">
+                                    <!-- Nombre del usuario -->
+                                    <span class="profile-bar__name">{{ Auth::user()->nombre }}</span>
+
+                                    <!-- Foto o inicial en el avatar -->
+                                    <div class="profile-bar__avatar rounded-circle d-flex align-items-center justify-content-center">
+                                        @if (Auth::user()->foto)
+                                            <!-- Mostrar la foto si está disponible -->
+                                            <img src="{{ asset('storage/' . Auth::user()->foto) }}"
+                                                 alt="Foto de perfil"
+                                                 class="img-fluid rounded-circle">
+                                        @else
+                                            <!-- Mostrar la inicial si no hay foto -->
                                             <span class="profile-bar__initial">
-                                                {{-- Con esto mostramos la primera Inicial en mayusculas --}}
                                                 {{ strtoupper(substr(Auth::user()->nombre, 0, 1)) }}
                                             </span>
-                                        </div>
-                                    </a>
-                                </div>
+                                        @endif
+                                    </div>
+                                </a>
+                            </div>
 
                                 <!-- Botón de Cerrar Sesión con Icono de Bootstrap y margen -->
                                 <a href="{{ route('logout') }}" class="profile-bar__logout btn btn-link p-0 ms-4" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" aria-label="Logout">

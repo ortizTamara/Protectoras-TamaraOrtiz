@@ -28,6 +28,7 @@ return new class extends Migration
             // $table->foreignId('rol_id')->default(2)->constrained(); //Por defecto 2 que es el usuario, 1 sería el Administrador y 3 ayudante (Esta es otra forma de hacerlo, pero hay que asegurarse que el ID no cambia)
             // Por defecto null, a no ser que el usuario se registre como Protectora y también si el Usuario recibe el rol de Ayudante.
             $table->foreignId('protectora_id')->nullable()->constrained()->onDelete('set null'); //OnDelete, por si se borra la protectora, este se vuelva null
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

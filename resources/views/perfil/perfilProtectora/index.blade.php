@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@pushOnce('scripts')
+    @vite(['resources/js/perfil.js'])
+@endPushOnce
+
 @section('content')
 <div class="container-fluid d-flex flex-column">
     <div class="row flex-grow-9">
@@ -30,15 +34,39 @@
             <div class="card mx-auto profile-card">
                 <div class="card-body">
                     <h1 class="profile-title mb-4">Perfil de la Protectora</h1>
-
-                    <!-- INFORMACIÓN DE LA PROTECTORA -->
+                    <!-- ICONO PROTECTORA -->
                     <div class="d-flex flex-column align-items-center mb-5 profile-image">
-                        <div class="profile-pic-container">
-                            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center profile-icon">
-                                <i class="bi bi-camera"></i>
-                            </div>
+                        <div class="profile-pic-container mb-2">
+                            @if ($protectora && $protectora->logo)
+                                <!-- Logo de la protectora -->
+                                <img src="{{ asset('storage/' . $protectora->logo) }}"
+                                     alt="Logo de la protectora"
+                                     class="profile-img">
+                            @else
+                                <!-- ICONO CÁMARA -->
+                                <i class="bi bi-camera profile-icon"></i>
+                            @endif
                         </div>
-                        <button class="btn btn-secondary btn-sm mt-1">Actualizar logo</button>
+                         <!-- BOTÓN AÑADIR LOGO -->
+                         <div class="d-flex">
+                            <form action="{{ route('updateLogo') }}" method="POST" enctype="multipart/form-data" class="me-2">
+                                @csrf
+                                <input type="file" name="logo" id="logo" class="d-none" accept="image/*">
+                                <button type="button" id="uploadButtonLogo" class="btn btn-secondary btn-sm">
+                                    <i class="bi bi-upload"></i> Actualizar logo
+                                </button>
+                            </form>
+                            {{-- BOTÓN ELIMINAR LOGO--}}
+                            @if ($protectora && $protectora->logo)
+                                <form action="{{ route('deleteLogo') }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash"></i> Eliminar logo
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
                     </div>
 
                     <form>

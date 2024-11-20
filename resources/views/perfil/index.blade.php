@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@pushOnce('scripts')
+    @vite(['resources/js/perfil.js'])
+@endPushOnce
+
 @section('content')
 <div class="container-fluid  d-flex flex-column">
     <div class="row flex-grow-9">
@@ -28,13 +32,41 @@
 
                     <!-- PERFIL -->
                     <div class="d-flex flex-column align-items-center mb-5 profile-image">
-                        <div class="profile-pic-container">
-                            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center profile-icon">
-                                <i class="bi bi-camera"></i>
-                            </div>
+                        <!-- ICONO -->
+                        <div class="profile-pic-container mb-2">
+                            @if (auth()->user()->foto)
+                                <!-- Imagen de perfil -->
+                                <img id="profilePreview"
+                                     src="{{ asset('storage/' . auth()->user()->foto) }}"
+                                     alt="Foto de perfil"
+                                     class="profile-img">
+                            @else
+                            {{-- ICONO CÁMARA --}}
+                                <i class="bi bi-camera profile-icon"></i>
+                            @endif
                         </div>
-                        <button class="btn btn-secondary btn-sm mt-1">Actualizar foto</button>
+                        {{-- BOTÓN AÑADIR IMAGEN --}}
+                        <div class="d-flex">
+                            <form action="{{ route('updateFoto') }}" method="POST" enctype="multipart/form-data" class="me-2">
+                                @csrf
+                                <input type="file" name="foto" id="foto" class="d-none" accept="image/*">
+                                <button type="button" id="uploadButton" class="btn btn-secondary btn-sm">
+                                    <i class="bi bi-upload"></i> Actualizar foto
+                                </button>
+                            </form>
+                            {{-- BOTÓN ELIMINAR IMAGEN--}}
+                            @if (auth()->user()->foto)
+                                <form id="deleteFotoForm" action="{{ route('deleteFoto') }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash"></i> Eliminar foto
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
                     </div>
+
                     <form>
                         <div class="row g-3">
                             <div class="col-md-6">

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
             $table->string('web')->nullable();
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }

@@ -29,6 +29,7 @@ class Usuario extends Authenticatable
         'codigo_postal',
         'rol_id',
         'protectora_id',
+        'foto',
     ];
 
 

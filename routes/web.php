@@ -9,6 +9,7 @@ use App\Http\Controllers\ComportamientoController;
 use App\Http\Controllers\EspecieController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\perfilProtectoraController;
+use App\Http\Controllers\ProtectoraController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\RazaController;
 use App\Http\Controllers\UsuarioController;
@@ -60,7 +61,12 @@ Route::prefix('administracion')->name('administracion.')->group(function () {
 // Ruta para gestión de usuario
 Route::resource('/usuario', UsuarioController::class);
 
-
+// Para la foto de perfil
+Route::post('/updateFoto', [UsuarioController::class, 'updateFoto'])->name('updateFoto');
+Route::delete('/deleteFoto', [UsuarioController::class, 'deleteFoto'])->name('deleteFoto');
+// y logo de protectora
+Route::post('/updateLogo', [perfilProtectoraController::class, 'updateLogo'])->name('updateLogo');
+Route::delete('/deleteLogo', [perfilProtectoraController::class, 'deleteLogo'])->name('deleteLogo');
 
 
 

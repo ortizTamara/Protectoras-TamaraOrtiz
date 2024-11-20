@@ -29,6 +29,7 @@ class UsuarioSeeder extends Seeder
                 'codigo_postal' => '13670',
                 'rol_id' => 1,
                 'protectora_id' => null,
+                'foto' => null,
             ],
 
         ];
