@@ -11,11 +11,14 @@
         <div class="col-md-3 bg-white p-4 shadow-sm sidebar">
             <nav class="nav flex-column">
                 <a href="#" class="btn btn-secondary w-100 mb-2">Perfil</a>
+
                 @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
                     <a href="{{ route('perfil-protectora.index') }}" class="btn btn-outline-secondary w-100 mb-2">Perfil protectora</a>
                 @endif
                 <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis favoritos</a>
-                <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis protectoras</a>
+                @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
+                <a href="{{ route('perfil-miProtectora.index') }}" class="btn btn-outline-secondary w-100 mb-2">Mis protectoras</a>
+                @endif
                 @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
                 <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis ayudantes</a>
                 @endif

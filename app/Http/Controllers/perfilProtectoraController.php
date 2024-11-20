@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class perfilProtectoraController extends Controller
+class PerfilProtectoraController extends Controller
 {
     /**
      * Display a listing of the resource.

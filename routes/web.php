@@ -7,9 +7,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ComportamientoController;
 use App\Http\Controllers\EspecieController;
+use App\Http\Controllers\MiProtectoraController;
 use App\Http\Controllers\PerfilController;
-use App\Http\Controllers\perfilProtectoraController;
-use App\Http\Controllers\ProtectoraController;
+use App\Http\Controllers\PerfilProtectoraController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\RazaController;
 use App\Http\Controllers\UsuarioController;
@@ -45,6 +45,8 @@ Route::post('perfil/change-password', [PerfilController::class, 'changePassword'
 
 // Ruta de perfil de protectora (Solo se muestra cuando el usuario es una protectora)
 Route::resource('/perfil-protectora', PerfilProtectoraController::class);
+// Mis protectoras (solo se muestra si el usuario es una protectora)
+Route::resource('/perfil-miProtectora', MiProtectoraController::class);
 
 // Ruta administrador
 Route::get('administracion', [App\Http\Controllers\AdministradorController::class, 'index'])->name('administracion');
@@ -65,8 +67,8 @@ Route::resource('/usuario', UsuarioController::class);
 Route::post('/updateFoto', [UsuarioController::class, 'updateFoto'])->name('updateFoto');
 Route::delete('/deleteFoto', [UsuarioController::class, 'deleteFoto'])->name('deleteFoto');
 // y logo de protectora
-Route::post('/updateLogo', [perfilProtectoraController::class, 'updateLogo'])->name('updateLogo');
-Route::delete('/deleteLogo', [perfilProtectoraController::class, 'deleteLogo'])->name('deleteLogo');
+Route::post('/updateLogo', [PerfilProtectoraController::class, 'updateLogo'])->name('updateLogo');
+Route::delete('/deleteLogo', [PerfilProtectoraController::class, 'deleteLogo'])->name('deleteLogo');
 
 
 

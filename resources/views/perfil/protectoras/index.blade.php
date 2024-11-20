@@ -6,15 +6,18 @@
         <!-- BARRA LATERAL -->
         <div class="col-md-3 bg-white p-4 shadow-sm sidebar">
             <nav class="nav flex-column">
-                {{-- Con Request verifico si la ruta actual es Perfil, si es así se le asigna btn-secundary, entonces se muestra resaltado, si no es la ruta actual, se le asigna btn-outline-secundary  --}}
                 <a href="{{ route('perfil') }}" class="btn {{ Request::is('perfil') ? 'btn-secondary' : 'btn-outline-secondary' }} w-100 mb-2">Perfil</a>
 
                 @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
-                {{-- Es lo mismo que en Perfil --}}
-                    <a href="{{ route('perfil-protectora.index') }}" class="btn {{ Request::is('perfil-protectora') ? 'btn-secondary' : 'btn-outline-secondary' }} w-100 mb-2">Perfil Protectora</a>
+                    <a href="{{ route('perfil-protectora.index') }}" class="btn {{ Request::is('perfil-protectora') ? 'btn-secondary' : 'btn-outline-secondary' }} w-100 mb-2">Perfil protectora</a>
                 @endif
+
                 <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis favoritos</a>
-                <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis protectoras</a>
+
+                @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
+                <a href="{{ route('perfil-miProtectora.index') }}" class="btn btn-outline-secondary w-100 mb-2">Mis protectoras</a>
+                @endif
+
                 <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis ayudantes</a>
 
                 <a href="{{ route('logout') }}" class="btn btn-outline-danger w-100 mb-2" onclick="event.preventDefault(); document.getElementById('logout-form-profile').submit();">Cerrar sesión</a>
@@ -23,5 +26,33 @@
                 </form>
             </nav>
         </div>
+        <div class="col-md-9">
+            <div class="row g-4">
+                @if($miProtectora)
+                    <div class="col-3">
+                        <div class="protectora-card shadow-sm border border-secondary-subtle bg-light">
+                            {{-- <div class="position-absolute bottom-0 end-0 p-2 ">
+                                <i class="bi bi-star-fill text-warning fs-3"></i>
+                            </div> --}}
 
+                            <div class="protectora-card__image-container m-4 p-2 bg-white shadow-sm">
+                                <img
+                                    src="{{ $miProtectora->logo ? asset('storage/' . $miProtectora->logo) : '/images/placeholder.jpg' }}"
+                                    alt="{{ $miProtectora->nombre }}"
+                                    class="protectora-card__image">
+                            </div>
+
+                            <div class="protectora-card__body text-center p-0">
+                                <h5 class="protectora-card__title mb-3 fw-bold text-dark small me-2">{{ $miProtectora->nombre }}</h5>
+                                <i class="bi bi-star-fill text-warning protectora-card__star fs-3"></i>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <p>No tienes una protectora asociada.</p>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
