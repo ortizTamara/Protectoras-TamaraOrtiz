@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         shelterName:false,
         registrationNumber:false,
         capacity:false,
-        adoptionProcess:false,
+        ourStory:false,
         address:false,
         contactPhone:false,
         // opcionales
@@ -171,10 +171,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // EMAIL -> Validamos que este en el formato correcto
     function validateEmail() {
         const email = document.getElementById('email').value;
+        // console.log("Validando email:", email);
         const emailError = document.getElementById('emailError');
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
 
-         if (touchedFields.email) {
+        if (touchedFields.email) {
             if (email.trim() === '') {
                 emailError.textContent = 'El email es obligatorio.';
                 return false;
@@ -182,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 emailError.textContent = 'Ingresa un email válido.';
                 return false;
             } else {
-                checkEmailAvailability(email, emailError); // Verificar disponibilidad del correo
                 emailError.textContent = '';
             }
         }
@@ -440,17 +440,17 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
 
-    // PROCESO DE ADOPCIÓN -> Validamos que el campo no este vacio
-    function validateAdoptionProcess() {
-        const adoptionProcess = document.getElementById('adoptionProcess').value;
-        const adoptionProcessError = document.getElementById('adoptionProcessError');
+    // NUESTRA HISTORIA -> Validamos que el campo no este vacio
+    function validateOurStory() {
+        const ourStory = document.getElementById('ourStory').value;
+        const ourStoryError = document.getElementById('ourStoryError');
 
-        if (touchedFields.adoptionProcess) {
-            if (adoptionProcess.trim() === '') {
-                adoptionProcessError.textContent = 'El proceso de adopción es obligatorio.';
+        if (touchedFields.ourStory) {
+            if (ourStory.trim() === '') {
+                ourStoryError.textContent = 'El proceso de adopción es obligatorio.';
                 return false;
             } else {
-                adoptionProcessError.textContent = '';
+                ourStoryError.textContent = '';
             }
         }
         return true;
@@ -501,13 +501,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // OPCIONALES
     // INSTAGRAM -> Validamos que la URL sea correcta o el nombre de usuario
     function validateInstagram() {
-        const instagram = document.getElementById('instagram').value;
+        const instagram = document.getElementById('instagram').value.trim();
         const instagramError = document.getElementById('instagramError');
         const instagramPattern = /^(https?:\/\/(www\.)?instagram\.com\/)?[A-Za-z0-9._-]+\/?$/;
 
-        if (instagram.trim() && !instagramPattern.test(instagram)) {
-            instagramError.textContent = 'Ingresa una URL de Instagram válida o el nombre de usuario.';
-            return false;
+        if (instagram !== '') {
+            if (!instagramPattern.test(instagram)) {
+                instagramError.textContent = 'Ingresa una URL de Instagram válida o el nombre de usuario.';
+                return false;
+            } else {
+                instagramError.textContent = '';
+            }
         } else {
             instagramError.textContent = '';
         }
@@ -516,13 +520,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // TWITTER -> Validamos el URL o el nombre de Usuario
     function validateTwitter() {
-        const twitter = document.getElementById('twitter').value;
+        const twitter = document.getElementById('twitter').value.trim();
         const twitterError = document.getElementById('twitterError');
         const twitterPattern = /^(https?:\/\/(www\.)?twitter\.com\/)?[A-Za-z0-9_]+\/?$/;
 
-        if (twitter.trim() && !twitterPattern.test(twitter)) {
-            twitterError.textContent = 'Ingresa una URL de Twitter válida o el nombre de usuario.';
-            return false;
+        if (twitter !== '') {
+            if (!twitterPattern.test(twitter)) {
+                twitterError.textContent = 'Ingresa una URL de Twitter válida o el nombre de usuario.';
+                return false;
+            } else {
+                twitterError.textContent = '';
+            }
         } else {
             twitterError.textContent = '';
         }
@@ -531,13 +539,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // FACEBOOK -> Validamos la URL o el nombre de usuario
       function validateFacebook() {
-        const facebook = document.getElementById('facebook').value;
+        const facebook = document.getElementById('facebook').value.trim();
         const facebookError = document.getElementById('facebookError');
         const facebookPattern = /^(https?:\/\/(www\.)?facebook\.com\/)?[A-Za-z0-9.]+\/?$/;
 
-        if (facebook.trim() && !facebookPattern.test(facebook)) {
-            facebookError.textContent = 'Ingresa una URL de Facebook válida o el nombre de usuario.';
-            return false;
+        if (facebook !== '') {
+            if (!facebookPattern.test(facebook)) {
+                facebookError.textContent = 'Ingresa una URL de Facebook válida o el nombre de usuario.';
+                return false;
+            } else {
+                facebookError.textContent = '';
+            }
         } else {
             facebookError.textContent = '';
         }
@@ -546,17 +558,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // PÁGINA WEB -> Validamos la URL
     function validateWebsite() {
-        const website = document.getElementById('website').value;
-        const websiteError = document.getElementById('websiteError');
-        const websitePattern = /^(https?:\/\/)?(www\.)?[A-Za-z0-9.-]+\.[A-Za-z]{2,6}(\/.*)?$/;
+        const website = document.getElementById('website').value.trim();
+    const websiteError = document.getElementById('websiteError');
+    const websitePattern = /^(https?:\/\/)?(www\.)?[A-Za-z0-9.-]+\.[A-Za-z]{2,6}(\/.*)?$/;
 
-        if (website.trim() && !websitePattern.test(website)) {
+    if (website !== '') {
+        if (!websitePattern.test(website)) {
             websiteError.textContent = 'Ingresa una URL de sitio web válida.';
             return false;
         } else {
             websiteError.textContent = '';
         }
-        return true;
+    } else {
+        websiteError.textContent = '';
+    }
+    return true;
     }
 
 
@@ -582,49 +598,214 @@ document.addEventListener('DOMContentLoaded', function() {
         isValid = validateShelterName() && isValid;
         isValid = validateRegistrationNumber() && isValid;
         isValid = validateCapacity() && isValid;
-        isValid = validateAdoptionProcess() && isValid;
+        isValid = validateOurStory() && isValid;
         isValid = validateAddress() && isValid;
         isValid = validateContactPhone() && isValid;
 
         // OPCIONALES
-        isValid = validateInstagram() && isValid;
-        isValid = validateTwitter() && isValid;
-        isValid = validateFacebook() && isValid;
-        isValid = validateWebsite() && isValid;
+        validateInstagram();
+        validateTwitter();
+        validateFacebook();
+        validateWebsite();
 
         return isValid;
     }
 
 
     // Configuramos los eventos de validación en tiempo real para cada campo, se utiliza input para cuando se escribe y change cuando se selecciona
-    document.getElementById('name').addEventListener('input', () => { touchedFields.name = true; validateForm(); });
-    document.getElementById('surname').addEventListener('input', () => { touchedFields.surname = true; validateForm(); });
-    document.getElementById('birthDate').addEventListener('input', () => { touchedFields.birthDate = true; validateForm(); });
-    document.getElementById('sex').addEventListener('change', () => { touchedFields.sex = true; validateForm(); });
-    document.getElementById('email').addEventListener('input', () => { touchedFields.email = true; validateEmail(); });
-    document.getElementById('password').addEventListener('input', () => { touchedFields.password = true; validateForm(); });
-    document.getElementById('confirmPassword').addEventListener('input', () => { touchedFields.confirmPassword = true; validateForm(); });
-    document.getElementById('phone').addEventListener('input', () => { touchedFields.phone = true; validateForm(); });
-    document.getElementById('country').addEventListener('change', () => { touchedFields.country = true; validateForm(); });
-    document.getElementById('autonomousCommunity').addEventListener('change', () => { touchedFields.autonomousCommunity = true; validateForm(); });
-    document.getElementById('province').addEventListener('change', () => { touchedFields.province = true; validateForm(); });
-    document.getElementById('postalCode').addEventListener('input', () => { touchedFields.postalCode = true; validatePostalCode(); });
-    document.getElementById('shelterName').addEventListener('input', () => { touchedFields.shelterName = true; validateForm(); });
-    document.getElementById('registrationNumber').addEventListener('input', () => { touchedFields.registrationNumber = true; validateForm(); });
-    document.getElementById('capacity').addEventListener('input', () => { touchedFields.capacity = true; validateForm(); });
-    document.getElementById('adoptionProcess').addEventListener('input', () => { touchedFields.adoptionProcess = true; validateForm(); });
-    document.getElementById('address').addEventListener('input', () => { touchedFields.address = true; validateForm(); });
-    document.getElementById('contactPhone').addEventListener('input', () => { touchedFields.contactPhone = true; validateForm(); });
-    document.getElementById('instagram').addEventListener('input', () => { validateInstagram(); });
-    document.getElementById('twitter').addEventListener('input', () => { validateTwitter(); });
-    document.getElementById('facebook').addEventListener('input', () => { validateFacebook(); });
-    document.getElementById('website').addEventListener('input', () => { validateWebsite(); });
+    // document.getElementById('name').addEventListener('input', () => { touchedFields.name = true; validateForm(); });
+    const nameField = document.getElementById('name');
+    if (nameField) {
+        nameField.addEventListener('input', () => {
+            touchedFields.name = true;
+            validateForm();
+        });
+    }
+    // document.getElementById('surname').addEventListener('input', () => { touchedFields.surname = true; validateForm(); });
+    const surnameField = document.getElementById('surname');
+    if (surnameField) {
+        surnameField.addEventListener('input', () => {
+            touchedFields.surname = true;
+            validateForm();
+        });
+    }
+    // document.getElementById('birthDate').addEventListener('input', () => { touchedFields.birthDate = true; validateForm(); });
+    const birthDateField = document.getElementById('birthDate');
+    if (birthDateField) {
+        birthDateField.addEventListener('input', () => {
+            touchedFields.birthDate = true;
+            validateForm();
+        });
+    }
+    // document.getElementById('sex').addEventListener('change', () => { touchedFields.sex = true; validateForm(); });
+    const sexField = document.getElementById('sex');
+    if (sexField) {
+        sexField.addEventListener('change', () => {
+            touchedFields.sex = true;
+            validateForm();
+        });
+    }
+    // document.getElementById('email').addEventListener('input', () => { touchedFields.email = true; validateEmail(); });
+    const emailField = document.getElementById('email');
+    if (emailField) {
+        emailField.addEventListener('input', () => {
+            touchedFields.email = true;
+            validateEmail();
+        });
+    }
 
+    // document.getElementById('password').addEventListener('input', () => { touchedFields.password = true; validateForm(); });
+    const passwordField = document.getElementById('password');
+    if (passwordField) {
+        passwordField.addEventListener('input', () => {
+            touchedFields.password = true;
+            validateForm();
+        });
+    }
+
+    // document.getElementById('confirmPassword').addEventListener('input', () => { touchedFields.confirmPassword = true; validateForm(); });
+    const confirmPasswordField = document.getElementById('confirmPassword');
+    if (confirmPasswordField) {
+        confirmPasswordField.addEventListener('input', () => {
+            touchedFields.confirmPassword = true;
+            validateForm();
+        });
+    }
+    // document.getElementById('phone').addEventListener('input', () => { touchedFields.phone = true; validateForm(); });
+    const phoneField = document.getElementById('phone');
+    if (phoneField) {
+        phoneField.addEventListener('input', () => {
+            touchedFields.phone = true;
+            validateForm();
+        });
+    }
+    // document.getElementById('country').addEventListener('change', () => { touchedFields.country = true; validateForm(); });
+    const countryField = document.getElementById('country');
+    if (countryField) {
+        countryField.addEventListener('input', () => {
+            touchedFields.country = true;
+            validateForm();
+        });
+    }
+    // document.getElementById('autonomousCommunity').addEventListener('change', () => { touchedFields.autonomousCommunity = true; validateForm(); });
+    const autonomousCommunityField = document.getElementById('autonomousCommunity');
+    if (autonomousCommunityField) {
+        autonomousCommunityField.addEventListener('input', () => {
+            autonomousCommunityField.autonomousCommunity = true;
+            validateForm();
+        });
+    }
+
+    // document.getElementById('province').addEventListener('change', () => { touchedFields.province = true; validateForm(); });
+    const provinceField = document.getElementById('province');
+    if (provinceField) {
+        provinceField.addEventListener('input', () => {
+            provinceField.province = true;
+            validateForm();
+        });
+    }
+    // document.getElementById('postalCode').addEventListener('input', () => { touchedFields.postalCode = true; validatePostalCode(); });
+    const postalCodeField = document.getElementById('postalCode');
+    if (postalCodeField) {
+        postalCodeField.addEventListener('input', () => {
+            postalCodeField.postalCode = true;
+            validateForm();
+        });
+    }
+    // document.getElementById('shelterName').addEventListener('input', () => { touchedFields.shelterName = true; validateForm(); });
+    const shelterNameField = document.getElementById('shelterName');
+    if (shelterNameField) {
+        shelterNameField.addEventListener('input', () => {
+            touchedFields.shelterName = true; // Esto es correcto
+            validateShelterName();
+        });
+    }
+    // document.getElementById('registrationNumber').addEventListener('input', () => { touchedFields.registrationNumber = true; validateForm(); });
+    const registrationNumberField = document.getElementById('registrationNumber');
+    if (registrationNumberField) {
+        registrationNumberField.addEventListener('input', () => {
+            touchedFields.registrationNumber = true;
+            validateRegistrationNumber();
+        });
+    }
+    // document.getElementById('capacity').addEventListener('input', () => { touchedFields.capacity = true; validateForm(); });
+    const capacityField = document.getElementById('capacity');
+    if (capacityField) {
+        capacityField.addEventListener('input', () => {
+            touchedFields.capacity = true;
+            validateCapacity();
+        });
+    }
+    // document.getElementById('ourStory').addEventListener('input', () => { touchedFields.ourStory = true; validateForm(); });
+    const ourStoryField = document.getElementById('ourStory');
+    if (ourStoryField) {
+        ourStoryField.addEventListener('input', () => {
+            touchedFields.ourStory = true;
+            validateOurStory();
+        });
+    }
+    // document.getElementById('address').addEventListener('input', () => { touchedFields.address = true; validateForm(); });
+    const addressField = document.getElementById('address');
+    if (addressField) {
+        addressField.addEventListener('input', () => {
+            touchedFields.address = true;
+            validateAddress();
+        });
+    }
+    // document.getElementById('contactPhone').addEventListener('input', () => { touchedFields.contactPhone = true; validateForm(); });
+    const contactPhoneField = document.getElementById('contactPhone');
+    if (contactPhoneField) {
+        contactPhoneField.addEventListener('input', () => {
+            touchedFields.contactPhone = true;
+            validateContactPhone();
+        });
+    }
+    // document.getElementById('instagram').addEventListener('input', () => { validateInstagram(); });
+    const instagramField = document.getElementById('instagram');
+    if (instagramField) {
+        instagramField.addEventListener('input', () => {
+            touchedFields.instagram = true; // Marcamos el campo como "tocado" en touchedFields
+            validateInstagram();
+        });
+    }
+    // document.getElementById('twitter').addEventListener('input', () => { validateTwitter(); });
+    const twitterField = document.getElementById('twitter');
+    if (twitterField) {
+        twitterField.addEventListener('input', () => {
+            touchedFields.twitter = true; // Marcamos el campo como "tocado" en touchedFields
+            validateTwitter();
+        });
+    }
+    // document.getElementById('facebook').addEventListener('input', () => { validateFacebook(); });
+    const facebookField = document.getElementById('facebook');
+    if (facebookField) {
+        facebookField.addEventListener('input', () => {
+            touchedFields.facebook = true; // Marcamos el campo como "tocado" en touchedFields
+            validateFacebook();
+        });
+    }
+    // document.getElementById('website').addEventListener('input', () => { validateWebsite(); });
+    const websiteField = document.getElementById('website');
+    if (websiteField) {
+        websiteField.addEventListener('input', () => {
+            touchedFields.website = true; // Marcamos el campo como "tocado" en touchedFields
+            validateWebsite();
+        });
+    }
 
     // Asignamos la función de validación al evento de envío del formulario
-    document.getElementById('registerForm').onsubmit = function(event) {
-        if (!validateForm()) {
-            event.preventDefault(); // Evitamos el envío si la validación falla, no se haría el registro.
-        }
-    };
+    // document.getElementById('registerForm').onsubmit = function(event) {
+    //     if (!validateForm()) {
+    //         event.preventDefault(); // Evitamos el envío si la validación falla, no se haría el registro.
+    //     }
+    // };
+
+      const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        registerForm.onsubmit = function(event) {
+            if (!validateForm()) {
+                event.preventDefault(); // Evitamos el envío si la validación falla
+            }
+        };
+    }
 });

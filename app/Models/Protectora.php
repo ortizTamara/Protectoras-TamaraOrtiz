@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Protectora extends Model
@@ -15,7 +16,7 @@ class Protectora extends Model
         'nombre',
         'numero_registro_oficial',
         'capacidad_alojamiento',
-        'proceso_adopcion',
+        'nuestra_historia',
         'direccion',
         'telefono_contacto',
         'instagram',
@@ -33,5 +34,9 @@ class Protectora extends Model
         // return $this->hasOne(Usuario::class, 'protectora_id');
     }
 
+    public function animales(): HasMany
+    {
+        return $this->hasMany(Animal::class);
+    }
 
 }

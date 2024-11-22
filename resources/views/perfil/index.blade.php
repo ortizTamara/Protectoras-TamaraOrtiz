@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @pushOnce('scripts')
-    @vite(['resources/js/perfil.js'])
+    @vite(['resources/js/perfil.js', 'resources/js/validador.js'])
 @endPushOnce
 
 @section('content')
@@ -70,55 +70,64 @@
                         </div>
                     </div>
 
-                    <form>
+                    <form id="perfilForm" method="POST" action="{{ route('usuario.update', auth()->id()) }}">
+                        @csrf
+                        @method('PUT')
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" value="{{ auth()->user()->nombre }}" readonly>
+                                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese su nombre" value="{{ auth()->user()->nombre }}">
                             </div>
                             <div class="col-md-6">
                                 <label for="apellidos" class="form-label">Apellidos</label>
-                                <input type="text" class="form-control" id="apellidos" placeholder="Ingrese sus apellidos" value="{{ auth()->user()->apellidos }}" readonly>
+                                <input type="text" name="apellidos" class="form-control" id="apellidos" placeholder="Ingrese sus apellidos" value="{{ auth()->user()->apellidos }}">
                             </div>
                             <div class="col-md-6">
-                                <label for="fecha" class="form-label">Fecha de Nacimiento</label>
-                                <input type="date" class="form-control" id="fecha" value="{{ date('Y-m-d', strtotime(auth()->user()->fecha_nacimiento)) }}" readonly>
+                                <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="fecha_nacimiento" value="{{ date('Y-m-d', strtotime(auth()->user()->fecha_nacimiento)) }}" readonly
+                                       data-bs-toggle="tooltip" title="Este campo no puede ser editado.">
                             </div>
                             <div class="col-md-6">
                                 <label for="genero" class="form-label">Género</label>
-                                <input type="text" class="form-control" id="genero" value="{{ auth()->user()->genero['nombre'] ?? '' }}" readonly>
+                                <input type="text" class="form-control" id="genero" value="{{ auth()->user()->genero['nombre'] ?? '' }}" readonly
+                                       data-bs-toggle="tooltip" title="Este campo no puede ser editado.">
                             </div>
                             <div class="col-md-6">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="correo@ejemplo.com" value="{{ auth()->user()->email }}" readonly>
+                                <input type="email" class="form-control" id="email" placeholder="correo@ejemplo.com" value="{{ auth()->user()->email }}" readonly
+                                       data-bs-toggle="tooltip" title="Este campo no puede ser editado.">
                             </div>
                             <div class="col-md-6">
-                                <label for="telefono" class="form-label">Número de Teléfono</label>
-                                <input type="tel" class="form-control" id="telefono" placeholder="+34 XXX XXX XXX" value="{{ auth()->user()->numero_telefono }}" readonly>
+                                <label for="numero_telefono" class="form-label">Número de Teléfono</label>
+                                <input type="tel" name="numero_telefono" class="form-control" id="numero_telefono" placeholder="+34 XXX XXX XXX" value="{{ auth()->user()->numero_telefono }}">
                             </div>
                             <div class="col-md-6">
                                 <label for="pais" class="form-label">País</label>
-                                <input type="text" class="form-control" id="pais" value="{{ auth()->user()->pais['nombre'] ?? '' }}" readonly>
+                                <input type="text" class="form-control" id="pais" value="{{ auth()->user()->pais['nombre'] ?? '' }}" readonly
+                                       data-bs-toggle="tooltip" title="Este campo no puede ser editado.">
                             </div>
                             <div class="col-md-6">
                                 <label for="comunidad" class="form-label">Comunidad Autónoma</label>
-                                <input type="text" class="form-control" id="comunidad" value="{{ auth()->user()->comunidadAutonoma['nombre'] ?? '' }}" readonly>
+                                <input type="text" class="form-control" id="comunidad" value="{{ auth()->user()->comunidadAutonoma['nombre'] ?? '' }}" readonly
+                                       data-bs-toggle="tooltip" title="Este campo no puede ser editado.">
                             </div>
                             <div class="col-md-6">
                                 <label for="provincia" class="form-label">Provincia</label>
-                                <input type="text" class="form-control" id="provincia"placeholder="Provincia"  value="{{  auth()->user()->provincia['nombre'] ?? '' }}" readonly>
+                                <input type="text" class="form-control" id="provincia"placeholder="Provincia"  value="{{  auth()->user()->provincia['nombre'] ?? '' }}" readonly
+                                       data-bs-toggle="tooltip" title="Este campo no puede ser editado.">
                             </div>
                             <div class="col-md-6">
                                 <label for="codigo-postal" class="form-label">Código Postal</label>
-                                <input type="text" class="form-control" id="codigo-postal" placeholder="28XXX" value="{{ auth()->user()->codigo_postal }}" readonly>
+                                <input type="text" class="form-control" id="codigo-postal" placeholder="28XXX" value="{{ auth()->user()->codigo_postal }}" readonly
+                                       data-bs-toggle="tooltip" title="Este campo no puede ser editado.">
                             </div>
                         </div>
                         {{-- VENTANA EMERGENTE PARA CAMBIAR CONTRASEÑA--}}
                         <div class="text-center mt-5">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal" class="text-primary">¿Quieres cambiar la contraseña?</a>
+                            <a href="#" class="text-muted" onclick="return false;" title="Esta funcionalidad está deshabilitada temporalmente.">¿Quieres cambiar la contraseña?</a>
                         </div>
                         <div class="d-grid mt-1">
-                            <button type="button" class="btn btn-primary" disabled>Guardar cambios</button>
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
                         </div>
                     </form>
                 </div>

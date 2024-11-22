@@ -59,12 +59,25 @@ class UsuarioController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUsuarioRequest $request, Usuario $usuario)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellidos' => 'required|string|max:255',
+            'numero_telefono' => 'nullable|string|max:15',
+        ]);
+
+        $usuario = Usuario::findOrFail($id);
+        if ($usuario->id !== Auth::id()) {
+            abort(403, 'No tienes permisos para realizar esta acción.');
+        }
+
+        $usuario->update($validated);
+
+        return redirect()
+            ->route('perfil')
+            ->with('success', 'Perfil actualizado correctamente.');
+
     }
 
     /**
@@ -127,29 +140,52 @@ class UsuarioController extends Controller
     }
 
     // BORRAR IMAGEN
-    public function deleteLogo()
+    public function deleteFoto()
     {
         // Obtener la protectora asociada al usuario autenticado
         $usuario = Auth::user();
-        $protectora = Protectora::find($usuario->protectora_id);
 
-        if (!$protectora || !$protectora->logo) {
-            return redirect()->back()->with('error', 'No hay logo para eliminar.');
+        if (!$usuario || !$usuario instanceof \App\Models\Usuario) {
+            return redirect()->back()->with('error', 'Usuario no autenticado o inválido.');
         }
 
+
         // Verificar si el archivo existe antes de intentar eliminarlo
-        if (Storage::disk('public')->exists($protectora->logo)) {
-            Storage::disk('public')->delete($protectora->logo);
+        if (Storage::disk('public')->exists($usuario->foto)) {
+            Storage::disk('public')->delete($usuario->foto);
         } else {
             return redirect()->back()->with('error', 'El archivo no existe en el almacenamiento.');
         }
 
         // Actualizar el campo `logo` a null en la base de datos
-        $protectora->logo = null;
-        $protectora->save();
+        $usuario->foto = null;
+        $usuario->save();
 
-        return redirect()->back()->with('success', 'Logo eliminado correctamente.');
+        return redirect()->back()->with('success', 'Foto eliminado correctamente.');
     }
+    // public function deleteLogo()
+    // {
+    //     // Obtener la protectora asociada al usuario autenticado
+    //     $usuario = Auth::user();
+    //     $protectora = Protectora::find($usuario->protectora_id);
+
+    //     if (!$protectora || !$protectora->logo) {
+    //         return redirect()->back()->with('error', 'No hay logo para eliminar.');
+    //     }
+
+    //     // Verificar si el archivo existe antes de intentar eliminarlo
+    //     if (Storage::disk('public')->exists($protectora->logo)) {
+    //         Storage::disk('public')->delete($protectora->logo);
+    //     } else {
+    //         return redirect()->back()->with('error', 'El archivo no existe en el almacenamiento.');
+    //     }
+
+    //     // Actualizar el campo `logo` a null en la base de datos
+    //     $protectora->logo = null;
+    //     $protectora->save();
+
+    //     return redirect()->back()->with('success', 'Logo eliminado correctamente.');
+    // }
 
 
 

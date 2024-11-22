@@ -18,9 +18,13 @@ return new class extends Migration
             $table->date('fecha_nacimiento');
             $table->unsignedSmallInteger('peso');
             $table->string('imagen')->nullable();
-            $table->foreignId('color_id')->constrained();
-            $table->foreignId('especie_id')->constrained();
-            $table->foreignId('raza_id')->constrained();
+            // $table->foreignId('color_id')->constrained();
+            // $table->foreignId('especie_id')->constrained();
+            // $table->foreignId('raza_id')->constrained();
+            $table->foreignId('color_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('especie_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('raza_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('protectora_id')->nullable()->constrained()->onDelete('set null'); //OnDelete, por si se borra la protectora, este se vuelva null
             $table->timestamps();
         });
     }

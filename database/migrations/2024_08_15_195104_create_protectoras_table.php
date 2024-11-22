@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('numero_registro_oficial')->unique();
             $table->integer('capacidad_alojamiento');
-            $table->text('proceso_adopcion');
+            $table->text('nuestra_historia');
             $table->string('direccion');
             $table->string('telefono_contacto');
             $table->string('instagram')->nullable();

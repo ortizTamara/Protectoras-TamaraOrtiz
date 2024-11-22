@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const shelterToggleText = document.getElementById('shelterToggleText');
         const submitBtn = document.getElementById('submitBtn');
         const userForm = document.getElementById('userForm');
-        const isShelterInput = document.getElementById('isShelter'); // Campo oculto
+        const isShelterInput = document.getElementById('isShelter');
+        const shelterFields = shelterForm.querySelectorAll('input, select, textarea');
+
 
         if (isShelter) {
             shelterForm.style.display = 'block';
@@ -16,6 +18,13 @@ document.addEventListener('DOMContentLoaded', function () {
             userForm.classList.remove('col-md-12');
             userForm.classList.add('col-md-6');
             isShelterInput.value = '1'; // Establecemos el valor en 1 si es una protectora
+
+            shelterFields.forEach(field => {
+                field.disabled = false;
+                if (!['instagram', 'twitter', 'facebook', 'website'].includes(field.id)) {
+                    field.required = true; // Solo los campos no opcionales son requeridos
+                }
+            });
         } else {
             shelterForm.style.display = 'none';
             shelterToggleText.textContent = '¿Eres una protectora?';
@@ -23,6 +32,12 @@ document.addEventListener('DOMContentLoaded', function () {
             userForm.classList.remove('col-md-6');
             userForm.classList.add('col-md-12');
             isShelterInput.value = '0'; // Establecemos el valor en 0 si es un usuario normal
+
+            shelterFields.forEach(field => {
+                field.disabled = true; // Deshabilitar todos los campos
+                field.required = false; // Eliminar el atributo requerido de todos los campos
+                field.value = ''; // Limpiar el valor del campo
+            });
         }
     }
 

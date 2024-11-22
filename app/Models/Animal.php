@@ -22,6 +22,7 @@ class Animal extends Model
         'color_id',
         'especie_id',
         'raza_id',
+        'protectora_id',
     ];
 
     public function color(): BelongsTo
@@ -38,4 +39,6 @@ class Animal extends Model
     {
         return $this->belongsTo(Raza::class);
     }
+
+
 }

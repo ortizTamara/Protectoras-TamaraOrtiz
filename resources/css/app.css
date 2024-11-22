@@ -326,20 +326,14 @@ form fieldset {
     position: relative;
 }
 
-/* Estilo para la estrella arriba a la derecha*/
-/* .protectora-card__badge {
-    position: absolute;
-    right: 0.2rem;
-    padding: 0.3rem;
-    z-index: 1;
-} */
-
-
 .protectora-card__star {
     position: absolute;
-    top: 84%;
-    transform: translateX(400%);
+    top: -0.2rem;
+    right: 0.2rem;
+    transform: none;
+    z-index: 10;
 }
+
 
 .protectora-card__image-container {
     display: flex;
@@ -357,7 +351,6 @@ form fieldset {
     object-fit: contain;
 }
 
-/* Cuerpo */
 .protectora-card__body {
     display: flex;
     align-items: center;
@@ -372,4 +365,345 @@ form fieldset {
     color: #333;
     margin: 0;
     text-align: center;
+}
+
+/* Seleccionar la tarjeta + animación */
+.protectora-card {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.protectora-card:hover {
+    transform: scale(1.05);
+}
+
+/* DENTRO DE LA PROTECTORA */
+.protectora {
+    margin-top: 3rem;
+}
+
+.protectora__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.protectora__info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.protectora__logo {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 0.2rem solid #6c757d;
+}
+
+.protectora__details {
+    display: flex;
+    flex-direction: column;
+}
+
+.protectora__name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.protectora__location {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.protectora__social {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.protectora__social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: transparent;
+    color:black;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.protectora__social-icon:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+    background-color: transparent;
+    color: black;
+}
+
+
+.protectora__contact-btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border: 0.0625rem solid #6c757d;
+    border-radius: 0.375rem;
+    color: #6c757d;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.protectora__contact-btn:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.protectora__stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.protectora__stat {
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.26);
+    font-size: 1rem;
+}
+
+.protectora__stat-value {
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
+    font-weight: bold;
+}
+
+.protectora__stat-label {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.protectora__history {
+    margin-bottom: 2rem;
+}
+
+.protectora__history-text {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.protectora__cases-grid {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(9.375rem, 1fr)); */
+    gap: 1rem;
+}
+
+.protectora__case-card {
+    border: none;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.protectora__case-image {
+    width: 100%;
+    height: auto;
+}
+
+.protectora__case-body {
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.protectora__case-name {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.protectora__case-rating {
+    font-size: 0.875rem;
+    color: #6c757d;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.protectora__no-cases {
+    text-align: left;
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+
+.protectora__adoption-process {
+    padding-left: 2rem;
+}
+
+.protectora__adoption-process-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.protectora__section-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #212529;
+}
+
+
+.protectora__logo-container {
+    position: relative;
+    display: inline-block;
+}
+
+.protectora__logo-label {
+    cursor: pointer;
+}
+
+.protectora__logo {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    border: 0.2rem solid #6c757d;
+    object-fit: cover;
+}
+
+.protectora__edit-btn {
+    position: absolute;
+    top: 4rem;
+    left: 7.3rem;
+    width: auto;
+}
+
+.protectora__save-btn{
+    position: absolute;
+    top: 4rem;
+    left: 5.6rem;
+    width: auto;
+}
+
+
+/* PRUEBA */
+.protectora-page {
+    margin-top: 2rem;
+}
+
+.protectora-page__search-group {
+    max-width: 600px;
+}
+
+.protectora-page__search-input {
+    border-radius: 0;
+}
+
+.protectora-page__search-btn {
+    border-radius: 0;
+    background-color: #333;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.protectora-page__search-btn:hover {
+    background-color: #555;
+}
+
+.protectora-page {
+    margin-top: 2rem;
+}
+
+.protectora-page__search-group {
+    max-width: 37.5rem;
+}
+
+.protectora-page__search-input {
+    border-radius: 0;
+}
+
+.protectora-page__search-btn {
+    border-radius: 0;
+    background-color: #333;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.protectora-page__search-btn:hover {
+    background-color: #555;
+}
+
+.protectora-card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.protectora-card:hover {
+    transform: translateY(-0.3125rem);
+    box-shadow: 0 0.5rem 0.9375rem rgba(0, 0, 0, 0.2);
+}
+
+.protectora-card__logo {
+    display: flex;
+    justify-content: center;
+}
+
+.protectora-card__logo-img {
+    width: 6.25rem;
+    height: 6.25rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 0.125rem solid #ddd;
+}
+
+.protectora-card__logo-placeholder {
+    width: 6.25rem;
+    height: 6.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+    border: 0.125rem solid #ddd;
+    color: #aaa;
+    font-size: 1.5rem;
+}
+
+.protectora-card__title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.protectora-card__location,
+.protectora-card__cases {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.protectora-card__info-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.protectora-card__info-btn:hover {
+    background-color: #555;
 }

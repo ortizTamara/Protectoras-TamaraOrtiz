@@ -1,23 +1,4 @@
-// Función para manejar la vista previa de la foto
-// document.addEventListener('DOMContentLoaded', function () {
-//     const inputFile = document.getElementById('foto');
-//     const profilePreview = document.getElementById('profilePreview');
 
-//     // Agregar un evento para cuando se seleccione un archivo
-//     inputFile.addEventListener('change', function (event) {
-//         const file = event.target.files[0]; // Obtener el archivo seleccionado
-//         if (file) {
-//             const reader = new FileReader();
-
-//             // Leer el archivo y establecerlo como fuente de la imagen de vista previa
-//             reader.onload = function (e) {
-//                 profilePreview.src = e.target.result; // Mostrar la imagen seleccionada
-//             };
-
-//             reader.readAsDataURL(file); // Leer el archivo como una URL
-//         }
-//     });
-// });
 document.addEventListener("DOMContentLoaded", function () {
     // Para la foto de perfil
     const uploadButton = document.getElementById("uploadButton");

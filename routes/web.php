@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminProtectoraController;
+use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\EspecieController;
 use App\Http\Controllers\MiProtectoraController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\PerfilProtectoraController;
+use App\Http\Controllers\ProtectoraController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\RazaController;
 use App\Http\Controllers\UsuarioController;
@@ -43,10 +45,27 @@ Route::get('/provincias/{comunidadAutonomaId}', [ProvinciaController::class, 'ge
 Route::get('perfil', [App\Http\Controllers\PerfilController::class, 'index'])->name('perfil');
 Route::post('perfil/change-password', [PerfilController::class, 'changePassword'])->name('changePassword');
 
-// Ruta de perfil de protectora (Solo se muestra cuando el usuario es una protectora)
-Route::resource('/perfil-protectora', PerfilProtectoraController::class);
-// Mis protectoras (solo se muestra si el usuario es una protectora)
-Route::resource('/perfil-miProtectora', MiProtectoraController::class);
+// Hacemos un grupo de rutas relacionaas con Perfil Protectora y Mis Protectoras para organizar
+Route::prefix('perfil')->group(function () {
+    // PERFIL PROTECTORA
+    Route::resource('perfil-protectora', PerfilProtectoraController::class);
+
+    // MIS PROTECTORAS
+    Route::resource('perfil-miProtectora', MiProtectoraController::class);
+
+});
+
+// // Ruta de perfil de protectora (Solo se muestra cuando el usuario es una protectora)
+// Route::resource('/perfil-protectora', PerfilProtectoraController::class);
+// // Mis protectoras (solo se muestra si el usuario es una protectora)
+// Route::resource('/perfil-miProtectora', MiProtectoraController::class);
+
+// Para la foto de perfil
+Route::post('/updateFoto', [UsuarioController::class, 'updateFoto'])->name('updateFoto');
+Route::delete('/deleteFoto', [UsuarioController::class, 'deleteFoto'])->name('deleteFoto');
+// y logo de protectora
+Route::post('/updateLogo', [PerfilProtectoraController::class, 'updateLogo'])->name('updateLogo');
+Route::delete('/deleteLogo', [PerfilProtectoraController::class, 'deleteLogo'])->name('deleteLogo');
 
 // Ruta administrador
 Route::get('administracion', [App\Http\Controllers\AdministradorController::class, 'index'])->name('administracion');
@@ -63,35 +82,8 @@ Route::prefix('administracion')->name('administracion.')->group(function () {
 // Ruta para gestión de usuario
 Route::resource('/usuario', UsuarioController::class);
 
-// Para la foto de perfil
-Route::post('/updateFoto', [UsuarioController::class, 'updateFoto'])->name('updateFoto');
-Route::delete('/deleteFoto', [UsuarioController::class, 'deleteFoto'])->name('deleteFoto');
-// y logo de protectora
-Route::post('/updateLogo', [PerfilProtectoraController::class, 'updateLogo'])->name('updateLogo');
-Route::delete('/deleteLogo', [PerfilProtectoraController::class, 'deleteLogo'])->name('deleteLogo');
-
-
-
-
-
-
-// PARA VERIFICAR SI SE HA CREADO CORRECTAMENTE
-// Route::get('/verificar-admin', function () {
-//     $admin = App\Models\Usuario::where('email', 'admin@example.com')->first();
-//     if ($admin) {
-//         return response()->json([
-//             'nombre' => $admin->nombre,
-//             'rol_id' => $admin->rol_id,
-//             'email' => $admin->email
-//         ]);
-//     } else {
-//         return "No se encontró el usuario administrador.";
-//     }
-// });
-// Route::get('color', [App\Http\Controllers\ColorController::class, 'index'])->name('color');
-// Route::get('colorCreate', [App\Http\Controllers\ColorController::class, 'create'])->name('colorCreate');
-// Route::get('colorEdit', [App\Http\Controllers\ColorController::class, 'edit'])->name('colorEdit');
-// Route::get('colorDelete', [App\Http\Controllers\ColorController::class, 'destroy'])->name('colorDelete');
-// Route::get('colorStore', [App\Http\Controllers\ColorController::class, 'store'])->name('colorStore');
+// Dos formas de hacerlo para la ruta ProtectoraController
+Route::get('/protectoras', [ProtectoraController::class, 'index'])->name('protectoras');
+// Route::get('protectoras', [App\Http\Controllers\ProtectoraController::class, 'index'])->name('protectoras');
 
 Auth::routes();

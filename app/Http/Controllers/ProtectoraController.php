@@ -13,7 +13,11 @@ class ProtectoraController extends Controller
      */
     public function index()
     {
-        return view('protectora.index', ['protectoras' => Protectora::paginate(8)]);
+
+        // Obtenemos todas las protectoras
+        $protectoras = Protectora::all();
+
+        return view('navProtectoras.index', compact('protectoras'));
     }
 
     /**

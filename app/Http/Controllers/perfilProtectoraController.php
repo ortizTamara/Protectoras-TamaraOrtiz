@@ -28,99 +28,87 @@ class PerfilProtectoraController extends Controller
         return redirect()->route('perfil')->with('error', 'No tienes acceso a esta sección.');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function update(Request $request, $id)
     {
-        //
+        // Obtener usuario autenticado
+        $usuario = Auth::user();
+        $protectora = Protectora::find($id);
+
+        // Verificar que la protectora pertenece al usuario autenticado
+        if (!$protectora || ($usuario->rol_id != 1 && $usuario->protectora_id != $protectora->id)) {
+            return redirect()->route('perfil-protectora.index')->with('error', 'No tienes permiso para modificar esta protectora.');
+        }
+
+        try {
+            // Validar los datos del formulario
+            $validatedData = $request->validate([
+                'nombre' => 'required|string|max:255',
+                'capacidad_alojamiento' => 'nullable|integer|min:0',
+                'nuestra_historia' => 'nullable|string|max:5000',
+                'direccion' => 'nullable|string|max:255',
+                'telefono_contacto' => 'nullable|string|max:20',
+                'instagram' => 'nullable|url',
+                'twitter' => 'nullable|url',
+                'facebook' => 'nullable|url',
+                'web' => 'nullable|url',
+            ]);
+
+            // Actualizar los datos en la base de datos
+            $protectora->update($validatedData);
+
+            return redirect()->route('perfil-protectora.index')->with('success', 'Perfil de la protectora actualizado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('perfil-protectora.index')->with('error', 'No se pudo actualizar el perfil de la protectora. Por favor, inténtalo de nuevo.');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 
        // LOGO PROTECTORA
        public function updateLogo(Request $request)
        {
-           $request->validate([
-               'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-           ]);
+        $usuario = Auth::user();
+        $protectora = Protectora::find($usuario->protectora_id);
 
-           // Obtenemos la protectora asociada al usuario autenticado
-           $usuario = Auth::user();
-           $protectora = Protectora::find($usuario->protectora_id);
+        if (!$protectora) {
+            return redirect()->back()->with('error', 'No se encontró la protectora.');
+        }
 
-           if (!$protectora) {
-               return redirect()->back()->with('error', 'No se encontró la protectora.');
-           }
+        // Validar los datos
+        $validatedData = $request->validate([
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-           // Eleminamos el logo anterior si existe
-           if ($protectora->logo) {
-               Storage::disk('public')->delete($protectora->logo);
-           }
+        // Si hay un nuevo logo, actualizarlo
+        if ($request->hasFile('logo')) {
+            if ($protectora->logo && Storage::disk('public')->exists('logos/' . $protectora->logo)) {
+                Storage::disk('public')->delete('logos/' . $protectora->logo);
+            }
 
-           // Guardamos el nuevo logo
-           $path = $request->file('logo')->store('logos', 'public');
-           $protectora->logo = $path;
-           $protectora->save();
+            $path = $request->file('logo')->store('logos', 'public');
+            $protectora->logo = basename($path);
+            $protectora->save();
+        }
 
-           return redirect()->back()->with('success', 'Logo actualizado correctamente.');
+        return redirect()->back()->with('success', 'Logo actualizado correctamente.');
        }
 
        public function deleteLogo()
        {
-           // Obtenemos la protectora asociada al usuario autenticado
-           $usuario = Auth::user();
-           $protectora = Protectora::find($usuario->protectora_id);
+        $usuario = Auth::user();
+        $protectora = Protectora::find($usuario->protectora_id);
 
-           if (!$protectora || !$protectora->logo) {
-               return redirect()->back()->with('error', 'No hay logo para eliminar.');
-           }
+        if (!$protectora || !$protectora->logo) {
+            return redirect()->back()->with('error', 'No hay logo para eliminar.');
+        }
 
-           // Eliminamos el logo del almacenamiento
-           Storage::disk('public')->delete($protectora->logo);
+        if (Storage::disk('public')->exists('logos/' . $protectora->logo)) {
+            Storage::disk('public')->delete('logos/' . $protectora->logo);
+        }
 
-           // Actualizamos el campo logo a null en la base de datos
-           $protectora->logo = null;
-           $protectora->save();
+        $protectora->logo = null;
+        $protectora->save();
 
-           return redirect()->back()->with('success', 'Logo eliminado correctamente.');
+        return redirect()->back()->with('success', 'Logo eliminado correctamente.');
        }
 }

@@ -43,7 +43,8 @@
                                 href="{{ route('home') }}">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="#">Protectoras</a>
+                            <a class="nav-link @if (request()->is('protectoras')) active @endif"
+                               href="{{ route('protectoras') }}">Protectoras</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Busca tu match</a>

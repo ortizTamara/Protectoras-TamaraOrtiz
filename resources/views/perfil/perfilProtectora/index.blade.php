@@ -41,7 +41,7 @@
                         <div class="profile-pic-container mb-2">
                             @if ($protectora && $protectora->logo)
                                 <!-- Logo de la protectora -->
-                                <img src="{{ asset('storage/' . $protectora->logo) }}"
+                                <img src="{{ $protectora->logo ? asset('storage/logos/' . $protectora->logo) : '/images/placeholder.jpg' }}"
                                      alt="Logo de la protectora"
                                      class="profile-img">
                             @else
@@ -71,51 +71,54 @@
                         </div>
                     </div>
 
-                    <form>
+                    <form id="perfilProtectoraForm" method="POST" action="{{ route('perfil-protectora.update', $protectora->id) }}">
+                        @csrf
+                        @method('PUT')
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="nombre" class="form-label">Nombre de la Protectora</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Nombre de la protectora" value="{{ optional($protectora)->nombre }}" readonly>
+                                <input type="text" name="nombre" class="form-control" id="nombre" value="{{ optional($protectora)->nombre }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="numero_registro_oficial" class="form-label">Número de Registro Oficial</label>
-                                <input type="text" class="form-control" id="numero_registro_oficial" placeholder="Registro oficial" value="{{ optional($protectora)->numero_registro_oficial }}" readonly>
+                                <input type="text" class="form-control" id="numero_registro_oficial" placeholder="Registro oficial" value="{{ optional($protectora)->numero_registro_oficial }}"  readonly
+                                data-bs-toggle="tooltip" title="Este campo no puede ser editado.">
                             </div>
                             <div class="col-md-6">
                                 <label for="capacidad_alojamiento" class="form-label">Capacidad de Alojamiento</label>
-                                <input type="text" class="form-control" id="capacidad_alojamiento" placeholder="Capacidad de alojamiento" value="{{ optional($protectora)->capacidad_alojamiento }}" readonly>
+                                <input type="text" name="capacidad_alojamiento" class="form-control" id="capacidad_alojamiento" value="{{ optional($protectora)->capacidad_alojamiento }}">
                             </div>
                             <div class="col-md-6">
-                                <label for="proceso_adopcion" class="form-label">Proceso de Adopción</label>
-                                <textarea class="form-control" id="proceso_adopcion" rows="1" readonly>{{ optional($protectora)->proceso_adopcion }}</textarea>
+                                <label for="nuestra_historia" class="form-label">Nuestra Historia</label>
+                                <textarea class="form-control" name="nuestra_historia" id="nuestra_historia" rows="1">{{ optional($protectora)->nuestra_historia }}</textarea>
                             </div>
                             <div class="col-md-6">
                                 <label for="direccion" class="form-label">Dirección</label>
-                                <input type="text" class="form-control" id="direccion" placeholder="Dirección" value="{{ optional($protectora)->direccion }}" readonly>
+                                <input type="text" name="direccion" class="form-control" id="direccion" value="{{ optional($protectora)->direccion }}">
                             </div>
                             <div class="col-md-6">
                                 <label for="telefono_contacto" class="form-label">Teléfono de Contacto</label>
-                                <input type="tel" class="form-control" id="telefono_contacto" placeholder="Teléfono de contacto" value="{{ optional($protectora)->telefono_contacto }}" readonly>
+                                <input type="tel" name="telefono_contacto" class="form-control" id="telefono_contacto" value="{{ optional($protectora)->telefono_contacto }}">
                             </div>
                             <div class="col-md-6">
                                 <label for="instagram" class="form-label">Instagram</label>
-                                <input type="text" class="form-control" id="instagram" placeholder="Instagram" value="{{ optional($protectora)->instagram }}" readonly>
+                                <input type="text" name="instagram" class="form-control" id="instagram" placeholder="Instagram" value="{{ optional($protectora)->instagram }}">
                             </div>
                             <div class="col-md-6">
                                 <label for="twitter" class="form-label">Twitter</label>
-                                <input type="text" class="form-control" id="twitter" placeholder="Twitter" value="{{ optional($protectora)->twitter }}" readonly>
+                                <input type="text" name="twitter" class="form-control" id="twitter" placeholder="Twitter" value="{{ optional($protectora)->twitter }}">
                             </div>
                             <div class="col-md-6">
                                 <label for="facebook" class="form-label">Facebook</label>
-                                <input type="text" class="form-control" id="facebook" placeholder="Facebook" value="{{ optional($protectora)->facebook }}" readonly>
+                                <input type="text" name="facebook" class="form-control" id="facebook" placeholder="Facebook" value="{{ optional($protectora)->facebook }}">
                             </div>
                             <div class="col-md-6">
                                 <label for="web" class="form-label">Página Web</label>
-                                <input type="text" class="form-control" id="web" placeholder="Página web" value="{{ optional($protectora)->web }}" readonly>
+                                <input type="text" name="web" class="form-control" id="web" placeholder="Enlace a Página Web" value="{{ optional($protectora)->web }}">
                             </div>
                         </div>
                         <div class="d-grid mt-4">
-                            <button type="button" class="btn btn-primary" disabled>Guardar cambios</button>
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
                         </div>
                     </form>
                 </div>

@@ -38,6 +38,8 @@
                  @endif
                 <form id="registerForm" method="POST" action="{{ route('register') }}" onsubmit="handleSubmit(event)">
                     @csrf
+
+                    <input type="hidden" id="isShelter" name="isShelter" value="0">
                     <div id="formContainer" class="row">
                         <!-- FORMULARIO DE USUARIO -->
                         <div id="userForm" class="col-md-12 mb-3 p-3 border-end border-2 ">
@@ -165,9 +167,9 @@
                                 </div>
 
                                 <div class="col-md-12 mb-3">
-                                    <label for="adoptionProcess" class="form-label">Proceso de adopción</label>
-                                    <textarea id="adoptionProcess" name="adoptionProcess" class="form-control"></textarea>
-                                    <div id="adoptionProcessError" class="text-danger"></div>
+                                    <label for="ourStory" class="form-label">Nuestra Historia</label>
+                                    <textarea id="ourStory" name="ourStory" class="form-control"></textarea>
+                                    <div id="ourStoryError" class="text-danger"></div>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
@@ -178,7 +180,7 @@
 
                                 <div class="col-md-12 mb-3">
                                     <label for="contactPhone" class="form-label">Teléfono de contacto</label>
-                                    <input id="contactPhone" name="contactPhone" type="tel" class="form-control" required>
+                                    <input id="contactPhone" name="contactPhone" type="tel" class="form-control">
                                     <div id="contactPhoneError" class="text-danger"></div>
                                 </div>
 

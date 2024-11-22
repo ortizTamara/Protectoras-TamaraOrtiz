@@ -120,12 +120,12 @@ class RegisterController extends Controller
             ],
         ]);
 
-        if (!empty($data['shelterName'])) {
+        if (!empty($data['isShelter']) && $data['isShelter'] == '1') {
             $rules = array_merge($rules, [
                 'shelterName' => 'required|string|max:255',
                 'registrationNumber' => 'required|integer',
                 'capacity' => 'required|integer',
-                'adoptionProcess' => 'required|string',
+                'ourStory' => 'required|string',
                 'address' => 'required|string',
                 'contactPhone' => [
                     'required',
@@ -263,7 +263,7 @@ class RegisterController extends Controller
             'nombre' => $request->input('shelterName'),
             'numero_registro_oficial' => $request->input('registrationNumber'),
             'capacidad_alojamiento' => $request->input('capacity'),
-            'proceso_adopcion' => $request->input('adoptionProcess'),
+            'nuestra_historia' => $request->input('ourStory'),
             'direccion' => $request->input('address'),
             'telefono_contacto' => $request->input('contactPhone'),
             'instagram' => $request->input('instagram'),
