@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 protectora-page__grid">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 protectora-page__grid">
         @forelse ($protectoras as $protectora)
             <div class="col">
                 <div class="card protectora-card h-100 shadow-sm">

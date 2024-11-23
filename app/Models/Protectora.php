@@ -24,6 +24,7 @@ class Protectora extends Model
         'facebook',
         'web',
         'logo',
+        'esValido',
     ];
 
     public function usuario(): HasOne
@@ -38,5 +39,47 @@ class Protectora extends Model
     {
         return $this->hasMany(Animal::class);
     }
+
+    protected $attributes = [
+        'esValido' => false, // Establece false como valor predeterminado
+    ];
+
+    // Se elimina los animales asociados, el usuario no se elimina -> protectora_id = null
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($protectora) {
+            // Eliminamos animales asociados
+            if ($protectora->animales()->exists()) {
+                $protectora->animales()->delete();
+            }
+
+            // Desvinculamos usuario asociado (no eliminar)
+            if ($protectora->usuario()->exists()) {
+                $protectora->usuario->update(['protectora_id' => null]);
+            }
+        });
+    }
+
+    /*
+    // Eliimnamos los animales asociados y el usuario
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($protectora) {
+            // Eleminamos animales asociados
+            if ($protectora->animales()->exists()) {
+                $protectora->animales()->delete();
+            }
+
+            // Eleminamos usuario asociado
+            if ($protectora->usuario()->exists()) {
+                $protectora->usuario()->delete();
+            }
+        });
+    }
+    */
 
 }

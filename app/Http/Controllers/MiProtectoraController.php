@@ -28,18 +28,62 @@ class MiProtectoraController extends Controller
     {
         // $user = Auth::user();
 
-
         $protectora = Protectora::with('animales')->findOrFail($id);
+
+      // Validamos si la protectora no está aprobada
+        if (!$protectora->esValido) {
+            // Verificamos si el usuario actual está vinculado a esta protectora
+            $usuario = Auth::user(); // Obtener el usuario autenticado
+
+            // Verificamos si el usuario es una protectora y está vinculado a esta protectora
+            if ($usuario->protectora_id === $protectora->id) {
+                return view('perfil.protectoras.show', compact('protectora'));
+            }
+
+            // Si no es propietario, denegar acceso
+            abort(403, 'No tienes permiso para ver esta protectora.');
+        }
 
 
         return view('perfil.protectoras.show', compact('protectora'));
     }
 
+    /*
+    public function show($id)
+    {
+        // Buscar la protectora con sus relaciones (animales)
+        $protectora = Protectora::with('animales')->findOrFail($id);
+
+        // Validar si la protectora no está aprobada
+        if (!$protectora->esValido) {
+            // Si no está logueado, denegar acceso
+            if (!auth()->check()) {
+                abort(403, 'No tienes permiso para ver esta protectora.');
+            }
+
+            // Obtener el usuario autenticado
+            $usuario = auth()->user();
+
+            // Verificar si el usuario es el propietario de la protectora
+            if ($usuario->protectora_id === $protectora->id) {
+                // Permitir acceso si el usuario es el propietario
+                return view('perfil.protectoras.show', compact('protectora'));
+            }
+
+            // Si no es propietario, denegar acceso
+            abort(403, 'No tienes permiso para ver esta protectora.');
+        }
+
+        // Si la protectora está aprobada, permitir el acceso público
+        return view('perfil.protectoras.show', compact('protectora'));
+    }
+    */
+
     public function edit($id)
     {
         $user = Auth::user();
 
-        // Verificar que el usuario tiene una protectora asociada
+        // Verificamos que el usuario tiene una protectora asociada
         if ($user->protectora_id != $id) {
             return redirect()->route('perfil')->with('error', 'No tienes acceso a esta protectora.');
         }

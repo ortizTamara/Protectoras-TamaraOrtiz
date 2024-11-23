@@ -600,7 +600,7 @@ form fieldset {
 }
 
 
-/* PRUEBA */
+/* PROTECTORA NAVEGACIÓN - TARJETAS */
 .protectora-page {
     margin-top: 2rem;
 }
@@ -647,14 +647,19 @@ form fieldset {
     background-color: #555;
 }
 
+.protectora-page__grid {
+    gap: 1rem;
+}
+
 .protectora-card {
     border: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+
 }
 
 .protectora-card:hover {
     transform: translateY(-0.3125rem);
-    box-shadow: 0 0.5rem 0.9375rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.5rem 0.9375rem rgba(0, 0, 0, 0.4);
 }
 
 .protectora-card__logo {
@@ -706,4 +711,179 @@ form fieldset {
 
 .protectora-card__info-btn:hover {
     background-color: #555;
+}
+
+/* ADMINISTRADOR - PROTECTORAS */
+.manage-protectoras__title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.manage-protectoras__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.manage-protectoras__table-head {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.manage-protectoras__table-row {
+    border-bottom: 1px solid #ddd;
+}
+
+.manage-protectoras__table-cell {
+    font-size:1rem;
+    padding: 0.75rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.manage-protectoras__table-header {
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 1rem;
+}
+
+.manage-protectoras__actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.manage-protectoras__btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+
+.manage-protectoras__btn--view{
+    font-size: 1.7rem;
+
+}
+
+
+.manage-protectoras__btn--view {
+    color: black;
+}
+
+.manage-protectoras__btn--view:hover {
+    color: #0056b3;
+}
+
+
+.manage-protectoras__btn--approve {
+    font-size: 2rem;
+    color: #28a745;
+}
+
+.manage-protectoras__btn--approve:hover {
+    color: #218838;
+}
+
+
+.manage-protectoras__btn--reject {
+    font-size: 2rem;
+    color: #dc3545;
+}
+
+.manage-protectoras__btn--reject:hover {
+    color: #c82333;
+}
+
+.manage-protectoras__form {
+    display: inline;
+    margin: 0;
+}
+
+.manage-protectoras__no-actions {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+
+.badge--approved {
+    background-color: #28a745;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.badge--pending {
+    background-color: #ffc107;
+    color: #212529;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.badge--rejected {
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #dc3545;
+}
+
+/* VENTANA EMERGENTE  */
+.modal .modal-content {
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    font-size: 1rem;
+}
+
+.modal .modal-header {
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal .modal-body {
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.modal .modal-body .form-group {
+    margin-bottom: 1rem;
+}
+
+/* Para que muestre un error al ser solo lectura */
+/* .modal .form-control[readonly] {
+    background-color: #f8f9fa;
+    color: #495057;
+    border: 1px solid #ced4da;
+    cursor: not-allowed;
+} */
+
+.modal .btn-outline-secondary {
+    font-size: 1.25rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+}
+
+.modal .btn-outline-secondary i {
+    color: #6c757d;
+}
+
+.modal .btn-outline-secondary:hover i {
+    color: #495057;
+}
+
+.modal .text-muted {
+    font-size: 1rem;
+    color: #6c757d;
+    text-align: left;
 }

@@ -77,6 +77,7 @@ Route::resource('/raza', RazaController::class);
 Route::resource('/comportamiento', ComportamientoController::class);
 Route::prefix('administracion')->name('administracion.')->group(function () {
     Route::resource('protectora', AdminProtectoraController::class);
+    Route::patch('protectora/{id}/validar', [AdminProtectoraController::class, 'validar'])->name('protectora.validar');
 });
 
 // Ruta para gestión de usuario

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('protectoras', function (Blueprint $table) {
+        Schema::create('rechazados', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->string('numero_registro_oficial')->unique();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('web')->nullable();
             $table->string('logo')->nullable();
             $table->boolean('esValido')->default(false);
-            $table->string('motivo_rechazo')->nullable();
+            $table->text('motivo_rechazo')->nullable();
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('protectoras');
+        Schema::dropIfExists('rechazados');
     }
 };
