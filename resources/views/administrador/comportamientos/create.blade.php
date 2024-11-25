@@ -9,6 +9,16 @@
             @csrf
 
             <div class="row mb-3 align-items-center">
+                <label for="categoria" class="col-form-label col-sm-2">Categoría:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="categoria" class="form-control" required>
+                    @error('categoria')
+                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="row mb-3 align-items-center">
                 <label for="Comportamiento" class="col-form-label col-sm-2">Comportamiento:</label>
                 <div class="col-sm-10">
                     <input type="text" name="nombre" class="form-control " required>
@@ -17,6 +27,8 @@
                     @enderror
                 </div>
             </div>
+
+
 
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary me-2">Guardar</button>

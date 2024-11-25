@@ -6,28 +6,24 @@
             <thead class="table-dark">
                 <tr>
                     <th class="col-id">
-                        <a href="{{ route('comportamiento.create') }}" class="circle-btn">+</a>
+                        <a href="{{ route('estadoAnimal.create') }}" class="circle-btn">+</a>
                     </th>
                     <th class="col-nombre">Nombre</th>
-                    <th class="col-categoria">Categoria</th>
                     <th class="col-acciones">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($comportamientos as $comportamiento)
+                @foreach ($estados as $estadoAnimal)
                     <tr>
-                        <td>{{ $comportamiento->id }}</td>
-                        <td>{{ $comportamiento->nombre }}</td>
-                        <td>{{ $comportamiento->categoria }}</td>
+                        <td>{{ $estadoAnimal->id }}</td>
+                        <td>{{ $estadoAnimal->nombre }}</td>
                         <td class="acciones">
-                            <a href="{{ route('comportamiento.edit', $comportamiento->id) }}"
-                                class="btn btn-warning btn-accion">Editar</a>
-                            <form action="{{ route('comportamiento.destroy', $comportamiento->id) }}" method="POST"
-                                class="d-inline">
+                            <a href="{{ route('estadoAnimal.edit', $estadoAnimal->id) }}" class="btn btn-warning btn-accion">Editar</a>
+                            <form action="{{ route('estadoAnimal.destroy', $estadoAnimal->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-accion"
-                                    onclick="return confirm('¿Estás seguro de eliminar este comportamiento?')">Eliminar</button>
+                                    onclick="return confirm('¿Estás seguro de eliminar este estado?')">Eliminar</button>
                             </form>
                         </td>
                     </tr>
@@ -36,7 +32,7 @@
             <tfoot>
                 <tr>
                     <td colspan="4">
-                        {{ $comportamientos->links() }}
+                        {{ $estados->links() }}
                     </td>
                 </tr>
             </tfoot>

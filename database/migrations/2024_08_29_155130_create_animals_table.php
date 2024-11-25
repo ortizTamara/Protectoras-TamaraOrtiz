@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignId('color_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('especie_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('raza_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('estado_animal_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('protectora_id')->nullable()->constrained()->onDelete('set null'); //OnDelete, por si se borra la protectora, este se vuelva null
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Animal extends Model
 {
@@ -22,6 +23,7 @@ class Animal extends Model
         'color_id',
         'especie_id',
         'raza_id',
+        'estado_animal_id',
         'protectora_id',
     ];
 
@@ -40,5 +42,18 @@ class Animal extends Model
         return $this->belongsTo(Raza::class);
     }
 
+    public function comportamientos(): BelongsToMany
+    {
+        return $this->belongsToMany(Comportamiento::class);
+    }
 
+    public function estado(): BelongsTo
+    {
+        return $this->belongsTo(EstadoAnimal::class);
+    }
+
+    public function opcionesEntregas(): belongsToMany
+    {
+        return $this->belongsToMany(OpcionEntrega::class);
+    }
 }

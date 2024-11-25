@@ -72,6 +72,10 @@
     width: 50%;
 }
 
+.col-categoria{
+    width: 50%;
+}
+
 .col-acciones {
     width: 30%;
 }
@@ -886,4 +890,90 @@ form fieldset {
     font-size: 1rem;
     color: #6c757d;
     text-align: left;
+}
+
+/* BOTÓN AÑADIR ANIMALES - MIS PROTECTORAS */
+.btn-circle {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    padding: 0;
+    font-size: 1rem;
+    background-color: #343a40;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-circle:hover {
+    background-color: #495057;
+    transform: scale(1.1);
+}
+
+/* AÑADIR ANIMALES FORMULARIO */
+.create-animal__accordion-item {
+    border: none;
+}
+
+.create-animal__accordion-button {
+    background-color: #f8f9fa;
+    color: #212529;
+    font-weight: bold;
+    border: 0.0625rem solid #ddd;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.create-animal__accordion-button:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.create-animal__accordion-button:not(.collapsed),
+.create-animal__accordion-button:hover {
+    background-color: #6c757d;
+    color: #ffffff;
+    border: 0.0625rem solid #999;
+}
+
+.create-animal__accordion-body {
+    padding: 0.5rem;
+    background-color: #fff;
+    border: 0.1rem solid #ddd;
+    border-top: none;
+    border-bottom: none;
+    margin-top: -1rem;
+}
+
+.create-animal__check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.create-animal__checkbox-label {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #495057;
+}
+
+.create-animal__delivery-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 40rem;
+}
+
+.create-animal__delivery-option {
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+
+.create-animal__check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.create-animal__checkbox {
+    margin: 0;
+    vertical-align: middle;
 }

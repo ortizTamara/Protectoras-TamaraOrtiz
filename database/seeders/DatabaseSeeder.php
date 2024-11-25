@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\EstadoAnimal;
 use App\Models\User;
 use App\Models\Usuario;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -24,6 +25,9 @@ class DatabaseSeeder extends Seeder
             GeneroSeeder::class,
             RolSeeder::class,
             UsuarioSeeder::class,
+            EstadoAnimalSeeder::class,
+            ComportamientoSeeder::class,
+            OpcionEntregaSeeder::class,
         ]);
         // User::factory(10)->create();
 

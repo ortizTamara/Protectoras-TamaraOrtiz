@@ -26,6 +26,9 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
+        // Eliminamos los espacios al inicio y al final del email
+        $credentials['email'] = trim($credentials['email']);
+
         $usuario = Usuario::where('email', $credentials['email'])->first();
 
         if ($usuario && Hash::check($credentials['password'], $usuario->password)) {

@@ -145,4 +145,5 @@ class MiProtectoraController extends Controller
         return redirect()->route('perfil-miProtectora.edit', $protectora->id)
             ->with('success', 'Logo eliminado correctamente.');
     }
+
 }

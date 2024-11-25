@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comportamientos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->string('categoria');
+        Schema::create('animal_opcion_entregas', function (Blueprint $table) {
+            $table->foreignId('animal_id')->constrained();
+            $table->foreignId('opcion_entrega_id')->constrained();
             $table->timestamps();
+            $table->primary(['animal_id', 'opcion_entrega_id']);
         });
     }
 
@@ -24,7 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comportamientos');
+        Schema::dropIfExists('animal_opcion_entregas');
     }
-
 };

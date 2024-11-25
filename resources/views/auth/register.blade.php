@@ -65,7 +65,7 @@
                                 <div class="col-md-12 mb-3">
                                     <label for="sex" class="form-label">Sexo</label>
                                     <select id="sex" name="sex" class="form-select" required>
-                                        <option value="">Selecciona tu genero</option>
+                                        <option value="" disabled selected>Selecciona tu genero</option>
                                             @foreach ($generos as $genero)
                                             <option value="{{ $genero->id }}" {{ old('sex') == $genero->id ? 'selected' : '' }}>{{ $genero->nombre }}</option>
                                             @endforeach
@@ -102,7 +102,7 @@
                                 <div class="col-md-12 mb-3">
                                     <label for="country" class="form-label">País</label>
                                     <select id="country" name="country" class="form-select" required>
-                                        <option value="">Selecciona un país</option>
+                                        <option value="" disabled selected>Selecciona un país</option>
                                         @foreach ($paises as $pais)
                                             <option value="{{ $pais->id }}" @selected($pais->pais_id === $pais->id)>
                                                 {{ $pais->nombre }}
@@ -115,7 +115,7 @@
                                 <div class="col-md-12 mb-3" id="communityContainer" style="display: none;">
                                     <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
                                     <select id="autonomousCommunity" name="autonomousCommunity" class="form-select" required>
-                                        <option value="">Selecciona una comunidad</option>
+                                        <option value="" disabled selected>Selecciona una comunidad</option>
                                         @foreach ($comunidades as $comunidad)
                                             <option value="{{ $comunidad->id }}">{{ $comunidad->nombre }}</option>
                                         @endforeach
@@ -125,7 +125,7 @@
                                 <div class="col-md-12 mb-3" id="provinceContainer" style="display: none;">
                                     <label for="province" class="form-label">Provincia</label>
                                     <select id="province" name="province" class="form-select" required>
-                                        <option value="">Selecciona una provincia</option>
+                                        <option value="" disabled selected>Selecciona una provincia</option>
                                         @foreach ($provincias as $provincia)
                                             <option value="{{ $provincia->id }}" @selected($provincia->provincia_id === $provincia->id)>
                                                 {{ $provincia->nombre }}

@@ -62,8 +62,14 @@
         </section>
 
         <section class="protectora__cases mt-5">
-            <h2 class="protectora__section-title text-start">Nuestros casos en adopción</h2>
-            <div class="protectora__cases-grid">
+            <div class="d-flex align-items-center">
+                <h2 class="protectora__section-title mb-0 me-2">Nuestros casos en adopción</h2>
+                <a href="{{ route('animal.create', ['protectora_id' => $protectora->id]) }}"
+                    class="btn btn-circle btn-dark d-flex justify-content-center align-items-center">
+                     <i class="bi bi-plus-lg text-white"></i>
+                 </a>
+            </div>
+            <div class="protectora__cases-grid mt-3">
                 @forelse ($protectora->animales as $animal)
                     <div class="protectora__case">
                         <div class="protectora__case-card">

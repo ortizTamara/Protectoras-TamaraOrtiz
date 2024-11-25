@@ -56,6 +56,32 @@
                 </a>
             </div>
 
+            <!-- Tarjeta de Estado -->
+            <div class="col-md-3 mb-3">
+                <a href="{{ route('estadoAnimal.index') }}"
+                    class="card card-custom shadow-sm rounded text-decoration-none text-dark">
+                    <div class="card-body text-center">
+                        <h5 class="card-title mb-3">
+                            <i class="bi icon-lg"></i>
+                            Estados
+                        </h5>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Tarjeta de entregas -->
+            <div class="col-md-3 mb-3">
+                <a href="{{ route('opcionEntrega.index') }}"
+                    class="card card-custom shadow-sm rounded text-decoration-none text-dark">
+                    <div class="card-body text-center">
+                        <h5 class="card-title mb-3">
+                            <i class="bi icon-lg"></i>
+                            Opciones Entregas
+                        </h5>
+                    </div>
+                </a>
+            </div>
+
 
             <!-- Tarjeta de Protectoras -->
             <div class="col-md-3 mb-3">

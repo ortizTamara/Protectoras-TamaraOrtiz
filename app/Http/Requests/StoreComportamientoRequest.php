@@ -23,6 +23,7 @@ class StoreComportamientoRequest extends FormRequest
     {
         return [
             'nombre' => ['required', 'string'],
+            'categoria' => ['required', 'string'],
         ];
     }
 
@@ -30,6 +31,7 @@ class StoreComportamientoRequest extends FormRequest
     {
         return [
             'nombre.required' => 'Nombre obligatorio',
+            'categoria.required' => 'Categoría obligatorio',
         ];
     }
 }

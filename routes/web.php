@@ -8,7 +8,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ComportamientoController;
 use App\Http\Controllers\EspecieController;
+use App\Http\Controllers\EstadoAnimalController;
 use App\Http\Controllers\MiProtectoraController;
+use App\Http\Controllers\OpcionEntregaController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\PerfilProtectoraController;
 use App\Http\Controllers\ProtectoraController;
@@ -53,7 +55,13 @@ Route::prefix('perfil')->group(function () {
     // MIS PROTECTORAS
     Route::resource('perfil-miProtectora', MiProtectoraController::class);
 
+     // CREAR ANIMAL
+     Route::get('protectoras/animales/create/{protectora_id}', [AnimalController::class, 'create'])->name('animal.create');
+     Route::post('protectoras/animales', [AnimalController::class, 'store'])->name('animal.store');
+     Route::get('protectoras/animales', [AnimalController::class, 'index'])->name('animal.index');
 });
+
+
 
 // // Ruta de perfil de protectora (Solo se muestra cuando el usuario es una protectora)
 // Route::resource('/perfil-protectora', PerfilProtectoraController::class);
@@ -75,6 +83,8 @@ Route::resource('/color', ColorController::class);
 Route::resource('/especie', EspecieController::class);
 Route::resource('/raza', RazaController::class);
 Route::resource('/comportamiento', ComportamientoController::class);
+Route::resource('/estadoAnimal', EstadoAnimalController::class);
+Route::resource('/opcionEntrega', OpcionEntregaController::class);
 Route::prefix('administracion')->name('administracion.')->group(function () {
     Route::resource('protectora', AdminProtectoraController::class);
     Route::patch('protectora/{id}/validar', [AdminProtectoraController::class, 'validar'])->name('protectora.validar');
