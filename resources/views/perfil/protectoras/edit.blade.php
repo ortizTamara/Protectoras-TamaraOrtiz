@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="container protectora">
-    <!-- Formulario de edición -->
+    <!-- Formulario principal de edición -->
     <form action="{{ route('perfil-miProtectora.update', $protectora->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -18,9 +18,9 @@
                 <div class="protectora__logo-container d-flex align-items-center">
                     <label for="logo" class="protectora__logo-label">
                         <img id="logo-preview"
-                            src="{{ asset('storage/' . $protectora->logo) }}"
-                            alt="Logo de {{ $protectora->nombre }}"
-                            class="protectora__logo">
+                             src="{{ asset('storage/' . $protectora->logo) }}"
+                             alt="Logo de {{ $protectora->nombre }}"
+                             class="protectora__logo">
                         <input type="file" name="logo" id="logo" class="d-none" accept="image/*" onchange="previewLogo(event)">
                     </label>
                 </div>
@@ -55,45 +55,45 @@
             </div>
         </div>
 
-
         <section class="protectora__history text-start mt-5">
             <h2 class="protectora__section-title">Nuestra historia</h2>
             <textarea class="form-control" name="nuestra_historia" rows="4">{{ $protectora->nuestra_historia }}</textarea>
         </section>
-
-        <section class="protectora__cases mt-5">
-            <div class="d-flex align-items-center">
-                <h2 class="protectora__section-title mb-0 me-2">Nuestros casos en adopción</h2>
-                <a href="{{ route('animal.create', ['protectora_id' => $protectora->id]) }}"
-                    class="btn btn-circle btn-dark d-flex justify-content-center align-items-center">
-                    <i class="bi bi-plus-lg text-white"></i>
-                </a>
-            </div>
-            <div class="protectora__cases-grid">
-                @forelse ($protectora->animales as $animal)
-                    <div class="protectora__case">
-                        <div class="protectora__case-card position-relative">
-                            <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
-                                 alt="{{ $animal->nombre }}" class="protectora__case-image">
-                            <div class="protectora__case-body">
-                                <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
-                            </div>
-                            <!-- Botón de borrar -->
-                            <form action="{{ route('animal.destroy', $animal->id) }}" method="POST" class="protectora__delete-form">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm border-0 d-flex align-items-center justify-content-center protectora__delete-btn">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                @empty
-                    <p class="protectora__no-cases">No hay casos en adopción actualmente.</p>
-                @endforelse
-            </div>
-        </section>
     </form>
+
+    <!-- Sección de casos en adopción -->
+    <section class="protectora__cases mt-5">
+        <div class="d-flex align-items-center">
+            <h2 class="protectora__section-title mb-0 me-2">Nuestros casos en adopción</h2>
+            <a href="{{ route('animal.create', ['protectora_id' => $protectora->id]) }}"
+               class="btn btn-circle btn-dark d-flex justify-content-center align-items-center">
+                <i class="bi bi-plus-lg text-white"></i>
+            </a>
+        </div>
+        <div class="protectora__cases-grid">
+            @forelse ($protectora->animales as $animal)
+                <div class="protectora__case">
+                    <div class="protectora__case-card position-relative">
+                        <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
+                             alt="{{ $animal->nombre }}" class="protectora__case-image">
+                        <div class="protectora__case-body">
+                            <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
+                        </div>
+                        <!-- Formulario de eliminación separado -->
+                        <form action="{{ route('animal.destroy', ['animal' => $animal->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm border-0 d-flex align-items-center justify-content-center protectora__delete-btn">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            @empty
+                <p class="protectora__no-cases">No hay casos en adopción actualmente.</p>
+            @endforelse
+        </div>
+    </section>
 </div>
 
 @endsection

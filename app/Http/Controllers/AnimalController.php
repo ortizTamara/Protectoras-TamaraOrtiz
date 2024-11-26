@@ -15,6 +15,7 @@ use App\Models\OpcionEntrega;
 use App\Models\Protectora;
 use App\Models\Raza;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class AnimalController extends Controller
@@ -64,9 +65,9 @@ class AnimalController extends Controller
             'nombre' => 'required|string|max:255',
             'fecha_nacimiento' => 'required|date|before_or_equal:today',
             'peso' => 'required|numeric|min:0.1',
-            'estado_id' => 'required|exists:estado_animals,id',
+            'estado_animal_id' => 'required|exists:estado_animals,id',
             'especie_id' => 'required|exists:especies,id',
-            'raza_id' => 'required|exists:razas,id',
+            // 'raza_id' => 'required|exists:razas,id',
             'color_id' => 'required|exists:colors,id',
             'genero_animal_id' => 'required|exists:genero_animals,id',
             'nivel_actividad_id' => 'required|exists:nivel_actividads,id',
@@ -96,8 +97,8 @@ class AnimalController extends Controller
             $animal->opcionesEntrega()->sync($validatedData['opciones_entrega']);
         }
 
-        return redirect()->route('perfil-miProtectora.edit', $protectora->id)
-            ->with('success', 'Animal creado exitosamente.');
+    return redirect()->route('perfil-miProtectora.edit', $protectora->id)
+                     ->with('success', 'Protectora actualizada correctamente.');
     }
 
     /**
@@ -129,13 +130,16 @@ class AnimalController extends Controller
      */
     public function destroy(Animal $animal)
     {
-    if ($animal->imagen && Storage::exists('public/' . $animal->imagen)) {
-        Storage::delete('public/' . $animal->imagen);
-    }
+        $usuario = Auth::user();
 
-    $animal->delete();
+        // Verificar permisos
+        if ($usuario->rol_id != 1 && $usuario->protectora_id != $animal->protectora_id) {
+            return redirect()->back()->with('error', 'No tienes permisos para eliminar este animal.');
+        }
 
-    return redirect()->route('perfil-protectora.edit', $animal->protectora_id)
-        ->with('success', 'Animal eliminado correctamente.');
+        // Eliminar animal
+        $animal->delete();
+
+        return redirect()->back()->with('success', 'Animal eliminado correctamente.');
     }
 }

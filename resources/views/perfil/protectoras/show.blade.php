@@ -72,16 +72,17 @@
 
     <!-- TARJETAS DE ADOPCIÓN-->
     <section class="protectora__cases mt-5">
-        <h2 class="protectora__section-title text-start">Nuestros casos en adopción</h2>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="d-flex align-items-center">
+            <h2 class="protectora__section-title mb-0 me-2">Nuestros casos en adopción</h2>
+        </div>
+        <div class="protectora__cases-grid">
             @forelse ($protectora->animales as $animal)
-                <div class="col">
-                    <div class="card h-100">
+                <div class="protectora__case">
+                    <div class="protectora__case-card position-relative">
                         <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
-                            class="card-img-top protectora__case-image"
-                            alt="{{ $animal->nombre }}">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">{{ $animal->nombre }}</h5>
+                             alt="{{ $animal->nombre }}" class="protectora__case-image">
+                        <div class="protectora__case-body">
+                            <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
                             <p class="card-text">Especie: {{ $animal->especie->nombre }}</p>
                             <p class="card-text">Peso: {{ $animal->peso }} kg</p>
                             <a href="{{ route('perfil-miProtectora.show', $animal->id) }}" class="btn btn-primary">Ver más</a>

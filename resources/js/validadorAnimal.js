@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ESTADO -> Validar selección
     function validateEstado() {
-        const estadoField = document.getElementById("estado_id");
+        const estadoField = document.getElementById("estado_animal_id");
         const estadoError = document.getElementById("estadoError");
 
         if (!estadoField.value) {
@@ -77,14 +77,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const razaField = document.getElementById("raza_id");
         const razaError = document.getElementById("razaError");
 
-        if (touchedFields.raza) {
-            if (razaField.value === "") {
-                razaError.textContent = "Selecciona una raza.";
-                return false;
-            } else {
-                razaError.textContent = "";
-            }
+        if (razaField.value === "") {
+            razaError.textContent = "";
+            return true;
         }
+
+        razaError.textContent = "";
         return true;
     }
 
@@ -319,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return isValid;
     }
 
-    document.getElementById("estado_id").addEventListener("change", () => {
+    document.getElementById("estado_animal_id").addEventListener("change", () => {
         touchedFields.estado = true;
         validateEstado();
     });

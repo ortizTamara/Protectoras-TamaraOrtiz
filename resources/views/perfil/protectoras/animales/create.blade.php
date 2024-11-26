@@ -12,8 +12,8 @@
             <div class="create-animal__section text-start mb-4">
                 <div class="row g-4">
                     <div class="col-md-6">
-                        <label for="estado_id" class="create-animal__label fw-bold">Estado</label>
-                        <select name="estado_id" id="estado_id" class="create-animal__select form-select" required>
+                        <label for="estado_animal_id" class="create-animal__label fw-bold">Estado</label>
+                        <select name="estado_animal_id" id="estado_animal_id" class="create-animal__select form-select" required>
                             <option value="" disabled selected>Selecciona un estado</option>
                             @foreach ($estados as $estado)
                                 <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="raza_id" class="create-animal__label fw-bold">Raza</label>
-                        <select name="raza_id" id="raza_id" class="create-animal__select form-select" required>
+                        <select name="raza_id" id="raza_id" class="create-animal__select form-select">
                             <option value="" disabled selected>Selecciona una raza</option>
                         </select>
                         <div id="razaError" class="text-danger small mt-1"></div>

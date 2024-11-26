@@ -55,4 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Añadir el evento de previsualización del logo
     document.getElementById('logo')?.addEventListener('change', previewLogo);
+
+
 });

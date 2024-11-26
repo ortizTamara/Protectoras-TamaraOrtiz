@@ -49,18 +49,20 @@ Route::post('perfil/change-password', [PerfilController::class, 'changePassword'
 
 // Hacemos un grupo de rutas relacionaas con Perfil Protectora y Mis Protectoras para organizar
 Route::prefix('perfil')->group(function () {
+    // CREAR ANIMAL
+    Route::get('protectoras/animales/create/{protectora_id}', [AnimalController::class, 'create'])->name('animal.create');
+    Route::post('protectoras/animales', [AnimalController::class, 'store'])->name('animal.store');
+    Route::get('protectoras/animales', [AnimalController::class, 'index'])->name('animal.index');
+    Route::delete('protectoras/animales/{animal}', [AnimalController::class, 'destroy'])->name('animal.destroy');
+
     // PERFIL PROTECTORA
     Route::resource('perfil-protectora', PerfilProtectoraController::class);
 
     // MIS PROTECTORAS
     Route::resource('perfil-miProtectora', MiProtectoraController::class);
 
-     // CREAR ANIMAL
-     Route::get('protectoras/animales/create/{protectora_id}', [AnimalController::class, 'create'])->name('animal.create');
-     Route::post('protectoras/animales', [AnimalController::class, 'store'])->name('animal.store');
-     Route::get('protectoras/animales', [AnimalController::class, 'index'])->name('animal.index');
-     Route::delete('protectora/animales/{animal}', [AnimalController::class, 'destroy'])->name('animal.destroy');
-    });
+
+});
 
 
 
