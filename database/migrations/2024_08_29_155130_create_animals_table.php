@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('nombre');
             $table->text('descripcion')->nullable();
             $table->date('fecha_nacimiento');
-            $table->unsignedSmallInteger('peso');
+            $table->decimal('peso', 5, 2);
             $table->string('imagen')->nullable();
+            $table->foreignId('genero_animal_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('nivel_actividad_id')->nullable()->constrained()->onDelete('set null');
             // $table->foreignId('color_id')->constrained();
             // $table->foreignId('especie_id')->constrained();
             // $table->foreignId('raza_id')->constrained();
@@ -25,7 +27,7 @@ return new class extends Migration
             $table->foreignId('especie_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('raza_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('estado_animal_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('protectora_id')->nullable()->constrained()->onDelete('set null'); //OnDelete, por si se borra la protectora, este se vuelva null
+            $table->foreignId('protectora_id')->nullable()->constrained()->onDelete('set null'); //set null, porque ya hago la logica en models protectora boot
             $table->timestamps();
         });
     }

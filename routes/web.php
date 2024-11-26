@@ -59,7 +59,8 @@ Route::prefix('perfil')->group(function () {
      Route::get('protectoras/animales/create/{protectora_id}', [AnimalController::class, 'create'])->name('animal.create');
      Route::post('protectoras/animales', [AnimalController::class, 'store'])->name('animal.store');
      Route::get('protectoras/animales', [AnimalController::class, 'index'])->name('animal.index');
-});
+     Route::delete('protectora/animales/{animal}', [AnimalController::class, 'destroy'])->name('animal.destroy');
+    });
 
 
 
@@ -96,5 +97,9 @@ Route::resource('/usuario', UsuarioController::class);
 // Dos formas de hacerlo para la ruta ProtectoraController
 Route::get('/protectoras', [ProtectoraController::class, 'index'])->name('protectoras');
 // Route::get('protectoras', [App\Http\Controllers\ProtectoraController::class, 'index'])->name('protectoras');
+
+// Ruta para poder obtener las razas
+Route::get('/especies/{especie}/razas', [RazaController::class, 'getRazasPorEspecie']);
+
 
 Auth::routes();

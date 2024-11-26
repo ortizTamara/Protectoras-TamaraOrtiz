@@ -5,7 +5,7 @@
     <div class="protectora__header d-flex justify-content-between align-items-center">
         <div class="protectora__info d-flex align-items-center">
             <div class="protectora__logo-container">
-                <img src="{{ $protectora->logo ? asset('storage/logos/' . $protectora->logo) : '/images/placeholder.jpg' }}"
+                <img src="{{ asset('storage/' . $protectora->logo) }}"
                      alt="Logo de {{ $protectora->nombre }}"
                      class="protectora__logo">
             </div>
@@ -73,16 +73,18 @@
     <!-- TARJETAS DE ADOPCIÓN-->
     <section class="protectora__cases mt-5">
         <h2 class="protectora__section-title text-start">Nuestros casos en adopción</h2>
-        <div class="protectora__cases-grid">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
             @forelse ($protectora->animales as $animal)
-                <div class="protectora__case">
-                    <div class="protectora__case-card">
+                <div class="col">
+                    <div class="card h-100">
                         <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
-                             alt="{{ $animal->nombre }}"
-                             class="protectora__case-image">
-                        <div class="protectora__case-body">
-                            <p class="protectora__case-name">{{ $animal->nombre }}</p>
-                            <p class="protectora__case-rating"><i class="bi bi-star-fill"></i> {{ $loop->index + 1 }}</p>
+                            class="card-img-top protectora__case-image"
+                            alt="{{ $animal->nombre }}">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ $animal->nombre }}</h5>
+                            <p class="card-text">Especie: {{ $animal->especie->nombre }}</p>
+                            <p class="card-text">Peso: {{ $animal->peso }} kg</p>
+                            <a href="{{ route('perfil-miProtectora.show', $animal->id) }}" class="btn btn-primary">Ver más</a>
                         </div>
                     </div>
                 </div>

@@ -42,6 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('edit-button').style.display = 'inline-block'; // Mostrar el botón editar
     }
 
+    // DESDE AQUÍ
+
+
+    // HASTA AQUÍ
+
     // Añadir evento al botón de guardar cambios
     document.getElementById('save-button')?.addEventListener('click', saveChanges);
 

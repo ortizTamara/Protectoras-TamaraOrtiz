@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             EstadoAnimalSeeder::class,
             ComportamientoSeeder::class,
             OpcionEntregaSeeder::class,
+            GeneroAnimalSeeder::class,
+            NivelActividadSeeder::class,
         ]);
         // User::factory(10)->create();
 

@@ -81,13 +81,18 @@ class PerfilProtectoraController extends Controller
 
         // Si hay un nuevo logo, actualizarlo
         if ($request->hasFile('logo')) {
-            if ($protectora->logo && Storage::disk('public')->exists('logos/' . $protectora->logo)) {
-                Storage::disk('public')->delete('logos/' . $protectora->logo);
+            if ($protectora->logo && Storage::disk('public')->exists($protectora->logo)) {
+                Storage::disk('public')->delete($protectora->logo);
             }
 
-            $path = $request->file('logo')->store('logos', 'public');
-            $protectora->logo = basename($path);
-            $protectora->save();
+            $fileName = 'protectora_' . $protectora->id . '_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('logo')->getClientOriginalExtension();
+
+            $path = $request->file('logo')->storeAs('logos', $fileName, 'public');
+
+            if ($path) {
+                $protectora->logo = $path; // Guardar la ruta completa
+                $protectora->save();
+            }
         }
 
         return redirect()->back()->with('success', 'Logo actualizado correctamente.');

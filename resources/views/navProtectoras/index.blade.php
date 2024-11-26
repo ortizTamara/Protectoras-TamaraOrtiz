@@ -19,7 +19,7 @@
                         <div class="protectora-card__logo mb-3">
                             @if ($protectora->logo)
                                 <img
-                                    src="{{ asset('storage/logos/' . $protectora->logo) }}"
+                                    src="{{ asset('storage/' . $protectora->logo) }}"
                                     alt="Logo de la protectora"
                                     class="protectora-card__logo-img"
                                 >

@@ -800,7 +800,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //     }
     // };
 
-      const registerForm = document.getElementById('registerForm');
+    const registerForm = document.getElementById('registerForm');
     if (registerForm) {
         registerForm.onsubmit = function(event) {
             if (!validateForm()) {

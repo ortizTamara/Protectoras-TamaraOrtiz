@@ -44,8 +44,9 @@ class MiProtectoraController extends Controller
             abort(403, 'No tienes permiso para ver esta protectora.');
         }
 
+        $animales = $protectora->animales;
 
-        return view('perfil.protectoras.show', compact('protectora'));
+        return view('perfil.protectoras.show', compact('protectora','animales'));
     }
 
     /*
@@ -115,15 +116,17 @@ class MiProtectoraController extends Controller
 
         // Manejar la actualización del logo si se envía uno nuevo
         if ($request->hasFile('logo')) {
-            // Eliminar el logo anterior si existe
-            if ($protectora->logo && Storage::disk('public')->exists('logos/' . $protectora->logo)) {
-                Storage::disk('public')->delete('logos/' . $protectora->logo);
+            if ($protectora->logo && Storage::disk('public')->exists($protectora->logo)) {
+                Storage::disk('public')->delete($protectora->logo);
             }
 
-            // Subir el nuevo logo
-            $path = $request->file('logo')->store('logos', 'public');
-            $protectora->logo = basename($path);
-            $protectora->save();
+            $fileName = 'protectora_' . $protectora->id . '_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('logo')->getClientOriginalExtension();
+
+            $path = $request->file('logo')->storeAs('logos', $fileName, 'public');
+
+            if ($path) {
+                $protectora->update(['logo' => $path]);
+            }
         }
 
         // Redirigir al usuario a la vista 'show' con un mensaje de éxito

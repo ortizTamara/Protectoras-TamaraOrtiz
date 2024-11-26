@@ -88,21 +88,23 @@
                     </div>
                 </div>
                 <div class="row g-4">
-                    @foreach ($animales as $animal)
-                        <div class="col-2">
-                            <div class="card">
-                                {{-- <div class="ratio" style="--bs-aspect-ratio: 115%;"> --}}
+                    @forelse ($animales as $animal)
+                        @if ($animal->protectora && $animal->protectora->esValido)
+                            <div class="col-2">
+                                <div class="card">
                                     <img src="{{ asset($animal->imagen) }}" class="card-img-top img-fluid" alt="{{ $animal->nombre }}">
-                                {{-- </div> --}}
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $animal->nombre }}</h5>
-                                    <p class="card-text">{{ $animal->descripcion }}</p>
-                                    {{-- <p class="card-text">{{ $animal->especie->nombre }}</p>
-                                    <p class="card-text">{{ $animal->raza->nombre }}</p> --}}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $animal->nombre }}</h5>
+                                        <p class="card-text">{{ $animal->descripcion }}</p>
+                                    </div>
                                 </div>
                             </div>
+                        @endif
+                    @empty
+                        <div class="col-12">
+                            <p class="text-center text-muted">No se encontraron animales registrados.</p>
                         </div>
-                    @endforeach
+                    @endforelse
                 </div>
             </div>
         </div>

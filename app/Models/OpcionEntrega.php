@@ -16,6 +16,6 @@ class OpcionEntrega extends Model
 
     public function animals(): BelongsToMany
 {
-    return $this->belongsToMany(Animal::class);
+    return $this->belongsToMany(Animal::class, 'animal_opcion_entregas');
 }
 }

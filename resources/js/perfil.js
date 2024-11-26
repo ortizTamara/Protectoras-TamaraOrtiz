@@ -37,4 +37,43 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         console.log("Elementos de logo no encontrados.");
     }
+
+
+
+    // Para la imagen del animal
+    // const uploadImageButton = document.getElementById("uploadButtonImagen");
+    // const imagenInput = document.getElementById("imagen");
+
+    // if (uploadImageButton && imagenInput) {
+    //     uploadImageButton.addEventListener("click", function () {
+    //         imagenInput.click();
+    //     });
+
+    //     imagenInput.addEventListener("change", function () {
+    //         if (imagenInput.files && imagenInput.files[0]) {
+    //             imagenInput.closest("form").submit();
+    //         }
+    //     });
+    // } else {
+    //     console.log("Elementos de imagen no encontrados.");
+    // }
+    const imagenInput = document.getElementById("imagen");
+    const preview = document.getElementById("imagen_preview");
+    const fileName = document.getElementById("imagenName");
+
+    if (imagenInput) {
+        imagenInput.addEventListener("change", function () {
+            if (imagenInput.files && imagenInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove("d-none");
+                };
+
+                fileName.textContent = imagenInput.files[0].name;
+                reader.readAsDataURL(imagenInput.files[0]);
+            }
+        });
+    }
 });

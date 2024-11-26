@@ -41,7 +41,7 @@
                         <div class="profile-pic-container mb-2">
                             @if ($protectora && $protectora->logo)
                                 <!-- Logo de la protectora -->
-                                <img src="{{ $protectora->logo ? asset('storage/logos/' . $protectora->logo) : '/images/placeholder.jpg' }}"
+                                <img src="{{ asset('storage/' . $protectora->logo) }}"
                                      alt="Logo de la protectora"
                                      class="profile-img">
                             @else

@@ -34,7 +34,7 @@
                         <div class="protectora-card shadow-sm border border-secondary-subtle bg-light">
                             <i class="bi bi-star-fill text-warning protectora-card__star fs-3"></i>
                             <div class="protectora-card__image-container m-4 p-2 bg-white shadow-sm">
-                                <img src="{{ $miProtectora->logo ? asset('storage/logos/' . $miProtectora->logo) : '/images/placeholder.jpg' }}"
+                                <img src="{{ asset('storage/' . $miProtectora->logo) }}"
                                      alt="{{ $miProtectora->nombre }}"
                                      class="protectora-card__image">
                             </div>

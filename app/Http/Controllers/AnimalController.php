@@ -5,11 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Animal;
 use App\Http\Requests\StoreAnimalRequest;
 use App\Http\Requests\UpdateAnimalRequest;
+use App\Models\Color;
 use App\Models\Comportamiento;
 use App\Models\Especie;
 use App\Models\EstadoAnimal;
+use App\Models\GeneroAnimal;
+use App\Models\NivelActividad;
 use App\Models\OpcionEntrega;
+use App\Models\Protectora;
 use App\Models\Raza;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AnimalController extends Controller
 {
@@ -26,16 +32,18 @@ class AnimalController extends Controller
      */
     public function create($protectora_id)
     {
+
         $especies = Especie::all();
         $razas = Raza::all();
         $comportamientos = Comportamiento::all();
-        $sexos = ['Macho', 'Hembra'];
-        $nivelesActividad = ['Bajo', 'Medio', 'Alto'];
+        $generos = GeneroAnimal::all();
+        $nivelesActividad = NivelActividad::all();
         $estados = EstadoAnimal::all();
         $opcionesEntrega = OpcionEntrega::all();
+        $colores = Color::all();
 
         return view('perfil.protectoras.animales.create', compact(
-            'especies', 'razas', 'comportamientos', 'sexos', 'nivelesActividad', 'estados', 'protectora_id', 'opcionesEntrega'
+            'especies', 'razas', 'comportamientos', 'nivelesActividad', 'estados', 'protectora_id', 'opcionesEntrega', 'colores', 'generos'
         ));
     }
 
@@ -44,29 +52,52 @@ class AnimalController extends Controller
      */
     public function store(StoreAnimalRequest $request)
     {
-        $validated = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'fecha_nacimiento' => 'required|date',
-            'peso' => 'required|numeric|min:0',
-            'estado_id' => 'required|exists:estado_animals,id',
-            'especie_id' => 'required|exists:especies,id',
-            'raza_id' => 'nullable|exists:razas,id',
-            'sexo' => 'required|string|in:Macho,Hembra',
-            'nivel_actividad' => 'nullable|string|in:Bajo,Medio,Alto',
-            'comportamientos' => 'nullable|array',
-            'comportamientos.*' => 'exists:comportamientos,id',
-            'descripcion' => 'nullable|string',
-            'imagen' => 'nullable|image|max:2048',
-        ]);
+        $usuario = Auth::user();
+        $protectora = Protectora::find($usuario->protectora_id);
 
-        $animal = Animal::create($validated);
-
-        // Relación con comportamientos
-        if ($request->has('comportamientos')) {
-            $animal->comportamientos()->sync($request->comportamientos);
+        if (!$protectora) {
+            return redirect()->back()->with('error', 'No tienes permisos para realizar esta acción.');
         }
 
-        return redirect()->route('perfil.protectoras.show')->with('success', 'Animal creado exitosamente.');
+        // Validar los datos
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'fecha_nacimiento' => 'required|date|before_or_equal:today',
+            'peso' => 'required|numeric|min:0.1',
+            'estado_id' => 'required|exists:estado_animals,id',
+            'especie_id' => 'required|exists:especies,id',
+            'raza_id' => 'required|exists:razas,id',
+            'color_id' => 'required|exists:colors,id',
+            'genero_animal_id' => 'required|exists:genero_animals,id',
+            'nivel_actividad_id' => 'required|exists:nivel_actividads,id',
+            'comportamientos' => 'required|array|min:1|exists:comportamientos,id',
+            'opciones_entrega' => 'required|array|min:1|exists:opcion_entregas,id',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'descripcion' => 'nullable|string|max:5000',
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            $fileName = 'animal_' . $protectora->id . '_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('imagen')->getClientOriginalExtension();
+
+            $path = $request->file('imagen')->storeAs('animales', $fileName, 'public');
+            $validatedData['imagen'] = $path;
+        }
+
+        $validatedData['protectora_id'] = $protectora->id;
+
+        // Crear el animal
+        $animal = Animal::create($validatedData);
+
+        if (!empty($validatedData['comportamientos'])) {
+            $animal->comportamientos()->sync($validatedData['comportamientos']);
+        }
+
+        if (!empty($validatedData['opciones_entrega'])) {
+            $animal->opcionesEntrega()->sync($validatedData['opciones_entrega']);
+        }
+
+        return redirect()->route('perfil-miProtectora.edit', $protectora->id)
+            ->with('success', 'Animal creado exitosamente.');
     }
 
     /**
@@ -98,6 +129,13 @@ class AnimalController extends Controller
      */
     public function destroy(Animal $animal)
     {
-        //
+    if ($animal->imagen && Storage::exists('public/' . $animal->imagen)) {
+        Storage::delete('public/' . $animal->imagen);
+    }
+
+    $animal->delete();
+
+    return redirect()->route('perfil-protectora.edit', $animal->protectora_id)
+        ->with('success', 'Animal eliminado correctamente.');
     }
 }

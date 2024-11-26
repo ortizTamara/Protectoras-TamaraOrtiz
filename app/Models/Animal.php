@@ -19,7 +19,9 @@ class Animal extends Model
         'descripcion',
         'fecha_nacimiento',
         'peso',
-        'image',
+        'imagen',
+        'genero_animal_id',
+        'nivel_actividad_id',
         'color_id',
         'especie_id',
         'raza_id',
@@ -52,8 +54,24 @@ class Animal extends Model
         return $this->belongsTo(EstadoAnimal::class);
     }
 
-    public function opcionesEntregas(): belongsToMany
+    public function opcionesEntrega(): BelongsToMany
     {
-        return $this->belongsToMany(OpcionEntrega::class);
+        return $this->belongsToMany(OpcionEntrega::class, 'animal_opcion_entregas');
     }
+
+    public function genero(): BelongsTo
+    {
+        return $this->belongsTo(GeneroAnimal::class);
+    }
+
+    public function nivelActividad(): BelongsTo
+    {
+        return $this->belongsTo(NivelActividad::class);
+    }
+
+    public function protectora(): BelongsTo
+    {
+        return $this->belongsTo(Protectora::class);
+    }
+
 }

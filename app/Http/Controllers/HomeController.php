@@ -30,6 +30,10 @@ class HomeController extends Controller
     {
         $query = Animal::query();
 
+        $query->whereHas('protectora', function ($q) {
+            $q->where('esValido', true);
+        });
+
         // Filtración por nombre
         $query->when($request->filled('nombre'), function ($query) use ($request) {
             $query->where('nombre', 'like', '%' . $request->input('nombre') . '%');
