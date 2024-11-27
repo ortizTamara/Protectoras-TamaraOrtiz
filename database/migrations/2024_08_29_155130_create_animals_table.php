@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreignId('raza_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('estado_animal_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('protectora_id')->nullable()->constrained()->onDelete('set null'); //set null, porque ya hago la logica en models protectora boot
+            $table->boolean('esValido')->default(false);
             $table->timestamps();
         });
     }

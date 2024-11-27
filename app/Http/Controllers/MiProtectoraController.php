@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Animal;
 use App\Models\Protectora;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -104,7 +105,9 @@ class MiProtectoraController extends Controller
             'nombre' => 'required|string|max:255',
             'direccion' => 'required|string|max:255',
             'nuestra_historia' => 'nullable|string|max:5000',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación del logo
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'added_animals' => 'nullable|array',
+            'removed_animals' => 'nullable|array',
         ]);
 
         // Actualizar los datos generales de la protectora
@@ -128,6 +131,7 @@ class MiProtectoraController extends Controller
                 $protectora->update(['logo' => $path]);
             }
         }
+
 
         // Redirigir al usuario a la vista 'show' con un mensaje de éxito
         return redirect()->route('perfil-miProtectora.show', $protectora->id)

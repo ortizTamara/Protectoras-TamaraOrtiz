@@ -7,12 +7,10 @@
 @section('content')
 
 <div class="container protectora">
-    <!-- Formulario principal de edición -->
     <form action="{{ route('perfil-miProtectora.update', $protectora->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
-        <!-- Encabezado -->
         <div class="protectora__header">
             <div class="protectora__info d-flex justify-content-between align-items-center">
                 <div class="protectora__logo-container d-flex align-items-center">
@@ -52,6 +50,9 @@
                 <button type="submit" class="btn btn-secondary protectora__save-btn">
                     <i class="bi bi-save me-2"></i> Guardar Cambios
                 </button>
+                <a href="{{ route('perfil-miProtectora.show', $protectora->id) }}" class="btn btn-secondary protectora__discard-btn">
+                    Cancelar
+                </a>
             </div>
         </div>
 
@@ -61,7 +62,6 @@
         </section>
     </form>
 
-    <!-- Sección de casos en adopción -->
     <section class="protectora__cases mt-5">
         <div class="d-flex align-items-center">
             <h2 class="protectora__section-title mb-0 me-2">Nuestros casos en adopción</h2>
@@ -94,6 +94,7 @@
             @endforelse
         </div>
     </section>
+
 </div>
 
 @endsection

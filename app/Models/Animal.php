@@ -27,6 +27,11 @@ class Animal extends Model
         'raza_id',
         'estado_animal_id',
         'protectora_id',
+        'esValido',
+    ];
+
+    protected $attributes = [
+        'esValido' => false,
     ];
 
     public function color(): BelongsTo

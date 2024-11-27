@@ -77,18 +77,16 @@
         </div>
         <div class="protectora__cases-grid">
             @forelse ($protectora->animales as $animal)
-                <div class="protectora__case">
+                {{-- <a href="{{ route('animales.show', $animal->id) }}" class="protectora__case"> --}}
+                    <a href="" class="protectora__case">
                     <div class="protectora__case-card position-relative">
                         <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
                              alt="{{ $animal->nombre }}" class="protectora__case-image">
                         <div class="protectora__case-body">
                             <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
-                            <p class="card-text">Especie: {{ $animal->especie->nombre }}</p>
-                            <p class="card-text">Peso: {{ $animal->peso }} kg</p>
-                            <a href="{{ route('perfil-miProtectora.show', $animal->id) }}" class="btn btn-primary">Ver más</a>
                         </div>
                     </div>
-                </div>
+                </a>
             @empty
                 <p class="protectora__no-cases">No hay casos en adopción actualmente.</p>
             @endforelse

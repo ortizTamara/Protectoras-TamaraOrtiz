@@ -87,26 +87,27 @@
                             Descendent</button>
                     </div>
                 </div>
-                <div class="row g-4">
+                <div class="home__cards  row row-cols-1 row-cols-sm-2 row-cols-md-5 g-0">
                     @forelse ($animales as $animal)
                         @if ($animal->protectora && $animal->protectora->esValido)
-                            <div class="col-2">
-                                <div class="card">
-                                    <img src="{{ asset($animal->imagen) }}" class="card-img-top img-fluid" alt="{{ $animal->nombre }}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $animal->nombre }}</h5>
-                                        <p class="card-text">{{ $animal->descripcion }}</p>
+                            <a href="" class="col-3 text-decoration-none">
+                                <div class="protectora__case-card protectora__case-card--home position-relative">
+                                    <img src="{{ asset($animal->imagen) }}"
+                                         alt="{{ $animal->nombre }}"
+                                         class="protectora__case-image protectora__case-image--home">
+                                    <div class="protectora__case-body">
+                                        <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
+                                        <p class="text-muted">{{ Str::limit($animal->descripcion, 50, '...') }}</p>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         @endif
                     @empty
                         <div class="col-12">
-                            <p class="text-center text-muted">No se encontraron animales registrados.</p>
+                            <p class="protectora__no-cases text-center text-muted">No se encontraron animales registrados.</p>
                         </div>
                     @endforelse
                 </div>
-            </div>
         </div>
     </div>
 @endsection
