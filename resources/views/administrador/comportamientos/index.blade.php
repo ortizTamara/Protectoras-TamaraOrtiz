@@ -20,14 +20,16 @@
                         <td>{{ $comportamiento->nombre }}</td>
                         <td>{{ $comportamiento->categoria }}</td>
                         <td class="acciones">
-                            <a href="{{ route('comportamiento.edit', $comportamiento->id) }}"
-                                class="btn btn-warning btn-accion">Editar</a>
-                            <form action="{{ route('comportamiento.destroy', $comportamiento->id) }}" method="POST"
-                                class="d-inline">
+                            <a href="{{ route('comportamiento.edit', $comportamiento->id) }}" class="btn btn-warning btn-accion">
+                                <i class="bi bi-pencil fs-4"></i>
+                            </a>
+                            <form action="{{ route('comportamiento.destroy', $comportamiento->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-accion"
-                                    onclick="return confirm('¿Estás seguro de eliminar este comportamiento?')">Eliminar</button>
+                                    onclick="return confirm('¿Estás seguro de eliminar este comportamiento?')">
+                                    <i class="bi bi-trash fs-4"></i>
+                                </button>
                             </form>
                         </td>
                     </tr>

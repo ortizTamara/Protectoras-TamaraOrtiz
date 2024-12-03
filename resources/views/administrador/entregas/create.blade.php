@@ -10,7 +10,7 @@
 
             <div class="row mb-3 align-items-center">
                 <label for="nombre" class="col-form-label col-sm-1">Nombre:</label>
-                <div class="col-sm-10">
+                <div class="col-sm-11">
                     <input type="text" name="nombre" class="form-control " required>
                     @error('nombre')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
@@ -19,7 +19,7 @@
             </div>
 
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary me-2">Guardar</button>
+                <button type="submit" class="btn btn-primary me-2 custom-btn-guardar">Guardar</button>
                 <a href="{{ route('opcionEntrega.index') }}" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>

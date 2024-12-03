@@ -10,13 +10,13 @@
             @method('PUT')
             <div class="row mb-3 align-items-center">
                 <label for="nombre" class="col-form-label col-sm-1">Nombre:</label>
-                <div class="col-sm-10">
+                <div class="col-sm-11">
                     <input type="text" name="nombre" class="form-control" value="{{ $raza->nombre }}" required>
                 </div>
             </div>
             <div class="row mb-3 align-items-center">
                 <label for="especie_id" class="col-form-label col-sm-1">Especie:</label>
-                <div class="col-sm-10">
+                <div class="col-sm-11">
                     <select name="especie_id" class="form-control" required>
                         @foreach ($especies as $especie)
                             <option value="{{ $especie->id }}" @selected($raza->especie_id === $especie->id)>
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary me-2">Actualizar</button>
+                <button type="submit" class="btn btn-primary me-2 custom-btn-editar">Actualizar</button>
                 <a href="{{ route('raza.index') }}" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>

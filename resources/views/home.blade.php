@@ -80,10 +80,10 @@
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                     <div class="d-flex gap-2">
-                        <button type="button" class="btn btn-primary" data-filter="new">Nuevo</button>
-                        <button type="button" class="btn btn-primary" data-filter="age_asc">Edad
+                        <button type="button" class="btn btn-secondary" data-filter="new">Nuevo</button>
+                        <button type="button" class="btn btn-secondary" data-filter="age_asc">Edad
                             Ascendente</button>
-                        <button type="button" class="btn btn-primary" data-filter="age_desc">Edad
+                        <button type="button" class="btn btn-secondary" data-filter="age_desc">Edad
                             Descendent</button>
                     </div>
                 </div>

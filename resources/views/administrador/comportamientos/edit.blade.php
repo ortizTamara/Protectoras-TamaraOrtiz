@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary me-2">Actualizar</button>
+                <button type="submit" class="btn btn-primary me-2 custom-btn-editar">Actualizar</button>
                 <a href="{{ route('comportamiento.index') }}" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>

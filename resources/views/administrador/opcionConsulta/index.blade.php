@@ -6,26 +6,26 @@
             <thead class="table-dark">
                 <tr>
                     <th class="col-id">
-                        <a href="{{ route('opcionEntrega.create') }}" class="circle-btn">+</a>
+                        <a href="{{ route('opcionConsulta.create') }}" class="circle-btn">+</a>
                     </th>
                     <th class="col-nombre">Nombre</th>
                     <th class="col-acciones">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($entregas as $opcionEntrega)
+                @foreach ($opcionConsulta as $consulta)
                     <tr>
-                        <td>{{ $opcionEntrega->id }}</td>
-                        <td>{{ $opcionEntrega->nombre }}</td>
+                        <td>{{ $consulta->id }}</td>
+                        <td>{{ $consulta->nombre }}</td>
                         <td class="acciones">
-                            <a href="{{ route('opcionEntrega.edit', $opcionEntrega->id) }}" class="btn btn-warning btn-accion">
+                            <a href="{{ route('opcionConsulta.edit', $consulta->id) }}" class="btn btn-warning btn-accion">
                                 <i class="bi bi-pencil fs-4"></i>
                             </a>
-                            <form action="{{ route('opcionEntrega.destroy', $opcionEntrega->id) }}" method="POST" class="d-inline">
+                            <form action="{{ route('opcionConsulta.destroy', $consulta->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-accion"
-                                    onclick="return confirm('¿Estás seguro de eliminar este color?')">
+                                    onclick="return confirm('¿Estás seguro de eliminar esta consulta?')">
                                     <i class="bi bi-trash fs-4"></i>
                                 </button>
                             </form>
@@ -36,7 +36,7 @@
             <tfoot>
                 <tr>
                     <td colspan="4">
-                        {{ $entregas->links() }}
+                        {{ $opcionConsulta->links() }}
                     </td>
                 </tr>
             </tfoot>

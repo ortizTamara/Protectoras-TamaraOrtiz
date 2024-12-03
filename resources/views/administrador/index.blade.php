@@ -95,6 +95,33 @@
                     </div>
                 </a>
             </div>
+
+            <!-- Tarjeta de Consultas -->
+            <div class="col-md-3 mb-3">
+                <a href="{{ route('administracion.protectora.index') }}"
+                    class="card card-custom shadow-sm rounded text-decoration-none text-dark">
+                    <div class="card-body text-center">
+                        <h5 class="card-title mb-3">
+                            <i class="bi icon-lg"></i>
+                            Consultas
+                        </h5>
+                    </div>
+                </a>
+            </div>
+
+               <!-- Tarjeta de opciones consultas -->
+               <div class="col-md-3 mb-3">
+                <a href="{{ route('opcionConsulta.index') }}"
+                    class="card card-custom shadow-sm rounded text-decoration-none text-dark">
+                    <div class="card-body text-center">
+                        <h5 class="card-title mb-3">
+                            <i class="bi icon-lg"></i>
+                            Opciones Consultas
+                        </h5>
+                    </div>
+                </a>
+            </div>
+
         </div>
     </div>
 @endsection

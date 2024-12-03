@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\EstadoAnimal;
+use App\Models\OpcionConsulta;
 use App\Models\User;
 use App\Models\Usuario;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
             OpcionEntregaSeeder::class,
             GeneroAnimalSeeder::class,
             NivelActividadSeeder::class,
+            OpcionConsultaSeeder::class,
         ]);
         // User::factory(10)->create();
 

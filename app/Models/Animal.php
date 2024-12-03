@@ -27,11 +27,12 @@ class Animal extends Model
         'raza_id',
         'estado_animal_id',
         'protectora_id',
-        'esValido',
+        'marcado_para_eliminar',
+
     ];
 
     protected $attributes = [
-        'esValido' => false,
+        'marcado_para_eliminar' => false,
     ];
 
     public function color(): BelongsTo

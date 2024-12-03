@@ -18,12 +18,16 @@
                         <td>{{ $color->id }}</td>
                         <td>{{ $color->nombre }}</td>
                         <td class="acciones">
-                            <a href="{{ route('color.edit', $color->id) }}" class="btn btn-warning btn-accion">Editar</a>
+                            <a href="{{ route('color.edit', $color->id) }}" class="btn btn-warning btn-accion">
+                                <i class="bi bi-pencil fs-4"></i>
+                            </a>
                             <form action="{{ route('color.destroy', $color->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-accion"
-                                    onclick="return confirm('¿Estás seguro de eliminar este color?')">Eliminar</button>
+                                    onclick="return confirm('¿Estás seguro de eliminar este color?')">
+                                    <i class="bi bi-trash fs-4"></i>
+                                </button>
                             </form>
                         </td>
                     </tr>

@@ -19,12 +19,16 @@
                         <td>{{ $especie->id }}</td>
                         <td>{{ $especie->nombre }}</td>
                         <td class="acciones">
-                            <a href="{{ route('especie.edit', $especie->id) }}" class="btn btn-warning btn-accion">Editar</a>
+                            <a href="{{ route('especie.edit', $especie->id) }}" class="btn btn-warning btn-accion">
+                                <i class="bi bi-pencil fs-4"></i>
+                            </a>
                             <form action="{{ route('especie.destroy', $especie->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-accion"
-                                    onclick="return confirm('¿Estás seguro de eliminar esta especie?')">Eliminar</button>
+                                    onclick="return confirm('¿Estás seguro de eliminar esta especie?')">
+                                    <i class="bi bi-trash fs-4"></i>
+                                </button>
                             </form>
                         </td>
                     </tr>

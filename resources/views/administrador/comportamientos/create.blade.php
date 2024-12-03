@@ -31,7 +31,7 @@
 
 
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary me-2">Guardar</button>
+                <button type="submit" class="btn btn-primary me-2 custom-btn-guardar">Guardar</button>
                 <a href="{{ route('comportamiento.index') }}" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
