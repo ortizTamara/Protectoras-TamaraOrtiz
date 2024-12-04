@@ -26,7 +26,10 @@ document.addEventListener('DOMContentLoaded', function() {
         instagram:false,
         twitter:false,
         facebook:false,
-        website:false
+        website:false,
+
+        // CONSULTA
+        message:false
     };
 
     // RANGO DE CÓDIGOS POSTALES VÁLIDOS PARA CADA PROVINCIA
@@ -89,45 +92,51 @@ document.addEventListener('DOMContentLoaded', function() {
     // USUARIOS
     // NOMBRE -> Validamos que solo haya letras y espacios, con un mínimo de 3 caracteres.
     function validateName() {
-        const name = document.getElementById('name').value;
-        const nameError = document.getElementById('nameError');
-        const namePattern = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
+        const nameField = document.getElementById('name');
+        if(nameField){
+            const name = nameField.value;
+            const nameError = document.getElementById('nameError');
+            const namePattern = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
 
-        if (touchedFields.name) {
-            if (name.trim() === '') {
-                nameError.textContent = 'El nombre es obligatorio.';
-                return false;
-            } else if (!namePattern.test(name)) {
-                nameError.textContent = 'El nombre solo puede contener letras y espacios.';
-                return false;
-            } else if (name.length < 3) {
-                nameError.textContent = 'El nombre debe tener al menos 3 caracteres.';
-                return false;
-            } else {
-                nameError.textContent = '';
+            if (touchedFields.name) {
+                if (name.trim() === '') {
+                    nameError.textContent = 'El nombre es obligatorio.';
+                    return false;
+                } else if (!namePattern.test(name)) {
+                    nameError.textContent = 'El nombre solo puede contener letras y espacios.';
+                    return false;
+                } else if (name.length < 3) {
+                    nameError.textContent = 'El nombre debe tener al menos 3 caracteres.';
+                    return false;
+                } else {
+                    nameError.textContent = '';
+                }
             }
         }
-        return true;
+    return true;
     }
 
     // APELLIDOS -> Validamos que solo haya letras y espacios, con un mínimo de 3 caracteres
     function validateSurname() {
-        const surname = document.getElementById('surname').value;
-        const surnameError = document.getElementById('surnameError');
-        const surnamePattern = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
+        const surnameField = document.getElementById('surname');
+        if(surnameField){
+            const surname = surnameField.value;
+            const surnameError = document.getElementById('surnameError');
+            const surnamePattern = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
 
-        if (touchedFields.surname) {
-            if (surname.trim() === '') {
-                surnameError.textContent = 'Los apellidos son obligatorios.';
-                return false;
-            } else if (!surnamePattern.test(surname)) {
-                surnameError.textContent = 'Los apellidos solo pueden contener letras y espacios.';
-                return false;
-            } else if (surname.length < 3) {
-                surnameError.textContent = 'Los apellidos deben tener al menos 3 caracteres.';
-                return false;
-            } else {
-                surnameError.textContent = '';
+            if (touchedFields.surname) {
+                if (surname.trim() === '') {
+                    surnameError.textContent = 'Los apellidos son obligatorios.';
+                    return false;
+                } else if (!surnamePattern.test(surname)) {
+                    surnameError.textContent = 'Los apellidos solo pueden contener letras y espacios.';
+                    return false;
+                } else if (surname.length < 3) {
+                    surnameError.textContent = 'Los apellidos deben tener al menos 3 caracteres.';
+                    return false;
+                } else {
+                    surnameError.textContent = '';
+                }
             }
         }
         return true;
@@ -135,18 +144,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // FECHA DE NACIMIENTO (El cual tiene que ser mayor de edad)
     function validateBirthDate() {
-        const birthDate = document.getElementById('birthDate').value;
-        const birthDateError = document.getElementById('birthDateError');
+        const birthDateField = document.getElementById('birthDate');
+        if(birthDateField){
+            const birthDate = birthDateField.value;
+            const birthDateError = document.getElementById('birthDateError');
 
-        if (touchedFields.birthDate) {
-            if (birthDate.trim() === '') {
-                birthDateError.textContent = 'La fecha de nacimiento es obligatoria.';
-                return false;
-            } else if (!isAdult(birthDate)) {
-                birthDateError.textContent = 'Debes ser mayor de edad para registrarte.';
-                return false;
-            } else {
-                birthDateError.textContent = '';
+            if (touchedFields.birthDate) {
+                if (birthDate.trim() === '') {
+                    birthDateError.textContent = 'La fecha de nacimiento es obligatoria.';
+                    return false;
+                } else if (!isAdult(birthDate)) {
+                    birthDateError.textContent = 'Debes ser mayor de edad para registrarte.';
+                    return false;
+                } else {
+                    birthDateError.textContent = '';
+                }
             }
         }
         return true;
@@ -154,15 +166,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // GENERO -> Validamos que el usuario seleccione una opción
     function validateSex() {
-        const sex = document.getElementById('sex').value;
-        const sexError = document.getElementById('sexError');
+        const sexField = document.getElementById('sex');
+        if(sexField){
+            const sex = sexField.value;
+            const sexError = document.getElementById('sexError');
 
-        if (touchedFields.sex) {
-            if (sex === '') {
-                sexError.textContent = 'Selecciona tu género.';
-                return false;
-            } else {
-                sexError.textContent = '';
+            if (touchedFields.sex) {
+                if (sex === '') {
+                    sexError.textContent = 'Selecciona tu género.';
+                    return false;
+                } else {
+                    sexError.textContent = '';
+                }
             }
         }
         return true;
@@ -170,20 +185,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // EMAIL -> Validamos que este en el formato correcto
     function validateEmail() {
-        const email = document.getElementById('email').value;
-        // console.log("Validando email:", email);
-        const emailError = document.getElementById('emailError');
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
+        const emailField = document.getElementById('email');
+        if(emailField){
+            const email = emailField.value;
+            // console.log("Validando email:", email);
+            const emailError = document.getElementById('emailError');
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
 
-        if (touchedFields.email) {
-            if (email.trim() === '') {
-                emailError.textContent = 'El email es obligatorio.';
-                return false;
-            } else if (!emailPattern.test(email)) {
-                emailError.textContent = 'Ingresa un email válido.';
-                return false;
-            } else {
-                emailError.textContent = '';
+            if (touchedFields.email) {
+                if (email.trim() === '') {
+                    emailError.textContent = 'El email es obligatorio.';
+                    return false;
+                } else if (!emailPattern.test(email)) {
+                    emailError.textContent = 'Ingresa un email válido.';
+                    return false;
+                } else {
+                    emailError.textContent = '';
+                }
             }
         }
         return true;
@@ -214,19 +232,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // CONTRASEÑA -> Validamos que tenga un mínimo de caracteres (6) y un carácter especial (al menos)
     function validatePassword() {
-        const password = document.getElementById('password').value;
-        const passwordError = document.getElementById('passwordError');
-        const passwordPattern = /^(?=.*[!@#$%^&*.,-])[A-Za-z\d!@#$%^&*.,-]{6,}$/;
+        const passwordField = document.getElementById('password');
+        if(passwordField){
+            const password = passwordField.value;
+            const passwordError = document.getElementById('passwordError');
+            const passwordPattern = /^(?=.*[!@#$%^&*.,-])[A-Za-z\d!@#$%^&*.,-]{6,}$/;
 
-        if (touchedFields.password) {
-            if (password.trim() === '') {
-                passwordError.textContent = 'La contraseña es obligatoria.';
-                return false;
-            } else if (!passwordPattern.test(password)) {
-                passwordError.textContent = 'La contraseña debe tener al menos 6 caracteres y un carácter especial.';
-                return false;
-            } else {
-                passwordError.textContent = '';
+            if (touchedFields.password) {
+                if (password.trim() === '') {
+                    passwordError.textContent = 'La contraseña es obligatoria.';
+                    return false;
+                } else if (!passwordPattern.test(password)) {
+                    passwordError.textContent = 'La contraseña debe tener al menos 6 caracteres y un carácter especial.';
+                    return false;
+                } else {
+                    passwordError.textContent = '';
+                }
             }
         }
         return true;
@@ -234,8 +255,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // CONFIRMAR CONTRASEÑA (Que sea igual a Contraseña)
     function validateConfirmPassword() {
+        const confirmPasswordField = document.getElementById('confirmPassword');
+        if(confirmPasswordField){
         const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
+        const confirmPassword = confirmPasswordField.value;
         const confirmPasswordError = document.getElementById('confirmPasswordError');
 
         if (touchedFields.confirmPassword) {
@@ -249,12 +272,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 confirmPasswordError.textContent = '';
             }
         }
+    }
         return true;
     }
 
     // TELEFONO -> Validamos que sean solos dígitos (tiene que ser 9)
     function validatePhone() {
-        const phone = document.getElementById('phone').value;
+        const phoneField = document.getElementById('phone');
+        if(phoneField){
+        const phone = phoneField.value;
         const phoneError = document.getElementById('phoneError');
         const phonePattern = /^(?:(?:\+34|0034)\s?)?(6|7|8|9)\d{8}$/;
 
@@ -275,20 +301,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 phoneError.textContent = '';
             }
         }
+    }
         return true;
     }
 
     // PAIS -> Validamos que el usuario seleccione una opción
     function validateCountry() {
-        const country = document.getElementById('country').value;
-        const countryError = document.getElementById('countryError');
+        const countryField = document.getElementById('country');
+        if(countryField){
+            const country = countryField.value;
+            const countryError = document.getElementById('countryError');
 
-        if (touchedFields.country) {
-            if (country === '') {
-                countryError.textContent = 'Selecciona un país.';
-                return false;
-            } else {
-                countryError.textContent = '';
+            if (touchedFields.country) {
+                if (country === '') {
+                    countryError.textContent = 'Selecciona un país.';
+                    return false;
+                } else {
+                    countryError.textContent = '';
+                }
             }
         }
         return true;
@@ -296,15 +326,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // COMUNIDAD AUTÓNOMA -> Validamos que el usuario seleccione una opción
     function validateAutonomousCommunity() {
-        const autonomousCommunity = document.getElementById('autonomousCommunity').value;
-        const autonomousCommunityError = document.getElementById('autonomousCommunityError');
+        const autonomousCommunityField = document.getElementById('autonomousCommunity');
+        if(autonomousCommunityField){
+            const autonomousCommunity = autonomousCommunityField.value;
+            const autonomousCommunityError = document.getElementById('autonomousCommunityError');
 
-        if (touchedFields.autonomousCommunity) {
-            if (autonomousCommunity === '') {
-                autonomousCommunityError.textContent = 'Selecciona una comunidad autónoma.';
-                return false;
-            } else {
-                autonomousCommunityError.textContent = '';
+            if (touchedFields.autonomousCommunity) {
+                if (autonomousCommunity === '') {
+                    autonomousCommunityError.textContent = 'Selecciona una comunidad autónoma.';
+                    return false;
+                } else {
+                    autonomousCommunityError.textContent = '';
+                }
             }
         }
         return true;
@@ -312,15 +345,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // PROVINCIA -> Validamos que el usuario seleccione una opción
     function validateProvince() {
-        const province = document.getElementById('province').value;
-        const provinceError = document.getElementById('provinceError');
+        const provinceField = document.getElementById('province');
+        if(provinceField){
+            const province = provinceField.value;
+            const provinceError = document.getElementById('provinceError');
 
-        if (touchedFields.province) {
-            if (province === '') {
-                provinceError.textContent = 'Selecciona una provincia.';
-                return false;
-            } else {
-                provinceError.textContent = '';
+            if (touchedFields.province) {
+                if (province === '') {
+                    provinceError.textContent = 'Selecciona una provincia.';
+                    return false;
+                } else {
+                    provinceError.textContent = '';
+                }
             }
         }
         return true;
@@ -329,40 +365,43 @@ document.addEventListener('DOMContentLoaded', function() {
     // CÓDIGO POSTAL -> Validamos que coincida con el formato y la provincia seleccionada
     function validatePostalCode() {
         const postalCodeField = document.getElementById('postalCode');
-        const postalCodeError = document.getElementById('postalCodeError');
-        const postalCode = postalCodeField.value;
-        const province = document.getElementById('province').value;
+        if(postalCodeField){
+            // const postalCodeField = document.getElementById('postalCode');
+            const postalCodeError = document.getElementById('postalCodeError');
+            const postalCode = postalCodeField.value;
+            const province = document.getElementById('province').value;
 
-        // console.log(`Validando código postal: ${postalCode} con provincia: ${province}`);
+            // console.log(`Validando código postal: ${postalCode} con provincia: ${province}`);
 
-        // Solo valida si el campo está habilitado y el usuario ha empezado a escribir
-        if (touchedFields.postalCode && postalCodeField.disabled === false) {
-            // Verificar si el campo está vacío
-            if (postalCode === '') {
-                postalCodeError.textContent = 'El código postal es obligatorio.';
-                return false;
-            }
-
-            // Verificar si el código postal contiene solo caracteres numéricos
-            if (!/^\d+$/.test(postalCode)) {
-                postalCodeError.textContent = 'El código postal solo debe contener números.';
-                return false;
-            }
-
-            // Validar el rango del código postal en relación con la provincia seleccionada
-            if (province && postalCodeRanges[province]) {
-                // console.log(`Provincia encontrada en postalCodeRanges. Patrón(es):`, postalCodeRanges[province]);
-                const isValidPostalCode = postalCodeRanges[province].some(pattern => pattern.test(postalCode));
-                if (!isValidPostalCode) {
-                    postalCodeError.textContent = 'El código postal no corresponde a la provincia seleccionada.';
+            // Solo valida si el campo está habilitado y el usuario ha empezado a escribir
+            if (touchedFields.postalCode && postalCodeField.disabled === false) {
+                // Verificar si el campo está vacío
+                if (postalCode === '') {
+                    postalCodeError.textContent = 'El código postal es obligatorio.';
                     return false;
-                } else {
-                    postalCodeError.textContent = '';
                 }
-            } else {
-                // console.log('Provincia no encontrada en postalCodeRanges o inválida:', province);
-                postalCodeError.textContent = 'Selecciona una provincia válida.';
-                return false;
+
+                // Verificar si el código postal contiene solo caracteres numéricos
+                if (!/^\d+$/.test(postalCode)) {
+                    postalCodeError.textContent = 'El código postal solo debe contener números.';
+                    return false;
+                }
+
+                // Validar el rango del código postal en relación con la provincia seleccionada
+                if (province && postalCodeRanges[province]) {
+                    // console.log(`Provincia encontrada en postalCodeRanges. Patrón(es):`, postalCodeRanges[province]);
+                    const isValidPostalCode = postalCodeRanges[province].some(pattern => pattern.test(postalCode));
+                    if (!isValidPostalCode) {
+                        postalCodeError.textContent = 'El código postal no corresponde a la provincia seleccionada.';
+                        return false;
+                    } else {
+                        postalCodeError.textContent = '';
+                    }
+                } else {
+                    // console.log('Provincia no encontrada en postalCodeRanges o inválida:', province);
+                    postalCodeError.textContent = 'Selecciona una provincia válida.';
+                    return false;
+                }
             }
         }
         return true;
@@ -382,19 +421,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // PROTECTORAS
     // NOMBRE DE LA PROTECTORA -> Validamos que solo haya letras y espacios
     function validateShelterName() {
-        const shelterName = document.getElementById('shelterName').value;
-        const shelterNameError = document.getElementById('shelterNameError');
-        const namePattern = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
+        const shelterNameField = document.getElementById('shelterName');
+        if(shelterNameField){
+            const shelterName = shelterNameField.value;
+            const shelterNameError = document.getElementById('shelterNameError');
+            const namePattern = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
 
-        if (touchedFields.shelterName) {
-            if (shelterName.trim() === '') {
-                shelterNameError.textContent = 'El nombre de la protectora es obligatorio.';
-                return false;
-            } else if (!namePattern.test(shelterName)) {
-                shelterNameError.textContent = 'El nombre solo puede contener letras y espacios.';
-                return false;
-            } else {
-                shelterNameError.textContent = '';
+            if (touchedFields.shelterName) {
+                if (shelterName.trim() === '') {
+                    shelterNameError.textContent = 'El nombre de la protectora es obligatorio.';
+                    return false;
+                } else if (!namePattern.test(shelterName)) {
+                    shelterNameError.textContent = 'El nombre solo puede contener letras y espacios.';
+                    return false;
+                } else {
+                    shelterNameError.textContent = '';
+                }
             }
         }
         return true;
@@ -403,19 +445,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // NÚMERO DE REGISTRO -> Es la entidad que le asigna el ayuntamiento a la protectora (puede llevar números y letras)
     // Entonces la validación es "orientativo"
     function validateRegistrationNumber() {
-        const registrationNumber = document.getElementById('registrationNumber').value;
-        const registrationNumberError = document.getElementById('registrationNumberError');
-        const registrationPattern = /^[A-Za-z0-9]{5,15}$/;
+        const registrationNumberField = document.getElementById('registrationNumber');
+        if(registrationNumberField){
+            const registrationNumber = registrationNumberField.value;
+            const registrationNumberError = document.getElementById('registrationNumberError');
+            const registrationPattern = /^[A-Za-z0-9]{5,15}$/;
 
-        if (touchedFields.registrationNumber) {
-            if (registrationNumber.trim() === '') {
-                registrationNumberError.textContent = 'El número de registro es obligatorio.';
-                return false;
-            } else if (!registrationPattern.test(registrationNumber)) {
-                registrationNumberError.textContent = 'El número de registro debe tener entre 5 y 15 caracteres alfanuméricos.';
-                return false;
-            } else {
-                registrationNumberError.textContent = '';
+            if (touchedFields.registrationNumber) {
+                if (registrationNumber.trim() === '') {
+                    registrationNumberError.textContent = 'El número de registro es obligatorio.';
+                    return false;
+                } else if (!registrationPattern.test(registrationNumber)) {
+                    registrationNumberError.textContent = 'El número de registro debe tener entre 5 y 15 caracteres alfanuméricos.';
+                    return false;
+                } else {
+                    registrationNumberError.textContent = '';
+                }
             }
         }
         return true;
@@ -423,18 +468,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // CAPACIDAD DE ALOJAMIENTO -> Valiamos que solo se pueda introducir números y no sea menor a 0
     function validateCapacity() {
-        const capacity = document.getElementById('capacity').value;
-        const capacityError = document.getElementById('capacityError');
+        const capacityField = document.getElementById('capacity');
+        if(capacityField){
+            const capacity = capacityField.value;
+            const capacityError = document.getElementById('capacityError');
 
-        if (touchedFields.capacity) {
-            if (capacity.trim() === '') {
-                capacityError.textContent = 'La capacidad de alojamiento es obligatoria.';
-                return false;
-            } else if (isNaN(capacity) || capacity <= 0) {
-                capacityError.textContent = 'Ingresa un número válido para la capacidad.';
-                return false;
-            } else {
-                capacityError.textContent = '';
+            if (touchedFields.capacity) {
+                if (capacity.trim() === '') {
+                    capacityError.textContent = 'La capacidad de alojamiento es obligatoria.';
+                    return false;
+                } else if (isNaN(capacity) || capacity <= 0) {
+                    capacityError.textContent = 'Ingresa un número válido para la capacidad.';
+                    return false;
+                } else {
+                    capacityError.textContent = '';
+                }
             }
         }
         return true;
@@ -442,15 +490,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // NUESTRA HISTORIA -> Validamos que el campo no este vacio
     function validateOurStory() {
-        const ourStory = document.getElementById('ourStory').value;
-        const ourStoryError = document.getElementById('ourStoryError');
+        const ourStoryField = document.getElementById('ourStory');
+        if(ourStoryField){
+            const ourStory = ourStoryField.value;
+            const ourStoryError = document.getElementById('ourStoryError');
 
-        if (touchedFields.ourStory) {
-            if (ourStory.trim() === '') {
-                ourStoryError.textContent = 'El proceso de adopción es obligatorio.';
-                return false;
-            } else {
-                ourStoryError.textContent = '';
+            if (touchedFields.ourStory) {
+                if (ourStory.trim() === '') {
+                    ourStoryError.textContent = 'El proceso de adopción es obligatorio.';
+                    return false;
+                } else {
+                    ourStoryError.textContent = '';
+                }
             }
         }
         return true;
@@ -458,15 +509,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // DIRECCIÓN -> Validamos
     function validateAddress() {
-        const address = document.getElementById('address').value;
-        const addressError = document.getElementById('addressError');
+        const addressField = document.getElementById('address');
+        if(addressField){
+            const address = addressField.value;
+            const addressError = document.getElementById('addressError');
 
-        if (touchedFields.address) {
-            if (address.trim() === '') {
-                addressError.textContent = 'La dirección es obligatoria.';
-                return false;
-            } else {
-                addressError.textContent = '';
+            if (touchedFields.address) {
+                if (address.trim() === '') {
+                    addressError.textContent = 'La dirección es obligatoria.';
+                    return false;
+                } else {
+                    addressError.textContent = '';
+                }
             }
         }
         return true;
@@ -474,25 +528,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // TELEFONO CONTACTO -> Validamos que sean solos dígitos (tiene que ser 9)
         function validateContactPhone() {
-            const contactPhone = document.getElementById('contactPhone').value;
-            const contactPhoneError = document.getElementById('contactPhoneError');
-            const phonePattern = /^(?:(?:\+34|0034)\s?)?(6|7|8|9)\d{8}$/;
+            const contactPhoneField = document.getElementById('contactPhone');
+            if(contactPhoneField){
+                const contactPhone = contactPhoneField.value;
+                const contactPhoneError = document.getElementById('contactPhoneError');
+                const phonePattern = /^(?:(?:\+34|0034)\s?)?(6|7|8|9)\d{8}$/;
 
-            if (touchedFields.contactPhone) {
-                if (contactPhone === '') {
-                    contactPhoneError.textContent = 'El número de teléfono es obligatorio.';
-                    return false;
-                } else if (!phonePattern.test(contactPhone)) {
-                    if (!/^\d+$/.test(contactPhone.replace(/\s+/g, ''))) {
-                        contactPhoneError.textContent = 'El número de teléfono solo puede contener dígitos.';
-                    } else if (contactPhone.length !== 9 && !contactPhone.startsWith('+34')) {
-                        contactPhoneError.textContent = 'El número de teléfono debe tener 9 dígitos si no incluye el +34.';
+                if (touchedFields.contactPhone) {
+                    if (contactPhone === '') {
+                        contactPhoneError.textContent = 'El número de teléfono es obligatorio.';
+                        return false;
+                    } else if (!phonePattern.test(contactPhone)) {
+                        if (!/^\d+$/.test(contactPhone.replace(/\s+/g, ''))) {
+                            contactPhoneError.textContent = 'El número de teléfono solo puede contener dígitos.';
+                        } else if (contactPhone.length !== 9 && !contactPhone.startsWith('+34')) {
+                            contactPhoneError.textContent = 'El número de teléfono debe tener 9 dígitos si no incluye el +34.';
+                        } else {
+                            contactPhoneError.textContent = 'El número debe comenzar con 6, 7, 8 o 9.';
+                        }
+                        return false;
                     } else {
-                        contactPhoneError.textContent = 'El número debe comenzar con 6, 7, 8 o 9.';
+                        contactPhoneError.textContent = '';
                     }
-                    return false;
-                } else {
-                    contactPhoneError.textContent = '';
                 }
             }
             return true;
@@ -501,64 +558,75 @@ document.addEventListener('DOMContentLoaded', function() {
     // OPCIONALES
     // INSTAGRAM -> Validamos que la URL sea correcta o el nombre de usuario
     function validateInstagram() {
-        const instagram = document.getElementById('instagram').value.trim();
-        const instagramError = document.getElementById('instagramError');
-        const instagramPattern = /^(https?:\/\/(www\.)?instagram\.com\/)?[A-Za-z0-9._-]+\/?$/;
+        const instagramField = document.getElementById('instagram');
+        if(instagramField){
+            const instagram = instagramField.value.trim();
+            const instagramError = document.getElementById('instagramError');
+            const instagramPattern = /^(https?:\/\/(www\.)?instagram\.com\/)?[A-Za-z0-9._-]+\/?$/;
 
-        if (instagram !== '') {
-            if (!instagramPattern.test(instagram)) {
-                instagramError.textContent = 'Ingresa una URL de Instagram válida o el nombre de usuario.';
-                return false;
+            if (instagram !== '') {
+                if (!instagramPattern.test(instagram)) {
+                    instagramError.textContent = 'Ingresa una URL de Instagram válida o el nombre de usuario.';
+                    return false;
+                } else {
+                    instagramError.textContent = '';
+                }
             } else {
                 instagramError.textContent = '';
             }
-        } else {
-            instagramError.textContent = '';
         }
         return true;
     }
 
     // TWITTER -> Validamos el URL o el nombre de Usuario
     function validateTwitter() {
-        const twitter = document.getElementById('twitter').value.trim();
-        const twitterError = document.getElementById('twitterError');
-        const twitterPattern = /^(https?:\/\/(www\.)?twitter\.com\/)?[A-Za-z0-9_]+\/?$/;
+        const twitterField = document.getElementById('twitter');
+        if(twitterField){
+            const twitter = twitterField.value.trim();
+            const twitterError = document.getElementById('twitterError');
+            const twitterPattern = /^(https?:\/\/(www\.)?twitter\.com\/)?[A-Za-z0-9_]+\/?$/;
 
-        if (twitter !== '') {
-            if (!twitterPattern.test(twitter)) {
-                twitterError.textContent = 'Ingresa una URL de Twitter válida o el nombre de usuario.';
-                return false;
+            if (twitter !== '') {
+                if (!twitterPattern.test(twitter)) {
+                    twitterError.textContent = 'Ingresa una URL de Twitter válida o el nombre de usuario.';
+                    return false;
+                } else {
+                    twitterError.textContent = '';
+                }
             } else {
                 twitterError.textContent = '';
             }
-        } else {
-            twitterError.textContent = '';
         }
         return true;
     }
 
       // FACEBOOK -> Validamos la URL o el nombre de usuario
       function validateFacebook() {
-        const facebook = document.getElementById('facebook').value.trim();
-        const facebookError = document.getElementById('facebookError');
-        const facebookPattern = /^(https?:\/\/(www\.)?facebook\.com\/)?[A-Za-z0-9.]+\/?$/;
+        const facebookField = document.getElementById('facebook');
+        if(facebookField){
+            const facebook = facebookField.value.trim();
+            const facebookError = document.getElementById('facebookError');
+            const facebookPattern = /^(https?:\/\/(www\.)?facebook\.com\/)?[A-Za-z0-9.]+\/?$/;
 
-        if (facebook !== '') {
-            if (!facebookPattern.test(facebook)) {
-                facebookError.textContent = 'Ingresa una URL de Facebook válida o el nombre de usuario.';
-                return false;
+            if (facebook !== '') {
+                if (!facebookPattern.test(facebook)) {
+                    facebookError.textContent = 'Ingresa una URL de Facebook válida o el nombre de usuario.';
+                    return false;
+                } else {
+                    facebookError.textContent = '';
+                }
             } else {
                 facebookError.textContent = '';
             }
-        } else {
-            facebookError.textContent = '';
         }
         return true;
     }
 
     // PÁGINA WEB -> Validamos la URL
     function validateWebsite() {
-        const website = document.getElementById('website').value.trim();
+        const websiteField = document.getElementById('website');
+        if(websiteField){
+        const website = websiteField.value.trim();
     const websiteError = document.getElementById('websiteError');
     const websitePattern = /^(https?:\/\/)?(www\.)?[A-Za-z0-9.-]+\.[A-Za-z]{2,6}(\/.*)?$/;
 
@@ -572,7 +640,28 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         websiteError.textContent = '';
     }
+}
     return true;
+    }
+
+
+    // CONSULTA -> Validamos que el campo no este vacio
+       function validateMessage() {
+        const messageField = document.getElementById('message');
+        if(messageField){
+            const message = messageField.value;
+            const messageError = document.getElementById('messageError');
+
+            if (touchedFields.message) {
+                if (message.trim() === '') {
+                    messageError.textContent = 'El mensaje es obligatorio.';
+                    return false;
+                } else {
+                    messageError.textContent = '';
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -607,6 +696,9 @@ document.addEventListener('DOMContentLoaded', function() {
         validateTwitter();
         validateFacebook();
         validateWebsite();
+
+        //CONSULTA
+        isValid = validateMessage() && isValid;
 
         return isValid;
     }
@@ -790,6 +882,15 @@ document.addEventListener('DOMContentLoaded', function() {
         websiteField.addEventListener('input', () => {
             touchedFields.website = true; // Marcamos el campo como "tocado" en touchedFields
             validateWebsite();
+        });
+    }
+
+    // document.getElementById('message').addEventListener('input', () => { touchedFields.message = true; validateForm(); });
+    const messageField = document.getElementById('message');
+    if (messageField) {
+        messageField.addEventListener('input', () => {
+            touchedFields.message = true;
+            validateMessage();
         });
     }
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Consulta extends Model
 {
@@ -19,7 +20,11 @@ class Consulta extends Model
         'opcion_consultas_id',
     ];
 
-    public function opcionConsulta()
+    protected $attributes = [
+        'esLeido' => false,
+    ];
+
+    public function opcionConsulta():BelongsTo
     {
         return $this->belongsTo(OpcionConsulta::class, 'opcion_consultas_id');
     }

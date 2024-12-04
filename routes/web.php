@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ComportamientoController;
 use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\EspecieController;
 use App\Http\Controllers\EstadoAnimalController;
 use App\Http\Controllers\MiProtectoraController;
@@ -29,8 +30,11 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('contacto', [App\Http\Controllers\ContactoController::class, 'index'])->name('contacto');
 
 
-Route::get('consulta', [ConsultaController::class, 'index'])->name('consulta.index');
-Route::post('consulta', [ConsultaController::class, 'store'])->name('consulta.store');
+// Route::resource('consulta', ConsultaController::class);
+Route::resource('/consulta', ConsultaController::class)->parameters([
+    'consulta' => 'consulta'
+]);
+
 
 // Rutas de autenticación (login)
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

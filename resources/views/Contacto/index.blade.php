@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@pushOnce('scripts')
+    @vite(['resources/js/validador.js'])
+@endPushOnce
+
 @section('content')
     <div class="container py-5">
         <h1 class="display-4 text-center mb-5">Contacto</h1>
@@ -10,43 +14,48 @@
                 <h2 class="h3 mb-4">Envíanos tu consulta</h2>
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <form>
+                        <form action="{{ route('consulta.store') }}" method="POST">
+                            @csrf
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="firstName" placeholder="Nombre"
+                                        <input type="text" class="form-control" id="name" placeholder="Nombre"
                                             required>
-                                        <label for="firstName">Nombre</label>
+                                        <label for="name">Nombre</label>
+                                        <div id="nameError" class="text-danger"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="lastName" placeholder="Apellidos"
+                                        <input type="text" class="form-control" id="surname" placeholder="Apellidos"
                                             required>
-                                        <label for="lastName">Apellidos</label>
+                                        <label for="surname">Apellidos</label>
+                                        <div id="surnameError" class="text-danger"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control" id="email" placeholder="Email" required>
                                 <label for="email">Email</label>
+                                <div id="emailError" class="text-danger"></div>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="tel" class="form-control" id="phone" placeholder="Teléfono">
                                 <label for="phone">Teléfono</label>
+                                <div id="phoneError" class="text-danger"></div>
                             </div>
                             <div class="form-floating mb-3">
-                                <select class="form-select" name="shelter" id="shelter" aria-label="Seleccione una opción" required>
+                                <select class="form-select" name="opcion_consultas_id" id="opcion_consultas_id" aria-label="Seleccione una opción" required>
                                     <option value="" disabled selected>Seleccione una opción</option>
                                     {{-- @foreach ($opcionConsultas as $opcion)
                                         <option value="{{ $opcion->id }}">{{ $opcion->nombre }}</option>
                                     @endforeach --}}
                                 </select>
-                                <label for="shelter">Seleccione una opción</label>
                             </div>
                             <div class="form-floating mb-4">
                                 <textarea class="form-control" id="message" placeholder="Mensaje" rows="5" required></textarea>
                                 <label for="message">Mensaje</label>
+                                <div id="messageError" class="text-danger"></div>
                             </div>
                             <button type="submit" class="btn btn-secondary w-100">Enviar mensaje</button>
                         </form>
