@@ -60,14 +60,13 @@ class AnimalController extends Controller
             return redirect()->back()->with('error', 'No tienes permisos para realizar esta acción.');
         }
 
-        // Validar los datos
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'fecha_nacimiento' => 'required|date|before_or_equal:today',
             'peso' => 'required|numeric|min:0.1',
             'estado_animal_id' => 'required|exists:estado_animals,id',
             'especie_id' => 'required|exists:especies,id',
-            // 'raza_id' => 'required|exists:razas,id',
+            'raza_id' => 'required|exists:razas,id',
             'color_id' => 'required|exists:colors,id',
             'genero_animal_id' => 'required|exists:genero_animals,id',
             'nivel_actividad_id' => 'required|exists:nivel_actividads,id',
@@ -86,7 +85,6 @@ class AnimalController extends Controller
 
         $validatedData['protectora_id'] = $protectora->id;
 
-        // Crear el animal
         $animal = Animal::create($validatedData);
 
         if (!empty($validatedData['comportamientos'])) {
@@ -133,12 +131,10 @@ class AnimalController extends Controller
         $animal = Animal::findOrFail($id);
         $usuario = Auth::user();
 
-        // Verificar permisos
         if ($usuario->protectora_id != $animal->protectora_id) {
             return redirect()->back()->with('error', 'No tienes permiso para eliminar este animal.');
         }
 
-        // Marcar para eliminar
         $animal->update(['marcado_para_eliminar' => true]);
 
         return redirect()->back()->with('info', 'El animal ha sido marcado para eliminar. Debes guardar los cambios para confirmar la eliminación.');

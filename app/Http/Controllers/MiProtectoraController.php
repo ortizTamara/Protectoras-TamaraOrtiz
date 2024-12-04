@@ -90,13 +90,11 @@ class MiProtectoraController extends Controller
     {
         $protectora = Protectora::findOrFail($id);
 
-    // Verificar que el usuario tiene permisos para actualizar esta protectora
     $usuario = Auth::user();
     if ($usuario->protectora_id != $protectora->id) {
         return redirect()->route('perfil')->with('error', 'No tienes acceso a esta protectora.');
     }
 
-    // Validar los datos enviados desde el formulario
     $validatedData = $request->validate([
         'nombre' => 'required|string|max:255',
         'direccion' => 'required|string|max:255',
@@ -107,14 +105,12 @@ class MiProtectoraController extends Controller
     DB::beginTransaction();
 
     try {
-        // Actualizar los datos generales de la protectora
         $protectora->update([
             'nombre' => $validatedData['nombre'],
             'direccion' => $validatedData['direccion'],
             'nuestra_historia' => $validatedData['nuestra_historia'],
         ]);
 
-        // Manejar la actualización del logo si se envía uno nuevo
         if ($request->hasFile('logo')) {
             if ($protectora->logo && Storage::disk('public')->exists($protectora->logo)) {
                 Storage::disk('public')->delete($protectora->logo);
@@ -223,7 +219,6 @@ class MiProtectoraController extends Controller
     //     $animalTemporales = $protectora->animalTemporales;
 
     //     foreach ($animalTemporales as $animalTemporal) {
-    //         // Crear el Animal permanente con los datos del AnimalTemporal
     //         $animal = Animal::create([
     //             'nombre' => $animalTemporal->nombre,
     //             'fecha_nacimiento' => $animalTemporal->fecha_nacimiento,
@@ -239,17 +234,14 @@ class MiProtectoraController extends Controller
     //             'protectora_id' => $animalTemporal->protectora_id,
     //         ]);
 
-    //         // Asociar comportamientos si los hay
     //         if ($animalTemporal->comportamientos) {
     //             $animal->comportamientos()->sync($animalTemporal->comportamientos->pluck('id')->toArray());
     //         }
 
-    //         // Asociar opciones de entrega si las hay
     //         if ($animalTemporal->opcionesEntrega) {
     //             $animal->opcionesEntrega()->sync($animalTemporal->opcionesEntrega->pluck('id')->toArray());
     //         }
 
-    //         // Eliminar el registro de AnimalTemporal
     //         $animalTemporal->delete();
     // }
 
