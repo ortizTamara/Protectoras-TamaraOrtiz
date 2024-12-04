@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminProtectoraController;
 use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\AnimalTemporalController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -70,6 +71,7 @@ Route::prefix('perfil')->group(function () {
     // MIS PROTECTORAS
     Route::resource('perfil-miProtectora', MiProtectoraController::class);
 
+    Route::resource('animal-temporal', AnimalTemporalController::class);
 
 });
 

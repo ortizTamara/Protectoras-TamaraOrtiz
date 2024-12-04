@@ -7,7 +7,7 @@
 @section('content')
     <div class="create-animal container">
         <h1 class="create-animal__title text-center mb-5 fw-bold">Crear Nuevo Animal</h1>
-        <form action="{{ route('animal.store') }}" method="POST" enctype="multipart/form-data" class="create-animal__form">
+        <form action="{{ route('animal-temporal.store') }}" method="POST" enctype="multipart/form-data" class="create-animal__form">
             @csrf
             <div class="create-animal__section text-start mb-4">
                 <div class="row g-4">

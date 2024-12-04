@@ -62,7 +62,7 @@
                                 <form id="deleteFotoForm" action="{{ route('deleteFoto') }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">
+                                    <button type="submit" class="btn btn-secondary btn-sm btn-el">
                                         <i class="bi bi-trash"></i> Eliminar foto
                                     </button>
                                 </form>

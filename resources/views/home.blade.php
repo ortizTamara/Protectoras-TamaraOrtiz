@@ -97,7 +97,6 @@
                                          class="protectora__case-image protectora__case-image--home">
                                     <div class="protectora__case-body">
                                         <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
-                                        <p class="text-muted">{{ Str::limit($animal->descripcion, 50, '...') }}</p>
                                     </div>
                                 </div>
                             </a>

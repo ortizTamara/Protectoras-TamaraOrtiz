@@ -47,12 +47,15 @@
                 </a>
                 <a href="#" class="protectora__contact-btn">Contactar</a>
 
-                <button type="submit" class="btn btn-secondary protectora__save-btn">
+                <button type="submit" name="action" value="save" class="btn btn-secondary protectora__save-btn">
                     <i class="bi bi-save me-2"></i> Guardar Cambios
                 </button>
-                <a href="{{ route('perfil-miProtectora.show', $protectora->id) }}" class="btn btn-secondary protectora__discard-btn">
+                <button type="submit" name="action" value="cancel" class="btn btn-secondary protectora__discard-btn" onclick="return confirm('¿Estás seguro de que deseas cancelar? Se eliminarán todos los animales temporales.')">
                     Cancelar
-                </a>
+                </button>
+                {{-- <a href="{{ route('perfil-miProtectora.show', $protectora->id) }}" class="btn btn-secondary protectora__discard-btn">
+                    Cancelar
+                </a> --}}
             </div>
         </div>
 
@@ -61,8 +64,66 @@
             <textarea class="form-control" name="nuestra_historia" rows="4">{{ $protectora->nuestra_historia }}</textarea>
         </section>
     </form>
+ <!-- Sección de Animales en Adopción -->
+ <section class="protectora__cases mt-5">
+    <div class="d-flex align-items-center">
+        <h2 class="protectora__section-title mb-0 me-2">Nuestros casos en adopción</h2>
+        <a href="{{ route('animal.create', ['protectora_id' => $protectora->id]) }}"
+           class="btn btn-circle btn-dark d-flex justify-content-center align-items-center">
+            <i class="bi bi-plus-lg text-white"></i>
+        </a>
+    </div>
+    <div class="protectora__cases-grid">
+        <!-- Animales Temporales -->
+        @forelse ($protectora->animalTemporales as $animalTemporal)
+            <div class="protectora__case protectora__case-temporal">
+                <div class="protectora__case-card position-relative">
+                    <img src="{{ $animalTemporal->imagen ? asset('storage/' . $animalTemporal->imagen) : '/images/placeholder.jpg' }}"
+                         alt="{{ $animalTemporal->nombre }}" class="protectora__case-image">
+                    <div class="protectora__case-body">
+                        <h5 class="protectora__case-name">
+                            {{ $animalTemporal->nombre }}
+                            <span class="badge bg-warning text-dark">Temporal</span>
+                        </h5>
+                    </div>
+                    <form action="{{ route('animal-temporal.destroy', ['animal_temporal' => $animalTemporal->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm border-0 d-flex align-items-center justify-content-center protectora__delete-btn">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @empty
+            <p class="protectora__no-temporal-cases">No hay animales temporales actualmente.</p>
+        @endforelse
 
-    <section class="protectora__cases mt-5">
+        <!-- Animales Permanentes -->
+        @forelse ($protectora->animales as $animal)
+            <div class="protectora__case">
+                <div class="protectora__case-card position-relative">
+                    <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
+                         alt="{{ $animal->nombre }}" class="protectora__case-image">
+                    <div class="protectora__case-body">
+                        <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
+                    </div>
+                    <!-- Formulario de Eliminación de Animal Permanente -->
+                    <form action="{{ route('animal.destroy', ['animal' => $animal->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm border-0 d-flex align-items-center justify-content-center protectora__delete-btn">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @empty
+            <p class="protectora__no-cases">No hay casos en adopción actualmente.</p>
+        @endforelse
+    </div>
+</section>
+    {{-- <section class="protectora__cases mt-5">
         <div class="d-flex align-items-center">
             <h2 class="protectora__section-title mb-0 me-2">Nuestros casos en adopción</h2>
             <a href="{{ route('animal.create', ['protectora_id' => $protectora->id]) }}"
@@ -93,7 +154,7 @@
                 <p class="protectora__no-cases">No hay casos en adopción actualmente.</p>
             @endforelse
         </div>
-    </section>
+    </section> --}}
 
 </div>
 

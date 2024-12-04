@@ -27,6 +27,11 @@ class Protectora extends Model
         'esValido',
     ];
 
+    public function animalTemporales(): hasMany
+    {
+        return $this->hasMany(AnimalTemporal::class);
+    }
+
     public function usuario(): HasOne
     {
         return $this->hasOne(Usuario::class);
