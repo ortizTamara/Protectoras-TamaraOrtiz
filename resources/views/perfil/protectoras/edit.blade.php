@@ -64,7 +64,6 @@
             <textarea class="form-control" name="nuestra_historia" rows="4">{{ $protectora->nuestra_historia }}</textarea>
         </section>
     </form>
- <!-- Sección de Animales en Adopción -->
  <section class="protectora__cases mt-5">
     <div class="d-flex align-items-center">
         <h2 class="protectora__section-title mb-0 me-2">Nuestros casos en adopción</h2>
@@ -74,7 +73,6 @@
         </a>
     </div>
     <div class="protectora__cases-grid">
-        <!-- Animales Temporales -->
         @forelse ($protectora->animalTemporales as $animalTemporal)
             <div class="protectora__case protectora__case-temporal">
                 <div class="protectora__case-card position-relative">
@@ -99,7 +97,6 @@
             <p class="protectora__no-temporal-cases">No hay animales temporales actualmente.</p>
         @endforelse
 
-        <!-- Animales Permanentes -->
         @forelse ($protectora->animales as $animal)
             <div class="protectora__case">
                 <div class="protectora__case-card position-relative">
@@ -108,7 +105,6 @@
                     <div class="protectora__case-body">
                         <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
                     </div>
-                    <!-- Formulario de Eliminación de Animal Permanente -->
                     <form action="{{ route('animal.destroy', ['animal' => $animal->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -140,7 +136,6 @@
                         <div class="protectora__case-body">
                             <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
                         </div>
-                        <!-- Formulario de eliminación separado -->
                         <form action="{{ route('animal.destroy', ['animal' => $animal->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')

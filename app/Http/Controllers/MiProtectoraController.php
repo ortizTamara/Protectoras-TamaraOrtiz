@@ -158,6 +158,13 @@ class MiProtectoraController extends Controller
                 }
 
                 $animalTemporal->delete();
+
+            }
+
+            $animalesParaEliminar = $protectora->animales()->where('marcado_para_eliminar', true)->get();
+
+            foreach ($animalesParaEliminar as $animal) {
+                $animal->delete();
             }
 
             DB::commit();
@@ -167,6 +174,8 @@ class MiProtectoraController extends Controller
         } elseif ($request->input('action') === 'cancel') {
 
             $protectora->animalTemporales()->delete();
+
+            $protectora->animales()->where('marcado_para_eliminar', true)->update(['marcado_para_eliminar' => false]);
 
             DB::commit();
 

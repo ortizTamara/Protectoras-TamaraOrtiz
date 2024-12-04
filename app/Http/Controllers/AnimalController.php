@@ -128,18 +128,33 @@ class AnimalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Animal $animal)
+    public function destroy($id)
     {
+        $animal = Animal::findOrFail($id);
         $usuario = Auth::user();
 
         // Verificar permisos
-        if ($usuario->rol_id != 1 && $usuario->protectora_id != $animal->protectora_id) {
-            return redirect()->back()->with('error', 'No tienes permisos para eliminar este animal.');
+        if ($usuario->protectora_id != $animal->protectora_id) {
+            return redirect()->back()->with('error', 'No tienes permiso para eliminar este animal.');
         }
 
-        // Eliminar animal
-        $animal->delete();
+        // Marcar para eliminar
+        $animal->update(['marcado_para_eliminar' => true]);
 
-        return redirect()->back()->with('success', 'Animal eliminado correctamente.');
+        return redirect()->back()->with('info', 'El animal ha sido marcado para eliminar. Debes guardar los cambios para confirmar la eliminación.');
     }
+    // public function destroy(Animal $animal)
+    // {
+    //     $usuario = Auth::user();
+
+    //     // Verificar permisos
+    //     if ($usuario->rol_id != 1 && $usuario->protectora_id != $animal->protectora_id) {
+    //         return redirect()->back()->with('error', 'No tienes permisos para eliminar este animal.');
+    //     }
+
+    //     // Eliminar animal
+    //     $animal->delete();
+
+    //     return redirect()->back()->with('success', 'Animal eliminado correctamente.');
+    // }
 }
