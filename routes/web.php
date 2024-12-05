@@ -64,6 +64,7 @@ Route::prefix('perfil')->group(function () {
     Route::post('protectoras/animales', [AnimalController::class, 'store'])->name('animal.store');
     Route::get('protectoras/animales', [AnimalController::class, 'index'])->name('animal.index');
     Route::delete('protectoras/animales/{animal}', [AnimalController::class, 'destroy'])->name('animal.destroy');
+    Route::get('protectoras/animales/{id}', [AnimalController::class, 'show'])->name('animal.show');
 
     // PERFIL PROTECTORA
     Route::resource('perfil-protectora', PerfilProtectoraController::class);

@@ -14,6 +14,7 @@ use App\Models\NivelActividad;
 use App\Models\OpcionEntrega;
 use App\Models\Protectora;
 use App\Models\Raza;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -102,9 +103,12 @@ class AnimalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Animal $animal)
+    public function show($id)
     {
-        //
+        $animal = Animal::with(['protectora.usuario.pais', 'protectora.usuario.comunidadAutonoma', 'color', 'especie', 'raza', 'comportamientos', 'opcionesEntrega'])
+        ->findOrFail($id);
+
+        return view('perfil.protectoras.animales.show', compact('animal'));
     }
 
     /**

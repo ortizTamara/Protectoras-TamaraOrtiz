@@ -90,7 +90,7 @@
                 <div class="home__cards  row row-cols-1 row-cols-sm-2 row-cols-md-5 g-0">
                     @forelse ($animales as $animal)
                         @if ($animal->protectora && $animal->protectora->esValido)
-                            <a href="" class="col-3 text-decoration-none">
+                            <a href="{{ route('animal.show', $animal->id) }}" class="col-3 text-decoration-none">
                                 <div class="protectora__case-card protectora__case-card--home position-relative">
                                     <img src="{{ asset($animal->imagen) }}"
                                          alt="{{ $animal->nombre }}"

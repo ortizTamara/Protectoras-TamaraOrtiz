@@ -1170,3 +1170,233 @@ a {
         cursor: pointer;
     }
 
+/* PRUEBA DISEÑO, HACER LIMPIEZA*/
+.animal-card__container {
+    margin-bottom: 1.5rem;
+  }
+
+  .animal-card__body {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+  }
+
+  .animal-card__image-section {
+    margin-bottom: 1rem;
+  }
+
+  .animal-card__image {
+    object-fit: cover;
+    width: 100%;
+    border-radius: 0.5rem;
+  }
+
+  .animal-card__thumbnail {
+    object-fit: cover;
+  }
+
+  .animal-card__thumbnails {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .animal-card__info-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .animal-card__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .animal-card__name {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .animal-card__location {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+
+
+  .animal-card__actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .animal-card__action-buttons {
+    margin-top: 0.625rem;
+  }
+
+  .animal-card__action-button {
+    border-radius: 50%;
+    padding: 0.625rem;
+    margin-right: 0.625rem;
+  }
+
+  .animal-card__action-button--outlined {
+    border: 0.0625rem solid #ddd;
+    background-color: transparent;
+  }
+
+  .animal-card__details-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .animal-card__detail-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+  }
+
+  .animal-card__detail-text {
+    font-size: 1.25rem;
+    color: #343a40;
+    margin-bottom: 0;
+  }
+
+
+  /* .animal-card__badge {
+    background-color: #5c636a;
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 0.3125rem 0.625rem;
+    border-radius: 0.75rem;
+  } */
+
+  .animal-card__delivery-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .animal-card__delivery-check {
+    font-size: 1rem;
+  }
+
+  .animal-card__history-text {
+    font-size: 0.875rem;
+    color: #343a40;
+  }
+
+.animal-card__heart-button {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size:2.25rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+    transform: translateX(0.5rem) translateY(-1rem);
+  }
+
+  .animal-card__heart-button:hover {
+    color: darkred;
+  }
+
+
+
+  .animal-card__contact-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-left: 0.625rem;
+    background-color: #97a0a8;
+    border-color: #97a0a8;
+  }
+
+
+
+  .animal-card__contact-button i {
+    margin-right: 0.5rem;
+  }
+
+.animal-card__section-title{
+    font-size: 1.4rem;
+}
+.animal-card__badge {
+    font-size: 0.8rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    background-color: #97a0a8;
+    padding: 0.3125rem 0.625rem;
+    border-radius: 0.6rem;
+
+}
+
+
+.animal-card__protectora-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.animal-card__badge:hover {
+    background-color: #5c636a;
+    color: white;
+}
+
+.animal-card__opciones-lista {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.animal-card__opcion-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: -1rem;
+    font-size: 1rem;
+}
+
+.animal-card__check-icon {
+    font-size: 1.8rem;
+    margin-right: 0.5rem;
+    color: green;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+.animal-card__protectora-link {
+    display: flex;
+    align-items: center;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #97a0a8;
+    color: white;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.animal-card__protectora-link:hover {
+    background-color: #5c636a;
+    text-decoration: none;
+}
+
+.animal-card__protectora-icon {
+    font-size: 1.5rem;
+    color: white;
+    margin-right: 0.75rem;
+}
+
+.animal-card__protectora-name {
+    font-size:  0.875rem;
+    margin: 0
+}
+
+.animal-card__protectora-text {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.25rem;
+    line-height: 0.15rem
+}
+
