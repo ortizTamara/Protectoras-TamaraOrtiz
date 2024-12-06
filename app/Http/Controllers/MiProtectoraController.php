@@ -18,11 +18,19 @@ class MiProtectoraController extends Controller
 
         $miProtectora = Protectora::find($user->protectora_id);
 
-        if (!$miProtectora) {
-            return redirect()->route('perfil')->with('error', 'No tienes una protectora asociada.');
+        // if (!$miProtectora) {
+        //     return redirect()->route('perfil')->with('error', 'No tienes una protectora asociada.');
+        // }
+
+        if ($user->protectora_id || $user->rol_id == 1) {
+            $protectora = Protectora::find($user->protectora_id);
+
+            return view('perfil.protectoras.index', compact('miProtectora'));
         }
 
-        return view('perfil.protectoras.index', compact('miProtectora'));
+        return redirect()->route('perfil')->with('error', 'No tienes acceso a esta sección.');
+
+        // return view('perfil.protectoras.index', compact('miProtectora'));
     }
 
     public function show($id)
@@ -180,8 +188,8 @@ class MiProtectoraController extends Controller
         }
 
         throw new \Exception('Acción no válida.');
-    } catch (\Exception $e) {
-        DB::rollBack();
+        } catch (\Exception $e) {
+            DB::rollBack();
 
         return redirect()->back()->with('error', 'Ocurrió un error al procesar tu solicitud.');
     }

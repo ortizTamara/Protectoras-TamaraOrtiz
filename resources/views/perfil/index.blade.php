@@ -33,22 +33,17 @@
                 <div class="card-body">
                     <h1 class="profile-title mb-4">Mi Perfil</h1>
 
-                    <!-- PERFIL -->
                     <div class="d-flex flex-column align-items-center mb-5 profile-image">
-                        <!-- ICONO -->
                         <div class="profile-pic-container mb-2">
                             @if (auth()->user()->foto)
-                                <!-- Imagen de perfil -->
                                 <img id="profilePreview"
                                      src="{{ asset('storage/' . auth()->user()->foto) }}"
                                      alt="Foto de perfil"
                                      class="profile-img">
                             @else
-                            {{-- ICONO CÁMARA --}}
                                 <i class="bi bi-camera profile-icon"></i>
                             @endif
                         </div>
-                        {{-- BOTÓN AÑADIR IMAGEN --}}
                         <div class="d-flex">
                             <form action="{{ route('updateFoto') }}" method="POST" enctype="multipart/form-data" class="me-2">
                                 @csrf
@@ -57,7 +52,6 @@
                                     <i class="bi bi-upload"></i> Actualizar foto
                                 </button>
                             </form>
-                            {{-- BOTÓN ELIMINAR IMAGEN--}}
                             @if (auth()->user()->foto)
                                 <form id="deleteFotoForm" action="{{ route('deleteFoto') }}" method="POST">
                                     @csrf

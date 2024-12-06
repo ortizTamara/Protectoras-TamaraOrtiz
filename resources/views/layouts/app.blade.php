@@ -5,17 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
 
-    <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -68,7 +65,6 @@
                                 href="{{ route('contacto') }}">Contacto</a>
                         </li>
 
-                        {{-- Solo se muestra al Administrador --}}
                         @auth
                             @if (Auth::user()->rol_id == 1)
                                 <li class="nav-item">
@@ -79,7 +75,6 @@
                     </ul>
                     <ul class="navbar-nav ms-auto me-4">
                         @guest
-                            <!-- Mostrar "Iniciar sesión" y "Registrarse" solo si el usuario no está autenticado -->
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link @if (request()->is('login')) active @endif" href="{{ route('login') }}">Iniciar sesión</a>
@@ -92,23 +87,18 @@
                                 </li>
                             @endif
                         @else
-                            <!-- Mostrar "Perfil" y "Cerrar sesión" si el usuario está autenticado -->
                             <div class="profile-bar__user d-flex align-items-center gap-2">
                                 <a href="{{ route('perfil') }}"
                                    class="text-decoration-none d-flex align-items-center gap-2
                                    @if (request()->is('perfil')) active @endif">
-                                    <!-- Nombre del usuario -->
                                     <span class="profile-bar__name">{{ Auth::user()->nombre }}</span>
 
-                                    <!-- Foto o inicial en el avatar -->
                                     <div class="profile-bar__avatar rounded-circle d-flex align-items-center justify-content-center">
                                         @if (Auth::user()->foto)
-                                            <!-- Mostrar la foto si está disponible -->
                                             <img src="{{ asset('storage/' . Auth::user()->foto) }}"
                                                  alt="Foto de perfil"
                                                  class="img-fluid rounded-circle">
                                         @else
-                                            <!-- Mostrar la inicial si no hay foto -->
                                             <span class="profile-bar__initial">
                                                 {{ strtoupper(substr(Auth::user()->nombre, 0, 1)) }}
                                             </span>
@@ -117,12 +107,10 @@
                                 </a>
                             </div>
 
-                                <!-- Botón de Cerrar Sesión con Icono de Bootstrap y margen -->
                                 <a href="{{ route('logout') }}" class="profile-bar__logout btn btn-link p-0 ms-4" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" aria-label="Logout">
                                     <i class="bi bi-box-arrow-right profile-bar__logout-icon"></i>
                                 </a>
 
-                                <!-- Formulario de Cerrar Sesión -->
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>

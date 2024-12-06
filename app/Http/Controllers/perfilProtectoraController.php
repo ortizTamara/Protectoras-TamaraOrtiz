@@ -82,7 +82,7 @@ class PerfilProtectoraController extends Controller
             $path = $request->file('logo')->storeAs('logos', $fileName, 'public');
 
             if ($path) {
-                $protectora->logo = $path; // Guardar la ruta completa
+                $protectora->logo = $path;
                 $protectora->save();
             }
         }

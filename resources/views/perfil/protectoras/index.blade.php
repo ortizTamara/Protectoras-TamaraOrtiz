@@ -28,8 +28,8 @@
         </div>
         <div class="col-md-9">
             <div class="row g-4">
-                @if($miProtectora)
                 <div class="col-3">
+                    @if($miProtectora)
                     <a href="{{ route('perfil-miProtectora.show', $miProtectora->id) }}" class="text-decoration-none">
                         <div class="protectora-card shadow-sm border border-secondary-subtle bg-light">
                             <i class="bi bi-star-fill text-warning protectora-card__star fs-3"></i>
