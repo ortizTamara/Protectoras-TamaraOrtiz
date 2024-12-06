@@ -52,13 +52,14 @@
             <p class="protectora__stat-label">Casos en adopción</p>
         </div>
         <div class="protectora__stat">
-            <p class="protectora__stat-value">{{ $protectora->animales->where('estado', 'en adopción')->count() }}</p>
-            <p class="protectora__stat-label">En adopción</p>
-        </div>
-        <div class="protectora__stat">
             <p class="protectora__stat-value">0</p>
             <p class="protectora__stat-label">Urgente</p>
         </div>
+        <div class="protectora__stat">
+            <p class="protectora__stat-value">{{ $protectora->animales->where('estado', 'en adopción')->count() }}</p>
+            <p class="protectora__stat-label">En adopción</p>
+        </div>
+
         <div class="protectora__stat">
             <p class="protectora__stat-value">0</p>
             <p class="protectora__stat-label">En acogida</p>

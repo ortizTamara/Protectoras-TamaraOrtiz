@@ -81,18 +81,18 @@
             <div class="col-md-10">
                 <div class="d-flex justify-content-between mb-4">
                     <form class="d-flex w-25" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </form>
                     <div class="d-flex gap-2">
                         <button type="button" class="btn btn-secondary" data-filter="new">Nuevo</button>
                         <button type="button" class="btn btn-secondary" data-filter="age_asc">Edad
                             Ascendente</button>
                         <button type="button" class="btn btn-secondary" data-filter="age_desc">Edad
-                            Descendent</button>
+                            Descendente</button>
                     </div>
                 </div>
-                <div class="home__cards  row row-cols-1 row-cols-sm-2 row-cols-md-5 g-0">
+                <div class="home__cards  row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
                     @forelse ($animales as $animal)
                         @if ($animal->protectora && $animal->protectora->esValido)
                             <a href="{{ route('animal.show', $animal->id) }}" class="col-3 text-decoration-none">
@@ -102,14 +102,14 @@
                                          class="protectora__case-image protectora__case-image--home">
                                     <div class="protectora__case-body">
                                         <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
-                                        <button
+                                        {{-- <button
                                             class="favorite-icon-btn"
                                             data-animal-id="{{ $animal->id }}"
                                             aria-label="Marcar como favorito">
                                             <i id="favorite-icon-{{ $animal->id }}" class="favorite-icon" data-animal-id="{{ $animal->id }}">
-                                                <i class="fas fa-heart"></i>  <!-- Corazón vacío (por defecto) -->
+                                                <i class="fas fa-heart"></i>
                                             </i>
-                                        </button>
+                                        </button> --}}
                                     </div>
                                 </div>
                             </a>

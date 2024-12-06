@@ -601,8 +601,6 @@ form fieldset {
 }
 
 .protectora__case-image {
-    width: 12rem;
-    height: 12rem;
     object-fit: cover;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
@@ -647,10 +645,14 @@ form fieldset {
 }
 
 .protectora__case-image--home {
-    width: 15rem;
-    height: 15rem;
+    height: 18rem;
+    width: 12.5rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: 0.15rem solid #ddd;
 }
-/*  */
 .protectora__adoption-process {
     padding-left: 2rem;
 }

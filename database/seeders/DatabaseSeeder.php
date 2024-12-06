@@ -25,13 +25,16 @@ class DatabaseSeeder extends Seeder
             ProvinciaSeeder::class,
             GeneroSeeder::class,
             RolSeeder::class,
-            UsuarioSeeder::class,
+            // UsuarioSeeder::class,
             EstadoAnimalSeeder::class,
             ComportamientoSeeder::class,
             OpcionEntregaSeeder::class,
             GeneroAnimalSeeder::class,
             NivelActividadSeeder::class,
             OpcionConsultaSeeder::class,
+            ProtectoraSeeder::class,
+            UsuarioSeeder::class,
+            AnimalSeeder::class,
         ]);
         // User::factory(10)->create();
 
