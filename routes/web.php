@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminConsultaController;
 use App\Http\Controllers\AdminProtectoraController;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\AnimalTemporalController;
@@ -28,7 +29,10 @@ use Illuminate\Support\Facades\Route;
 
 // Rutas publicas (puede acceder todo el mundo)
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('contacto', [App\Http\Controllers\ContactoController::class, 'index'])->name('contacto');
+// Route::get('contacto', [ContactoController::class, 'index'])->name('contacto');
+Route::get('contacto', [ConsultaController::class, 'index'])->name('contacto');
+
+
 
 
 // Route::resource('consulta', ConsultaController::class);
@@ -79,10 +83,6 @@ Route::prefix('perfil')->group(function () {
 });
 
 
-
-
-
-
 // // Ruta de perfil de protectora (Solo se muestra cuando el usuario es una protectora)
 // Route::resource('/perfil-protectora', PerfilProtectoraController::class);
 // // Mis protectoras (solo se muestra si el usuario es una protectora)
@@ -108,9 +108,13 @@ Route::resource('/opcionEntrega', OpcionEntregaController::class);
 Route::resource('/opcionConsulta', OpcionConsultaController::class)->parameters([
     'opcionConsulta' => 'opcionConsulta'
 ]); // php artisan route:list, se me guardo opcionConsulta como opcionConsultum, hacemos que sea opcionConsulta
-Route::prefix('administracion')->name('administracion.')->group(function () {
+    Route::prefix('administracion')->name('administracion.')->group(function () {
     Route::resource('protectora', AdminProtectoraController::class);
     Route::patch('protectora/{id}/validar', [AdminProtectoraController::class, 'validar'])->name('protectora.validar');
+    // Route::get('/consultas', [AdminConsultaController::class, 'index'])->name('consultasAdmin.index');
+    Route::get('/consultas', [AdminConsultaController::class, 'index'])->name('consultas.index');
+    Route::patch('/consultas/{id}/leido', [AdminConsultaController::class, 'leido'])->name('consultas.leido');
+
 });
 
 // Ruta para gestión de usuario

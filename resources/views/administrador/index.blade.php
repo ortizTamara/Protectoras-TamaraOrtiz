@@ -98,7 +98,7 @@
 
             <!-- Tarjeta de Consultas -->
             <div class="col-md-3 mb-3">
-                <a href="{{ route('administracion.protectora.index') }}"
+                <a href="{{ route('administracion.consultas.index') }}"
                     class="card card-custom shadow-sm rounded text-decoration-none text-dark">
                     <div class="card-body text-center">
                         <h5 class="card-title mb-3">

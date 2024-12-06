@@ -9,7 +9,7 @@
         <h1 class="display-4 text-center mb-5">Contacto</h1>
 
         <div class="row g-4">
-            <!-- Formulario de Consulta -->
+           <!-- Formulario de Consulta -->
             <div class="col-lg-6">
                 <h2 class="h3 mb-4">Envíanos tu consulta</h2>
                 <div class="card shadow-sm">
@@ -19,45 +19,52 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Nombre"
-                                            required>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" value="{{ old('name') }}" required>
                                         <label for="name">Nombre</label>
-                                        <div id="nameError" class="text-danger"></div>
+                                        <div id="nameError" class="text-danger text-start"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="surname" placeholder="Apellidos"
-                                            required>
+                                        <input type="text" class="form-control" id="surname" name="surname" placeholder="Apellidos" value="{{ old('surname') }}" required>
                                         <label for="surname">Apellidos</label>
-                                        <div id="surnameError" class="text-danger"></div>
+                                        <div id="surnameError" class="text-danger text-start"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="email" placeholder="Email" required>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
                                 <label for="email">Email</label>
-                                <div id="emailError" class="text-danger"></div>
+                                <div id="emailError" class="text-danger text-start"></div>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="tel" class="form-control" id="phone" placeholder="Teléfono">
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Teléfono" value="{{ old('phone') }}">
                                 <label for="phone">Teléfono</label>
-                                <div id="phoneError" class="text-danger"></div>
+                                <div id="phoneError" class="text-danger text-start"></div>
                             </div>
                             <div class="form-floating mb-3">
                                 <select class="form-select" name="opcion_consultas_id" id="opcion_consultas_id" aria-label="Seleccione una opción" required>
                                     <option value="" disabled selected>Seleccione una opción</option>
-                                    {{-- @foreach ($opcionConsultas as $opcion)
-                                        <option value="{{ $opcion->id }}">{{ $opcion->nombre }}</option>
-                                    @endforeach --}}
+                                    @foreach ($opcionConsultas as $opcion)
+                                        <option value="{{ $opcion->id }}" {{ old('opcion_consultas_id') == $opcion->id ? 'selected' : '' }}>{{ $opcion->nombre }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-floating mb-4">
-                                <textarea class="form-control" id="message" placeholder="Mensaje" rows="5" required></textarea>
+                                <textarea class="form-control" id="message" name="message" placeholder="Mensaje" rows="5" required>{{ old('message') }}</textarea>
                                 <label for="message">Mensaje</label>
-                                <div id="messageError" class="text-danger"></div>
+                                <div id="messageError" class="text-danger text-start"></div>
                             </div>
                             <button type="submit" class="btn btn-secondary w-100">Enviar mensaje</button>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </form>
                     </div>
                 </div>

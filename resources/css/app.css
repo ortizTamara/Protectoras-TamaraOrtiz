@@ -820,48 +820,48 @@ form fieldset {
     background-color: #555;
 }
 
-/* ADMINISTRADOR - PROTECTORAS */
-.manage-protectoras__title {
+/* ADMINISTRADOR - PROTECTORAS/CONSULTAS */
+.manage-protectoras__title, .manage-consultas__title {
     font-size: 2rem;
     font-weight: bold;
     color: #333;
 }
 
-.manage-protectoras__table {
+.manage-protectoras__table, .manage-consultas__table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.manage-protectoras__table-head {
+.manage-protectoras__table-head, .manage-consultas__table-head {
     background-color: #343a40;
     color: #fff;
 }
 
-.manage-protectoras__table-row {
-    border-bottom: 1px solid #ddd;
+.manage-protectoras__table-row, .manage-consultas__table-row {
+    border-bottom: 0.1rem solid #ddd;
 }
 
-.manage-protectoras__table-cell {
+.manage-protectoras__table-cell,.manage-consultas__table-cell {
     font-size:1rem;
     padding: 0.75rem;
     text-align: center;
     vertical-align: middle;
 }
 
-.manage-protectoras__table-header {
+.manage-protectoras__table-header, .manage-consultas__table-header {
     font-weight: bold;
     text-transform: uppercase;
     padding: 1rem;
 }
 
-.manage-protectoras__actions {
+.manage-protectoras__actions, .manage-consultas__actions {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
 }
 
-.manage-protectoras__btn {
+.manage-protectoras__btn, .manage-consultas__btn {
     border: none;
     background: none;
     cursor: pointer;
@@ -870,27 +870,22 @@ form fieldset {
     margin: 0;
 }
 
-.manage-protectoras__btn--view{
+.manage-protectoras__btn--view, .manage-consultas__btn--view{
     font-size: 1.7rem;
-
-}
-
-
-.manage-protectoras__btn--view {
     color: black;
 }
 
-.manage-protectoras__btn--view:hover {
+.manage-protectoras__btn--view:hover, .manage-consultas__btn--view:hover {
     color: #0056b3;
 }
 
 
-.manage-protectoras__btn--approve {
+.manage-protectoras__btn--approve, .manage-consultas__btn--approve {
     font-size: 2rem;
     color: #28a745;
 }
 
-.manage-protectoras__btn--approve:hover {
+.manage-protectoras__btn--approve:hover, .manage-consultas__btn--approve:hover {
     color: #218838;
 }
 
@@ -1170,7 +1165,6 @@ a {
         cursor: pointer;
     }
 
-/* PRUEBA DISEÑO, HACER LIMPIEZA*/
 .animal-card__container {
     margin-bottom: 1.5rem;
   }
@@ -1417,3 +1411,7 @@ a {
     text-align: center;
 }
 
+.form-floating .form-select {
+    padding-top: 0;
+    padding-bottom: 0;
+}
