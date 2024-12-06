@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@pushOnce('scripts')
+    @vite(['resources/js/marcarFavorito.js', 'resources/js/seleccionarEspecie'])
+@endPushOnce
+
+
 @section('content')
     <div class="container-fluid px-5">
         {{-- Después del px-5 había un mx-5 --}}
@@ -10,7 +15,7 @@
                 {{-- ESPECIE --}}
                 <div class="mb-4">
                     <h6>Tipo de animal</h6>
-                    <select name="especie_id" class="form-control">
+                    <select name="especie_id" id="especie_id" class="form-control">
                         <option value="">Todos</option>
                         @foreach ($especies as $especie)
                             <option value="{{ $especie->id }}" @selected($especie->especie_id === $especie->id)>
@@ -23,7 +28,7 @@
                 {{-- RAZA --}}
                 <div class="mb-4">
                     <h6>Raza</h6>
-                    <select name="raza_id" class="form-control">
+                    <select name="raza_id" id="raza_id" class="form-control">
                         <option value="">Todas</option>
                         @foreach ($razas as $raza)
                             <option value="{{ $raza->id }}" @selected($raza->raza_id === $raza->id)>
@@ -97,6 +102,14 @@
                                          class="protectora__case-image protectora__case-image--home">
                                     <div class="protectora__case-body">
                                         <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
+                                        <button
+                                            class="favorite-icon-btn"
+                                            data-animal-id="{{ $animal->id }}"
+                                            aria-label="Marcar como favorito">
+                                            <i id="favorite-icon-{{ $animal->id }}" class="favorite-icon" data-animal-id="{{ $animal->id }}">
+                                                <i class="fas fa-heart"></i>  <!-- Corazón vacío (por defecto) -->
+                                            </i>
+                                        </button>
                                     </div>
                                 </div>
                             </a>

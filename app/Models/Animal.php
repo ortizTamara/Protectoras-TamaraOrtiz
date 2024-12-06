@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Auth;
 
 class Animal extends Model
 {
@@ -80,4 +81,17 @@ class Animal extends Model
         return $this->belongsTo(Protectora::class);
     }
 
+    public function favoritos(): belongsToMany
+    {
+        return $this->belongsToMany(Animal::class, 'usuario_animal_favoritos', 'usuario_id', 'animal_id');
+    }
+
+    // public function getIsFavoriteAttribute()
+    // {
+    //     // Verificar si el usuario está autenticado y si este animal es favorito
+    //     if (Auth::check()) {
+    //         return Auth::user()->favoritos()->where('animal_id', $this->id)->exists();
+    //     }
+    //     return false;
+    // }
 }

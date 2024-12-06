@@ -1415,3 +1415,33 @@ a {
     padding-top: 0;
     padding-bottom: 0;
 }
+
+/* PRUEBA */
+.favorite-icon-btn{
+    border: none;
+    background-color: transparent;
+    z-index: 20;
+}
+.favorite-icon {
+    font-size: 2rem;
+    color: #d3d3d3;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.favorite-icon:hover {
+    color: #f44336;
+    transform: scale(1.2);
+}
+
+.favorite-icon.fav {
+    color: #f44336;
+}
+
+.favorite-icon .fas {
+    transition: color 0.3s ease;
+}
+
+.favorite-icon.fav:hover {
+    color: #ff4081;
+}

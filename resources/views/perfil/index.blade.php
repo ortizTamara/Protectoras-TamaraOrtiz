@@ -17,7 +17,7 @@
                 @endif
                 <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis favoritos</a>
                 @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
-                <a href="{{ route('perfil-miProtectora.index') }}" class="btn btn-outline-secondary w-100 mb-2">Mis protectoras</a>
+                <a href="{{ route('favoritos.index') }}" class="btn btn-outline-secondary w-100 mb-2">Mis protectoras</a>
                 @endif
                 @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
                 <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis ayudantes</a>

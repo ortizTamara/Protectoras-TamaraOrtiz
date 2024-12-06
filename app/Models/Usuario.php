@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -109,8 +110,13 @@ class Usuario extends Authenticatable
     }
 
     // Verifica si el usuario tiene un permiso específico
-    public function permisos()
+    public function permisos(): BelongsToMany
     {
         return $this->belongsToMany(Permiso::class, 'permiso_roles');
+    }
+
+    public function favoritos(): BelongsToMany
+    {
+        return $this->belongsToMany(Animal::class, 'usuario_animal_favoritos');
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Especie;
 use App\Models\Raza;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -61,7 +62,6 @@ class HomeController extends Controller
         // })->whereBetween('peso', [3, 10])->get()
 
         $animales = $query->get()->map(function ($animal) {
-            // Si el campo 'imagen' está vacío, asigna una imagen predeterminada
             $animal->imagen = $animal->imagen ? 'storage/' . $animal->imagen : 'imagenes/placeholder.jpg';
             return $animal;
         });

@@ -13,6 +13,7 @@ use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\EspecieController;
 use App\Http\Controllers\EstadoAnimalController;
+use App\Http\Controllers\MiFavoritoController;
 use App\Http\Controllers\MiProtectoraController;
 use App\Http\Controllers\OpcionConsultaController;
 use App\Http\Controllers\OpcionEntregaController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\PerfilProtectoraController;
 use App\Http\Controllers\ProtectoraController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\RazaController;
+use App\Http\Controllers\UsuarioAnimalFavoritoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -32,8 +34,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 // Route::get('contacto', [ContactoController::class, 'index'])->name('contacto');
 Route::get('contacto', [ConsultaController::class, 'index'])->name('contacto');
 
-
-
+Route::post('/favoritos/toggle', [MiFavoritoController::class, 'toggle']);
 
 // Route::resource('consulta', ConsultaController::class);
 Route::resource('/consulta', ConsultaController::class)->parameters([
@@ -79,6 +80,9 @@ Route::prefix('perfil')->group(function () {
     Route::resource('perfil-miProtectora', MiProtectoraController::class);
 
     Route::resource('animal-temporal', AnimalTemporalController::class);
+
+    // FAVORITOS
+    Route::get('/mis-favoritos', [MiFavoritoController::class, 'index'])->name('favoritos.index');
 
 });
 
@@ -126,6 +130,7 @@ Route::get('/protectoras', [ProtectoraController::class, 'index'])->name('protec
 
 // Ruta para poder obtener las razas
 Route::get('/especies/{especie}/razas', [RazaController::class, 'getRazasPorEspecie']);
+
 
 
 Auth::routes();

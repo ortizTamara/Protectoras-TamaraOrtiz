@@ -235,4 +235,27 @@ class AnimalController extends Controller
 
     //     return redirect()->back()->with('success', 'Animal eliminado correctamente.');
     // }
+
+    public function marcarFavorito($animalId)
+    {
+        // Buscar el animal por su ID
+        $animal = Animal::findOrFail($animalId);
+
+        // Obtener al usuario autenticado
+        $user = auth()->Auth::user();
+
+        // Verificar si el animal ya está en los favoritos del usuario
+        if ($user->favoritos->contains($animal)) {
+            // Si el animal ya está en los favoritos, lo quitamos
+            $user->favoritos()->detach($animalId);
+            $isFavorite = false;  // Marcamos como no favorito
+        } else {
+            // Si no está en los favoritos, lo agregamos
+            $user->favoritos()->attach($animalId);
+            $isFavorite = true;  // Marcamos como favorito
+        }
+
+        // Retornamos una respuesta JSON con el estado del favorito
+        return response()->json(['success' => true, 'isFavorite' => $isFavorite]);
+    }
 }
