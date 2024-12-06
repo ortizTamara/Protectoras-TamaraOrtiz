@@ -16,6 +16,7 @@ use App\Models\Protectora;
 use App\Models\Raza;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -105,7 +106,7 @@ class AnimalController extends Controller
      */
     public function show($id)
     {
-        $animal = Animal::with(['protectora.usuario.pais', 'protectora.usuario.comunidadAutonoma', 'color', 'especie', 'raza', 'comportamientos', 'opcionesEntrega'])
+        $animal = Animal::with(['protectora.usuario.pais', 'protectora.usuario.comunidadAutonoma', 'color', 'especie', 'raza', 'comportamientos', 'opcionesEntrega', 'nivelActividad'])
         ->findOrFail($id);
 
         return view('perfil.protectoras.animales.show', compact('animal'));
@@ -116,15 +117,92 @@ class AnimalController extends Controller
      */
     public function edit(Animal $animal)
     {
-        //
+        $user = Auth::user();
+
+        if ($user->rol_id !== 1 && $user->protectora_id !== $animal->protectora_id) {
+            return redirect()->route('animal.index')->with('error', 'No tienes permiso para editar este animal.');
+        }
+
+        $estados = EstadoAnimal::all();
+        $especies = Especie::all();
+        $razas = Raza::where('especie_id', $animal->especie_id)->get();
+        $colores = Color::all();
+        $generos = GeneroAnimal::all();
+        $nivelesActividad = NivelActividad::all();
+        $comportamientos = Comportamiento::all();
+        $opcionesEntrega = OpcionEntrega::all();
+
+        return view('perfil.protectoras.animales.edit', compact(
+            'animal',
+            'estados',
+            'especies',
+            'razas',
+            'colores',
+            'generos',
+            'nivelesActividad',
+            'comportamientos',
+            'opcionesEntrega'
+        ));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAnimalRequest $request, Animal $animal)
+    public function update(UpdateAnimalRequest $request, $id)
     {
-        //
+        // dd($request->all());
+        $animal = Animal::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string|max:5000',
+            'fecha_nacimiento' => 'required|date',
+            'peso' => 'required|numeric|min:0|max:999.99',
+            'genero_animal_id' => 'nullable|exists:genero_animals,id',
+            'especie_id' => 'nullable|exists:especies,id',
+            'raza_id' => 'nullable|exists:razas,id',
+            'comportamientos' => 'nullable|array',
+            'opciones_entrega' => 'nullable|array',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'color_id' => 'nullable|exists:colors,id',
+            'nivel_actividad_id' => 'nullable|exists:nivel_actividads,id',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $animal->update($validatedData);
+
+            if ($request->has('comportamientos')) {
+                $animal->comportamientos()->sync($request->input('comportamientos'));
+            }
+
+            if ($request->has('opciones_entrega')) {
+                $animal->opcionesEntrega()->sync($request->input('opciones_entrega'));
+            }
+
+            if ($request->hasFile('imagen')) {
+                if ($animal->imagen && Storage::disk('public')->exists($animal->imagen)) {
+                    Storage::disk('public')->delete($animal->imagen);
+                }
+
+                $fileName = 'animal_' . $animal->id . '_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('imagen')->getClientOriginalExtension();
+                $path = $request->file('imagen')->storeAs('animales', $fileName, 'public');
+
+                if ($path) {
+                    $animal->update(['imagen' => $path]);
+                }
+            }
+
+            DB::commit();
+
+            return redirect()->route('animal.show', $animal->id)
+                ->with('success', 'Animal actualizado correctamente.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Ocurrió un error al actualizar el animal.');
+        }
     }
 
     /**

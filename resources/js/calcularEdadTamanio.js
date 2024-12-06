@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Obtener la fecha de nacimiento desde el HTML
-    const fechaNacimientoElement = document.getElementById('animal-age');
+    const fechaNacimientoElement = document.getElementById('fecha_nacimiento');
     const fechaNacimiento = fechaNacimientoElement ? fechaNacimientoElement.textContent.trim() : '';
 
     // Agregar depuración para ver si la fecha se extrae correctamente

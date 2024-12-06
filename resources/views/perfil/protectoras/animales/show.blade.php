@@ -9,12 +9,10 @@
   <div class="animal-card__container mb-4">
     <div class="animal-card__body">
       <div class="row">
-        <!-- Imagen y miniaturas -->
         <div class="animal-card__image-section col-lg-4 col-md-6 mb-3">
           <img src="{{ $animal->imagen ? asset('storage/'.$animal->imagen) : '/placeholder.svg' }}" alt="{{ $animal->nombre }}" class="animal-card__image img-fluid rounded-lg mb-3">
         </div>
 
-        <!-- Información del animal -->
         <div class="animal-card__info-section col-lg-8 col-md-6">
           <div class="animal-card__header d-flex justify-content-between">
             <div class="animal-card__title text-start">
@@ -28,9 +26,16 @@
             </p>
             </div>
             <div class="animal-card__actions d-flex flex-column align-items-end gap-0 mb-0">
-                <button class="animal-card__heart-button btn mb-0 ">
-                    <i class="bi bi-heart animal-card__heart-icon"></i>
-                </button>
+                <div class="d-flex align-items-center big-gap mb-2">
+                    @if(auth()->check() && (auth()->user()->rol_id == 1 || auth()->user()->protectora_id == $animal->protectora_id))
+                    <a href="{{ route('animal.edit', $animal->id) }}" class="btn btn-secondary">
+                        <i class="bi bi-pencil"></i> Editar animal
+                    </a>
+                @endif
+                    <button class="animal-card__heart-button btn mb-0">
+                        <i class="bi bi-heart animal-card__heart-icon"></i>
+                    </button>
+                </div>
 
                 <div class="animal-card__protectora-info d-flex gap-2 align-items-center mb-5">
                     <a href="{{ route('perfil-miProtectora.show', $animal->protectora_id) }}" class="animal-card__protectora-link">
@@ -48,9 +53,9 @@
                     </button>
                 </div>
             </div>
-          </div>
+        </div>
 
-          <div class="animal-card__details-section grid sm:grid-cols-2 md:grid-cols-4 gap-0 mb-4 text-start">
+          <div class="animal-card__details-section grid sm:grid-cols-2 md:grid-cols-5 gap-0 mb-4 text-start">
             <div class="animal-card__detail">
                 <h3 class="animal-card__detail-title text-muted">Especie</h3>
                 <p class="animal-card__detail-text">{{ $animal->especie->nombre }}</p>
@@ -61,11 +66,21 @@
             </div>
             <div class="animal-card__detail">
                 <h3 class="animal-card__detail-title text-muted">Edad</h3>
-                <p id="animal-age" class="animal-card__detail-text">{{ $animal->fecha_nacimiento }}</p>
+                <p id="fecha_nacimiento" class="animal-card__detail-text">{{ $animal->fecha_nacimiento }}</p>
             </div>
-            <div class="animal-card__detail">
+            <div class="animal-card__detail mb-4">
                 <h3 class="animal-card__detail-title text-muted">Tamaño</h3>
                 <p  id="animal-size" class="animal-card__detail-text">{{ $animal->peso }} kg</p>
+            </div>
+
+            <div class="animal-card__detail ">
+                <h3 class="animal-card__detail-title text-muted">Color</h3>
+                <p  id="animal-color" class="animal-card__detail-text">{{ $animal->color->nombre}}</p>
+            </div>
+
+            <div class="animal-card__detail">
+                <h3 class="animal-card__detail-title text-muted">Nivel Actividad</h3>
+                <p  id="animal-actividad" class="animal-card__detail-text">{{ $animal->nivelActividad->nombre}}</p>
             </div>
         </div>
 

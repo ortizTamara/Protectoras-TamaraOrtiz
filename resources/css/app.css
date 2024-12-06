@@ -1192,14 +1192,10 @@ a {
     border-radius: 0.5rem;
   }
 
-  .animal-card__thumbnail {
-    object-fit: cover;
-  }
+  .edit-mode .animal-card__image, .animal-card__name-input, .animal-card__select-gender, .animal-card__detail-select, .animal-card__detail-input {
+    cursor: pointer;
+}
 
-  .animal-card__thumbnails {
-    display: flex;
-    gap: 1.25rem;
-  }
 
   .animal-card__info-section {
     display: flex;
@@ -1228,24 +1224,9 @@ a {
     align-items: center;
   }
 
-  .animal-card__action-buttons {
-    margin-top: 0.625rem;
-  }
-
-  .animal-card__action-button {
-    border-radius: 50%;
-    padding: 0.625rem;
-    margin-right: 0.625rem;
-  }
-
-  .animal-card__action-button--outlined {
-    border: 0.0625rem solid #ddd;
-    background-color: transparent;
-  }
-
   .animal-card__details-section {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
     gap: 0.5rem;
   }
 
@@ -1263,23 +1244,6 @@ a {
   }
 
 
-  /* .animal-card__badge {
-    background-color: #5c636a;
-    color: #fff;
-    font-size: 0.75rem;
-    padding: 0.3125rem 0.625rem;
-    border-radius: 0.75rem;
-  } */
-
-  .animal-card__delivery-item {
-    display: flex;
-    align-items: center;
-  }
-
-  .animal-card__delivery-check {
-    font-size: 1rem;
-  }
-
   .animal-card__history-text {
     font-size: 0.875rem;
     color: #343a40;
@@ -1291,13 +1255,12 @@ a {
     color: red;
     font-size:2.25rem;
     transition: transform 0.3s ease, color 0.3s ease;
-    transform: translateX(0.5rem) translateY(-1rem);
+    /* transform: translateX(0.5rem) translateY(-1rem); */
   }
 
   .animal-card__heart-button:hover {
     color: darkred;
   }
-
 
 
   .animal-card__contact-button {
@@ -1390,7 +1353,7 @@ a {
 
 .animal-card__protectora-name {
     font-size:  0.875rem;
-    margin: 0
+    margin: 0;
 }
 
 .animal-card__protectora-text {
@@ -1398,5 +1361,59 @@ a {
     color: rgba(255, 255, 255, 0.7);
     margin-top: 0.25rem;
     line-height: 0.15rem
+}
+
+.big-gap {
+    gap: 6.2rem;
+  }
+
+.animal-card__select-especie {
+    width: 4.5rem;
+    font-size: 1rem;
+    padding-right: 2rem !important;
+    text-align: center;
+}
+
+.animal-card__select-raza {
+    width: 6rem;
+    font-size: 1rem;
+    padding-right: 2rem !important;
+    text-align: center;
+}
+
+.animal-card__select-fecha{
+    width: 7.5rem;
+    font-size: 1rem;
+}
+
+.animal-card__select-peso{
+    width: 5rem;
+    font-size: 1rem;
+}
+
+.animal-card__select-color{
+    width: 6rem;
+    font-size: 1rem;
+    padding-right: 2rem !important;
+    text-align: center;
+}
+
+.animal-card__select-actividad{
+    width: 4rem;
+    font-size: 1rem;
+    padding-right: 2rem !important;
+    text-align: center;
+}
+
+.extra-gap {
+    margin-left: 3rem;
+}
+
+.animal-card__button-group {
+       gap: 1rem;
+}
+
+.animal-card__select-gender-sm option {
+    text-align: center;
 }
 

@@ -57,23 +57,50 @@ document.addEventListener("DOMContentLoaded", function () {
     // } else {
     //     console.log("Elementos de imagen no encontrados.");
     // }
-    const imagenInput = document.getElementById("imagen");
-    const preview = document.getElementById("imagen_preview");
-    const fileName = document.getElementById("imagenName");
 
-    if (imagenInput) {
-        imagenInput.addEventListener("change", function () {
-            if (imagenInput.files && imagenInput.files[0]) {
-                const reader = new FileReader();
+    // ESTO BIEN
+    // const imagenInput = document.getElementById("imagen");
+    // const preview = document.getElementById("imagen_preview");
+    // const fileName = document.getElementById("imagenName");
 
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                    preview.classList.remove("d-none");
-                };
+    // if (imagenInput) {
+    //     imagenInput.addEventListener("change", function () {
+    //         if (imagenInput.files && imagenInput.files[0]) {
+    //             const reader = new FileReader();
 
-                fileName.textContent = imagenInput.files[0].name;
-                reader.readAsDataURL(imagenInput.files[0]);
-            }
-        });
-    }
+    //             reader.onload = function (e) {
+    //                 preview.src = e.target.result;
+    //                 preview.classList.remove("d-none");
+    //             };
+
+    //             fileName.textContent = imagenInput.files[0].name;
+    //             reader.readAsDataURL(imagenInput.files[0]);
+    //         }
+    //     });
+    // }
+
+     // PRUEBA imagen animal
+     const imagenInput = document.getElementById("imagen");
+     const preview = document.getElementById("imagen-preview");
+     const fileName = document.getElementById("imagenName");
+
+     if (imagenInput) {
+         imagenInput.addEventListener("change", function () {
+             if (imagenInput.files && imagenInput.files[0]) {
+                 const reader = new FileReader();
+
+                 reader.onload = function (e) {
+                     preview.src = e.target.result;
+                     preview.classList.remove("d-none");
+                 };
+
+                 if (fileName) {
+                     fileName.textContent = imagenInput.files[0].name;
+                 }
+                 reader.readAsDataURL(imagenInput.files[0]);
+             }
+         });
+     } else {
+         console.log("Elemento de imagen no encontrado.");
+     }
 });

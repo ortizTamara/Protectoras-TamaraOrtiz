@@ -41,7 +41,7 @@
                 @else
                     style="display: none;"
                 @endif>
-                <i class="bi bi-pencil-square me-2"></i> Editar página
+                <i class="bi bi-pencil-square me-2"></i> Editar protectora
             </a>
         </div>
     </div>
@@ -78,7 +78,7 @@
         <div class="protectora__cases-grid">
             @forelse ($protectora->animales as $animal)
                 {{-- <a href="{{ route('animales.show', $animal->id) }}" class="protectora__case"> --}}
-                    <a href="route('animal.show', $animal->id) }}" class="protectora__case">
+                    <a href="{{ route('animal.show', $animal->id) }}" class="protectora__case">
                     <div class="protectora__case-card position-relative">
                         <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
                              alt="{{ $animal->nombre }}" class="protectora__case-image">
