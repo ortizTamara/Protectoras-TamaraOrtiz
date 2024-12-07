@@ -62,7 +62,7 @@ Route::get('/provincias/{comunidadAutonomaId}', [ProvinciaController::class, 'ge
 Route::get('perfil', [App\Http\Controllers\PerfilController::class, 'index'])->name('perfil');
 Route::post('perfil/change-password', [PerfilController::class, 'changePassword'])->name('changePassword');
 
-// Hacemos un grupo de rutas relacionaas con Perfil Protectora y Mis Protectoras para organizar
+// Hacemos un grupo de rutas relacionaas con Perfil Protectora, Mis Protectoras y Mis favoritos para organizar
 Route::prefix('perfil')->group(function () {
     // CREAR ANIMAL
     Route::get('protectoras/animales/create/{protectora_id}', [AnimalController::class, 'create'])->name('animal.create');
@@ -82,11 +82,14 @@ Route::prefix('perfil')->group(function () {
     Route::resource('animal-temporal', AnimalTemporalController::class);
 
     // FAVORITOS
-    Route::get('/mis-favoritos', [MiFavoritoController::class, 'index'])->name('favoritos.index');
-
+    Route::get('/favoritos/{usuario}', [MiFavoritoController::class, 'index'])->name('favoritos.index');
 });
 
+// Ruta para agregar un favorito
+Route::post('/favoritos', [MiFavoritoController::class, 'store'])->name('favoritos.store');
 
+// Ruta para eliminar un favorito
+Route::delete('/favoritos', [MiFavoritoController::class, 'destroy'])->name('favoritos.destroy');
 // // Ruta de perfil de protectora (Solo se muestra cuando el usuario es una protectora)
 // Route::resource('/perfil-protectora', PerfilProtectoraController::class);
 // // Mis protectoras (solo se muestra si el usuario es una protectora)
@@ -130,6 +133,8 @@ Route::get('/protectoras', [ProtectoraController::class, 'index'])->name('protec
 
 // Ruta para poder obtener las razas
 Route::get('/especies/{especie}/razas', [RazaController::class, 'getRazasPorEspecie']);
+Route::get('/razas/{especieId?}', [RazaController::class, 'getRazas']);
+
 
 
 

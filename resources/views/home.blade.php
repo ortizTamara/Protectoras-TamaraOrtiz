@@ -29,7 +29,7 @@
                 <div class="mb-4">
                     <h6>Raza</h6>
                     <select name="raza_id" id="raza_id" class="form-control">
-                        <option value="">Todas</option>
+                        <option value="" >Todas</option>
                         @foreach ($razas as $raza)
                             <option value="{{ $raza->id }}" @selected($raza->raza_id === $raza->id)>
                                 {{ $raza->nombre }}
@@ -92,27 +92,32 @@
                             Descendente</button>
                     </div>
                 </div>
-                <div class="home__cards  row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+
+                <div class="home__cards row row-cols-3 row-cols-sm-3 row-cols-md-5 g-4">
                     @forelse ($animales as $animal)
                         @if ($animal->protectora && $animal->protectora->esValido)
-                            <a href="{{ route('animal.show', $animal->id) }}" class="col-3 text-decoration-none">
+                            <div class="col-3 text-decoration-none">
                                 <div class="protectora__case-card protectora__case-card--home position-relative">
-                                    <img src="{{ asset($animal->imagen) }}"
-                                         alt="{{ $animal->nombre }}"
-                                         class="protectora__case-image protectora__case-image--home">
+                                    <a href="{{ route('animal.show', $animal->id) }}" class="text-decoration-none">
+                                        <img src="{{ asset($animal->imagen) }}"
+                                             alt="{{ $animal->nombre }}"
+                                             class="protectora__case-image protectora__case-image--home">
+                                    </a>
                                     <div class="protectora__case-body">
                                         <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
-                                        {{-- <button
-                                            class="favorite-icon-btn"
-                                            data-animal-id="{{ $animal->id }}"
-                                            aria-label="Marcar como favorito">
-                                            <i id="favorite-icon-{{ $animal->id }}" class="favorite-icon" data-animal-id="{{ $animal->id }}">
-                                                <i class="fas fa-heart"></i>
-                                            </i>
-                                        </button> --}}
                                     </div>
+                                    @auth
+                                    <div class="favorite-icon-container">
+                                        <form action="{{ route('favoritos.store') }}" method="POST">
+                                            <input type="hidden" name="animal_id" value="{{ $animal->id }}">
+                                            <button class="favorite-icon-btn" type="submit">
+                                                <i class="favorite-icon fas fa-heart"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    @endauth
                                 </div>
-                            </a>
+                            </div>
                         @endif
                     @empty
                         <div class="col-12">

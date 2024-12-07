@@ -142,6 +142,19 @@
                                     @endforeach
                                 </select>
                             </div>
+
+                            <div class="animal-card__detail">
+                                <h3 class="animal-card__detail-title text-muted">Estado</h3>
+                                <select name="estado_animal_id" id="estado_animal_id"
+                                        class="animal-card__detail-text form-select form-select-sm border-0 bg-transparent p-0 animal-card__detail-select animal-card__select-estado">
+                                    @foreach($estados as $estado)
+                                        <option value="{{ $estado->id }}" @if($estado->id == $animal->estado_animal_id) selected @endif>
+                                            {{ $estado->nombre }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                         </div>
 
                         <div class="create-animal__section text-start mb-4">

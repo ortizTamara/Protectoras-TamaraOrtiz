@@ -32,9 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
     especieSelect.addEventListener("change", function () {
         const especieId = this.value;
 
-        // Si se selecciona "Todos" (es decir, valor vacío), mostrar todas las razas
         if (!especieId) {
-            fetch('/razas')  // Suponiendo que esta ruta devuelve todas las razas
+            fetch('/razas')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Error al recuperar las razas");
@@ -53,8 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .catch(error => console.error("Error:", error));
         } else {
-            // Si se selecciona una especie específica, mostrar solo sus razas
-            fetch(`/especies/${especieId}/razas`)
+            fetch(`/razas/${especieId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Error al recuperar las razas");

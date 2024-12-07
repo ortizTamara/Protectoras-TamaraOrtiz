@@ -65,22 +65,22 @@
         </section>
     </form>
  <!-- Casos: Temporales y en Adopción -->
- <section class="protectora__cases mt-5">
+ <section class="animal__cases mt-5">
     <div class="d-flex align-items-center">
-        <h2 class="protectora__section-title mb-0 me-2">Nuestros casos en adopción</h2>
+        <h2 class="animal__section-title mb-0 me-2">Nuestros casos en adopción</h2>
         <a href="{{ route('animal.create', ['protectora_id' => $protectora->id]) }}"
            class="btn btn-circle btn-dark d-flex justify-content-center align-items-center">
             <i class="bi bi-plus-lg text-white"></i>
         </a>
     </div>
-    <div class="protectora__cases-grid">
+    <div class="animal__cards-grid">
         @forelse ($protectora->animalTemporales as $animalTemporal)
-            <div class="protectora__case protectora__case-temporal">
-                <div class="protectora__case-card position-relative">
+            <div class="animal__case animal__case-temporal">
+                <div class="animal__card position-relative">
                     <img src="{{ $animalTemporal->imagen ? asset('storage/' . $animalTemporal->imagen) : '/images/placeholder.jpg' }}"
-                         alt="{{ $animalTemporal->nombre }}" class="protectora__case-image">
-                    <div class="protectora__case-body">
-                        <h5 class="protectora__case-name">
+                         alt="{{ $animalTemporal->nombre }}" class="animal__card-image">
+                    <div class="animal__card-body">
+                        <h5 class="animal__card-name">
                             {{ $animalTemporal->nombre }}
                             <span class="badge bg-warning text-dark">Temporal</span>
                         </h5>
@@ -88,28 +88,28 @@
                     <form action="{{ route('animal-temporal.destroy', ['animal_temporal' => $animalTemporal->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm border-0 d-flex align-items-center justify-content-center protectora__delete-btn">
+                        <button type="submit" class="btn btn-danger btn-sm border-0 d-flex align-items-center justify-content-center animal__delete-btn">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </form>
                 </div>
             </div>
         @empty
-            {{-- <p class="protectora__no-temporal-cases">No hay animales temporales actualmente.</p> --}}
+            {{-- <p class="animal__no-temporal-cases">No hay animales temporales actualmente.</p> --}}
         @endforelse
 
         @forelse ($protectora->animales as $animal)
-            <div id="animal-{{ $animal->id }}" class="protectora__case">
-                <div class="protectora__case-card position-relative">
+            <div id="animal-{{ $animal->id }}" class="animal__case">
+                <div class="animal__card position-relative">
                     <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
-                         alt="{{ $animal->nombre }}" class="protectora__case-image">
-                    <div class="protectora__case-body">
-                        <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
+                         alt="{{ $animal->nombre }}" class="animal__card-image">
+                    <div class="animal__card-body">
+                        <h5 class="animal__card-name">{{ $animal->nombre }}</h5>
                     </div>
                     <form action="{{ route('animal.destroy', ['animal' => $animal->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm border-0 d-flex align-items-center justify-content-center protectora__delete-btn delete-animal"
+                        <button type="submit" class="btn btn-danger btn-sm border-0 d-flex align-items-center justify-content-center animal__delete-btn delete-animal"
                                 data-id="{{ $animal->id }}">
                             <i class="bi bi-trash-fill"></i>
                         </button>
@@ -117,7 +117,7 @@
                 </div>
             </div>
         @empty
-            <p class="protectora__no-cases">No hay casos en adopción actualmente.</p>
+            <p class="animal__no-cases">No hay casos en adopción actualmente.</p>
         @endforelse
 
     </div>

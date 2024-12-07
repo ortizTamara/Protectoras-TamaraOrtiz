@@ -565,10 +565,54 @@ form fieldset {
     color: #6c757d;
 }
 
-.protectora__cases-grid {
+.animal__cards-grid {
     display: grid;
-    /* grid-template-columns: repeat(auto-fill, minmax(9.375rem, 1fr)); */
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     gap: 1rem;
+    margin-top: 1rem;
+}
+
+.animal__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border: 0.0625rem solid #ddd;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    max-width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.animal__card-image {
+    width: 13rem;
+    height: 18rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: 0.15rem solid #ddd;
+}
+
+.animal__card-body {
+    text-align: center;
+    margin-top: auto;
+}
+
+.animal__card-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0.5rem 0;
+}
+
+.animal__no-cards {
+    text-align: center;
+    font-size: 1rem;
+    color: #666;
 }
 
 /* TARJETAS ANIMALES */
@@ -600,12 +644,6 @@ form fieldset {
     box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2);
 }
 
-.protectora__case-image {
-    object-fit: cover;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-    border: 0.15rem solid #ddd;
-}
 
 .protectora__case-body {
     text-align: center;
@@ -644,8 +682,8 @@ form fieldset {
     max-width: 17rem;
 }
 
-.protectora__case-image--home {
-    height: 18rem;
+.protectora__case-image--home, .protectora__case-image {
+    height: 17rem;
     width: 12.5rem;
     object-fit: cover;
     object-position: center;
@@ -1400,6 +1438,12 @@ a {
     padding-right: 2rem !important;
     text-align: center;
 }
+.animal-card__select-estado{
+    width: 7rem;
+    font-size: 1rem;
+    padding-right: 2rem !important;
+    text-align: center;
+}
 
 .extra-gap {
     margin-left: 3rem;
@@ -1418,32 +1462,54 @@ a {
     padding-bottom: 0;
 }
 
-/* PRUEBA */
-.favorite-icon-btn{
+/* CORAZÓN TARJETA ANIMAL */
+.favorite-icon-btn {
+    background-color: rgba(255, 255, 255, 0.6);
     border: none;
-    background-color: transparent;
-    z-index: 20;
+    border-radius: 50%;
+    padding: 0.25rem;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
+
+
 .favorite-icon {
     font-size: 2rem;
     color: #d3d3d3;
-    cursor: pointer;
-    transition: color 0.3s ease, transform 0.2s ease;
+    transition: color 0.5s ease-in-out;
 }
 
-.favorite-icon:hover {
-    color: #f44336;
-    transform: scale(1.2);
+.favorite-icon.selected {
+    color: red;
+    transition: none;
 }
 
-.favorite-icon.fav {
-    color: #f44336;
+.favorite-icon-btn:hover .favorite-icon:not(.selected) {
+    color: red;
+    transition: color 0.5s ease-in-out;
 }
 
-.favorite-icon .fas {
-    transition: color 0.3s ease;
+.favorite-icon-btn.no-transition:hover .favorite-icon {
+    transition: none;
 }
 
-.favorite-icon.fav:hover {
-    color: #ff4081;
+.particle {
+    position: absolute;
+    font-size: 1.5rem;
+    color: #ff2600;
+    opacity: 1;
+    animation: particleAnimation 2s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes particleAnimation {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x), var(--y)) scale(0.5);
+        opacity: 0;
+    }
 }

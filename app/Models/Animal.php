@@ -58,7 +58,7 @@ class Animal extends Model
 
     public function estado(): BelongsTo
     {
-        return $this->belongsTo(EstadoAnimal::class);
+        return $this->belongsTo(EstadoAnimal::class, 'estado_animal_id');
     }
 
     public function opcionesEntrega(): BelongsToMany
@@ -81,11 +81,10 @@ class Animal extends Model
         return $this->belongsTo(Protectora::class);
     }
 
-    public function favoritos(): belongsToMany
+    public function usuariosFavoritos(): BelongsToMany
     {
-        return $this->belongsToMany(Animal::class, 'usuario_animal_favoritos', 'usuario_id', 'animal_id');
+        return $this->belongsToMany(Usuario::class, 'usuario_animal_favoritos', 'animal_id', 'usuario_id');
     }
-
     // public function getIsFavoriteAttribute()
     // {
     //     // Verificar si el usuario está autenticado y si este animal es favorito

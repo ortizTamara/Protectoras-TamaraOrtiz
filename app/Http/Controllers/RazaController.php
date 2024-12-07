@@ -76,13 +76,21 @@ class RazaController extends Controller
         return redirect()->route('raza.index')->with('success', 'Registro eliminado exitosamente');
     }
 
-    // Controlamos que devuelva las razas según la especie que se seleccione
-    public function getRazasPorEspecie($especieId)
+    public function getRazas($especieId = null)
     {
-        // Filtramos las razas por el id de la especie recibida
-        $razas = Raza::where('especie_id', $especieId)->get();
+        if ($especieId) {
+            $razas = Raza::where('especie_id', $especieId)->get();
+        } else {
+            $razas = Raza::all();
+        }
 
-        // Devolvemos las razas encontradas en formato json
         return response()->json($razas);
     }
+
+    // public function getRazasPorEspecie($especieId)
+    // {
+    //     $razas = Raza::where('especie_id', $especieId)->get();
+
+    //     return response()->json($razas);
+    // }
 }

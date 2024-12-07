@@ -82,6 +82,10 @@
                 <h3 class="animal-card__detail-title text-muted">Nivel Actividad</h3>
                 <p  id="animal-actividad" class="animal-card__detail-text">{{ $animal->nivelActividad->nombre}}</p>
             </div>
+            <div class="animal-card__detail">
+                <h3 class="animal-card__detail-title text-muted">Estado</h3>
+                <p id="animal-estado" class="animal-card__detail-text">{{ $animal->estado->nombre}}</p>
+            </div>
         </div>
 
           <div class="animal-card__comportamientos text-start mb-4">

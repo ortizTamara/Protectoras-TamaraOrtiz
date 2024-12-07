@@ -52,16 +52,15 @@
             <p class="protectora__stat-label">Casos en adopción</p>
         </div>
         <div class="protectora__stat">
-            <p class="protectora__stat-value">0</p>
+            <p class="protectora__stat-value">{{ $urgentes }}</p>
             <p class="protectora__stat-label">Urgente</p>
         </div>
         <div class="protectora__stat">
-            <p class="protectora__stat-value">{{ $protectora->animales->where('estado', 'en adopción')->count() }}</p>
+            <p class="protectora__stat-value">{{ $enAdopcion }}</p>
             <p class="protectora__stat-label">En adopción</p>
         </div>
-
         <div class="protectora__stat">
-            <p class="protectora__stat-value">0</p>
+            <p class="protectora__stat-value">{{ $enAcogida }}</p>
             <p class="protectora__stat-label">En acogida</p>
         </div>
     </div>
@@ -72,24 +71,23 @@
     </section>
 
     <!-- TARJETAS DE ADOPCIÓN-->
-    <section class="protectora__cases mt-5">
+    <section class="animal__cases mt-5">
         <div class="d-flex align-items-center">
-            <h2 class="protectora__section-title mb-0 me-2">Nuestros casos en adopción</h2>
+            <h2 class="animal__section-title mb-0 me-2">Nuestros casos en adopción</h2>
         </div>
-        <div class="protectora__cases-grid">
+        <div class="animal__cards-grid">
             @forelse ($protectora->animales as $animal)
-                {{-- <a href="{{ route('animales.show', $animal->id) }}" class="protectora__case"> --}}
-                    <a href="{{ route('animal.show', $animal->id) }}" class="protectora__case">
-                    <div class="protectora__case-card position-relative">
+                <a href="{{ route('animal.show', $animal->id) }}" class="animal__case">
+                    <div class="animal__card position-relative">
                         <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
-                             alt="{{ $animal->nombre }}" class="protectora__case-image">
-                        <div class="protectora__case-body">
-                            <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
+                             alt="{{ $animal->nombre }}" class="animal__card-image">
+                        <div class="animal__card-body">
+                            <h5 class="animal__card-name">{{ $animal->nombre }}</h5>
                         </div>
                     </div>
                 </a>
             @empty
-                <p class="protectora__no-cases">No hay casos en adopción actualmente.</p>
+                <p class="animal__no-cards">No hay casos en adopción actualmente.</p>
             @endforelse
         </div>
     </section>

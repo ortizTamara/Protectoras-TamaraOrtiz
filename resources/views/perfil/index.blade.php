@@ -15,13 +15,17 @@
                 @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
                     <a href="{{ route('perfil-protectora.index') }}" class="btn btn-outline-secondary w-100 mb-2">Perfil protectora</a>
                 @endif
-                <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis favoritos</a>
+
+                <a href="{{ route('favoritos') }}" class="btn btn-outline-secondary w-100 mb-2">Mis favoritos</a>
+
                 @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
-                <a href="{{ route('favoritos.index') }}" class="btn btn-outline-secondary w-100 mb-2">Mis protectoras</a>
+                <a href="{{ route('perfil-miProtectora.index') }}" class="btn btn-outline-secondary w-100 mb-2">Mis protectoras</a>
                 @endif
+
                 @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
                 <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis ayudantes</a>
                 @endif
+
                 <a href="{{ route('logout') }}" class="btn btn-outline-danger w-100 mb-2" onclick="event.preventDefault(); document.getElementById('logout-form-profile').submit();">Cerrar sesión</a>
                 <form id="logout-form-profile" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf

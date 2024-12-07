@@ -53,7 +53,11 @@ class MiProtectoraController extends Controller
 
         $animales = $protectora->animales;
 
-        return view('perfil.protectoras.show', compact('protectora','animales'));
+        $enAdopcion = $animales->where('estado_animal_id', 1)->count(); // Ajusta según tus valores
+        $urgentes = $animales->where('estado_animal_id', 2)->count();
+        $enAcogida = $animales->where('estado_animal_id', 3)->count();
+
+        return view('perfil.protectoras.show', compact('protectora', 'animales', 'enAdopcion', 'urgentes', 'enAcogida'));
     }
 
     /*

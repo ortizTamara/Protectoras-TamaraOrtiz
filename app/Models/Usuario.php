@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Animal;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -117,6 +118,6 @@ class Usuario extends Authenticatable
 
     public function favoritos(): BelongsToMany
     {
-        return $this->belongsToMany(Animal::class, 'usuario_animal_favoritos');
+        return $this->belongsToMany(Animal::class, 'usuario_animal_favoritos', 'usuario_id', 'animal_id');
     }
 }
