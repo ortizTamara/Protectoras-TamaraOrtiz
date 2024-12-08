@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@pushOnce('scripts')
+    @vite(['resources/js/marcarFavorito.js'])
+@endPushOnce
+
 @section('content')
 
 <div class="container protectora">
@@ -77,6 +82,40 @@
         </div>
         <div class="animal__cards-grid">
             @forelse ($protectora->animales as $animal)
+                <div class="animal__case position-relative">
+                    <a href="{{ route('animal.show', $animal->id) }}" class="text-decoration-none">
+                        <div class="animal__card">
+                            <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
+                                 alt="{{ $animal->nombre }}" class="animal__card-image">
+                            <div class="animal__card-body">
+                                <h5 class="animal__card-name">{{ $animal->nombre }}</h5>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Corazón para marcar como favorito -->
+                    @auth
+                    <div class="favorite-icon-container position-absolute top-0 end-0 p-1">
+                        <form>
+                            <input type="hidden" name="animal_id" value="{{ $animal->id }}">
+                            <button class="favorite-icon-btn" type="button">
+                                <i class="favorite-icon {{ Auth::user()->favoritos->contains($animal->id) ? 'fas fa-heart selected text-danger' : 'fas fa-heart' }}"></i>
+                            </button>
+                        </form>
+                    </div>
+                    @endauth
+                </div>
+            @empty
+                <p class="animal__no-cards">No hay casos en adopción actualmente.</p>
+            @endforelse
+        </div>
+    </section>
+    {{-- <section class="animal__cases mt-5">
+        <div class="d-flex align-items-center">
+            <h2 class="animal__section-title mb-0 me-2">Nuestros casos en adopción</h2>
+        </div>
+        <div class="animal__cards-grid">
+            @forelse ($protectora->animales as $animal)
                 <a href="{{ route('animal.show', $animal->id) }}" class="animal__case">
                     <div class="animal__card position-relative">
                         <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
@@ -90,6 +129,6 @@
                 <p class="animal__no-cards">No hay casos en adopción actualmente.</p>
             @endforelse
         </div>
-    </section>
+    </section> --}}
 </div>
 @endsection

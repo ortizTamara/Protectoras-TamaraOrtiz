@@ -110,7 +110,6 @@ class Usuario extends Authenticatable
         return $this->rol_id == $roleId;
     }
 
-    // Verifica si el usuario tiene un permiso específico
     public function permisos(): BelongsToMany
     {
         return $this->belongsToMany(Permiso::class, 'permiso_roles');

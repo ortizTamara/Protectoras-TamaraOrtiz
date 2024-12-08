@@ -54,7 +54,7 @@ class UsuarioSeeder extends Seeder
                 'codigo_postal' => '13670',
                 'rol_id' => 2,
                 'protectora_id' => $protectora->id,
-                'foto' => 'fotos/3_2024-11-23_13-40-42.jpg',
+                'foto' => null,
             ],
 
         ];

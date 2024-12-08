@@ -25,7 +25,7 @@ class ProtectoraSeeder extends Seeder
                 'twitter' => 'https://twitter.com/protectoraejemplo',
                 'facebook' => 'https://facebook.com/protectoraejemplo',
                 'web' => 'https://www.protectoraejemplo.com',
-                'logo' => 'logos/protectora_1_2024-12-06_17-05-11.png',
+                'logo' => null,
                 'esValido' => true,
                 'motivo_rechazo' => null,
             ],

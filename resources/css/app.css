@@ -236,10 +236,10 @@ ul.pagination li.page-item.active span {
 }
 
 .profile-bar__avatar {
-    width: 32px;
-    height: 32px;
+    width: 2rem;
+    height: 2rem;
     background-color: #ffffff;
-    border: 2px solid #ffffff;
+    border: 0.125rem solid #ffffff;
 }
 
 .profile-bar__initial {
@@ -427,7 +427,6 @@ form fieldset {
     text-align: center;
 }
 
-/* Seleccionar la tarjeta + animación */
 .protectora-card {
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
@@ -627,6 +626,7 @@ form fieldset {
 
 .protectora__case-card {
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     background-color: #fff;
@@ -798,11 +798,6 @@ form fieldset {
     gap: 1rem;
 }
 
-.protectora-card {
-    border: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-}
 
 .protectora-card:hover {
     transform: translateY(-0.3125rem);
@@ -1463,11 +1458,11 @@ a {
 }
 
 /* CORAZÓN TARJETA ANIMAL */
+
 .favorite-icon-btn {
     background-color: transparent;
     border: none;
     border-radius: 50%;
-    padding: 0.25rem;
     position: relative;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;

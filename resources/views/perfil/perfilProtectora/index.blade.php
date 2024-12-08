@@ -13,7 +13,7 @@
                 <a href="{{ route('perfil') }}" class="btn {{ Request::is('perfil') ? 'btn-secondary' : 'btn-outline-secondary' }} w-100 mb-2">Perfil</a>
 
                 @if(auth()->user()->protectora_id || auth()->user()->rol_id == 1)
-                    <a href="{{ route('perfil-protectora.index') }}" class="btn {{ Request::is('perfil-protectora') ? 'btn-secondary' : 'btn-outline-secondary' }} w-100 mb-2">Perfil protectora</a>
+                    <a href="{{ route('perfil-protectora.index') }}" class="btn {{ Request::is('perfil/perfil-protectora') ? 'btn-secondary' : 'btn-outline-secondary' }} w-100 mb-2">Perfil protectora</a>
                 @endif
 
                 <a href="{{ route('favoritos') }}" class="btn btn-outline-secondary w-100 mb-2">Mis favoritos</a>
@@ -22,7 +22,7 @@
                     <a href="{{ route('perfil-miProtectora.index') }}" class="btn btn-outline-secondary w-100 mb-2">Mis protectoras</a>
                 @endif
 
-                <a href="#" class="btn btn-outline-secondary w-100 mb-2">Mis ayudantes</a>
+
 
                 <a href="{{ route('logout') }}" class="btn btn-outline-danger w-100 mb-2" onclick="event.preventDefault(); document.getElementById('logout-form-profile').submit();">Cerrar sesión</a>
                 <form id="logout-form-profile" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -45,7 +45,7 @@
                                         alt="Logo de la protectora"
                                         class="profile-img">
                                 @else
-                                    <i class="bi bi-camera profile-icon"></i>
+                                    {{-- <i class="bi bi-camera profile-icon"></i> --}}
                                 @endif
                             </div>
                             <div class="d-flex">

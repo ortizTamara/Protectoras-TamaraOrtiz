@@ -55,6 +55,28 @@ class HomeController extends Controller
             $query->where('color_id', $request->input('color'));
         });
 
+        $query->when($request->filled('tamanio'), function ($query) use ($request) {
+            $sizes = $request->input('tamanio');
+            if (in_array('small', $sizes)) {
+                $query->where('peso', '<', 5);
+            }
+            if (in_array('medium', $sizes)) {
+                $query->whereBetween('peso', [5, 10]);
+            }
+            if (in_array('large', $sizes)) {
+                $query->where('peso', '>', 10);
+            }
+        });
+
+        $query->when($request->filled('edad'), function ($query) use ($request) {
+            $age = $request->input('edad');
+            $query->whereYear('fecha_nacimiento', '>=', now()->subYears($age)->year);
+        });
+
+        if ($request->has('sort_age')) {
+            $query->orderBy('fecha_nacimiento', $request->input('sort_age') == 'age_asc' ? 'asc' : 'desc');
+        }
+
         $animales = $query->paginate(15);
 
         // Animal::whereHas('especie', function (Builder $query) {

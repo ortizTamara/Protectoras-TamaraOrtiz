@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @pushOnce('scripts')
-    @vite(['resources/js/calcularEdadTamanio.js'])
+    @vite(['resources/js/calcularEdadTamanio.js', 'resources/js/marcarFavorito.js'])
 @endPushOnce
 
 @section('content')
@@ -32,9 +32,12 @@
                         <i class="bi bi-pencil"></i> Editar animal
                     </a>
                 @endif
-                    <button class="animal-card__heart-button btn mb-0">
-                        <i class="bi bi-heart animal-card__heart-icon"></i>
-                    </button>
+                    <form>
+                        <input type="hidden" name="animal_id" value="{{ $animal->id }}">
+                        <button class="favorite-icon-btn" type="button">
+                            <i class="favorite-icon {{ Auth::user()->favoritos->contains($animal->id) ? 'fas fa-heart selected text-danger' : 'fas fa-heart' }}"></i>
+                        </button>
+                    </form>
                 </div>
 
                 <div class="animal-card__protectora-info d-flex gap-2 align-items-center mb-5">

@@ -9,18 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class UsuarioAnimalFavoritoController extends Controller
 {
-/**
-     * Muestra los animales favoritos del usuario autenticado.
-     */
     public function index()
     {
         $favoritos = Auth::user()->favoritos;
         return view('perfil.favoritos.index', compact('favoritos'));
     }
 
-    /**
-     * Añade un animal a los favoritos del usuario autenticado.
-     */
     public function store($animalId)
     {
         if (!Auth::check()) {
@@ -30,10 +24,8 @@ class UsuarioAnimalFavoritoController extends Controller
         $user = Auth::user();
 
         try {
-            // Verifica que el animal existe
             $animal = Animal::findOrFail($animalId);
 
-            // Añade el animal a favoritos del usuario
             $user->favoritos()->syncWithoutDetaching($animal->id);
 
             return response()->json(['message' => 'Animal añadido a favoritos.'], 200);
@@ -42,9 +34,6 @@ class UsuarioAnimalFavoritoController extends Controller
         }
     }
 
-    /**
-     * Elimina un animal de los favoritos del usuario autenticado.
-     */
     public function destroy($animalId)
     {
         try {

@@ -46,9 +46,6 @@
                             <a class="nav-link @if (request()->is('protectoras')) active @endif"
                                href="{{ route('protectoras') }}">Protectoras</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Busca tu match</a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -106,7 +103,6 @@
                                     </div>
                                 </a>
                             </div>
-
                                 <a href="{{ route('logout') }}" class="profile-bar__logout btn btn-link p-0 ms-4" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" aria-label="Logout">
                                     <i class="bi bi-box-arrow-right profile-bar__logout-icon"></i>
                                 </a>
@@ -115,19 +111,6 @@
                                     @csrf
                                 </form>
                             </div>
-
-                            {{-- <li class="nav-item">
-                                <a class="nav-link @if (request()->is('perfil')) active @endif" href="{{ route('perfil', Auth::user()->id) }}">Perfil</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Cerrar sesión
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </li> --}}
                         @endguest
                     </ul>
                 </div>

@@ -92,7 +92,6 @@
                             Descendente</button>
                     </div>
                 </div>
-
                 <div class="home__cards row row-cols-3 row-cols-sm-3 row-cols-md-5 g-4">
                     @forelse ($animales as $animal)
                         @if ($animal->protectora && $animal->protectora->esValido)
@@ -107,7 +106,7 @@
                                         <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
                                     </div>
                                     @auth
-                                    <div class="favorite-icon-container">
+                                    <div class="favorite-icon-container position-absolute top-0 end-0 p-0">
                                         <form>
                                             <input type="hidden" name="animal_id" value="{{ $animal->id }}">
                                             <button class="favorite-icon-btn" type="button">
