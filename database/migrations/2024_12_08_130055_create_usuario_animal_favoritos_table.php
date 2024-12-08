@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usuario_animal_favoritos', function (Blueprint $table) {
-            $table->foreignId('usuario_id')->constrained()->onDelete('cascade');
-            $table->foreignId('animal_id')->constrained()->onDelete('cascade');
+            $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
+            $table->foreignId('animal_id')->constrained('animals')->onDelete('cascade');
             $table->timestamps();
-            $table->primary(['usuario_id', 'animal_id']);
+            $table->primary(['usuario_id', 'animal_id']); // Llave compuesta
         });
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @pushOnce('scripts')
-    @vite(['resources/js/perfil.js'])
+    @vite(['resources/js/perfil.js', 'resources/js/marcarFavorito.js', 'resources/js/ocultarFavorito.js'])
 @endPushOnce
 
 @section('content')
@@ -34,26 +34,32 @@
         </div>
 
         <div class="col-md-9">
-            <div class="row g-4">
-                @forelse($favoritos as $animal)
-                    <div class="col-3">
-                        <a href="{{ route('animal.show', $animal->id) }}" class="text-decoration-none">
-                            <div class="protectora-card shadow-sm border border-secondary-subtle bg-light">
-                                <i class="bi bi-star-fill text-warning protectora-card__star fs-3"></i>
-                                <div class="protectora-card__image-container m-4 p-2 bg-white shadow-sm">
-                                    <img src="{{ asset('storage/' . $animal->imagen) }}"
-                                         alt="{{ $animal->nombre }}"
-                                         class="protectora-card__image">
-                                </div>
-
-                                <div class="protectora-card__body text-center p-0">
-                                    <h5 class="protectora-card__title mb-3 fw-bold text-dark small me-2">{{ $animal->nombre }}</h5>
-                                </div>
+            <div class="home__cards row row-cols-3 row-cols-sm-3 row-cols-md-5 g-4">
+                @forelse ($favoritos as $animal)
+                    <div id="animal-{{ $animal->id }}" class="col-3 text-decoration-none">
+                        <div class="protectora__case-card protectora__case-card--home position-relative">
+                            <a href="{{ route('animal.show', $animal->id) }}" class="text-decoration-none">
+                                <img src="{{ Storage::url($animal->imagen) }}" alt="{{ $animal->nombre }}" class="protectora__case-image protectora__case-image--home">
+                            </a>
+                            <div class="protectora__case-body">
+                                <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
                             </div>
-                        </a>
+                            @auth
+                            <div class="favorite-icon-container">
+                                <form>
+                                    <input type="hidden" name="animal_id" value="{{ $animal->id }}">
+                                    <button class="favorite-icon-btn" type="button">
+                                        <i class="favorite-icon fas fa-heart selected text-danger"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            @endauth
+                        </div>
                     </div>
                 @empty
-                    <p class="text-center">No tienes animales marcados como favoritos.</p>
+                    <div class="col-12">
+                        <p class="protectora__no-cases text-center text-muted">No tienes animales marcados como favoritos.</p>
+                    </div>
                 @endforelse
             </div>
         </div>

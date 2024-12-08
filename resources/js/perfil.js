@@ -1,6 +1,5 @@
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Para la foto de perfil
     const uploadButton = document.getElementById("uploadButton");
     const fotoInput = document.getElementById("foto");
 

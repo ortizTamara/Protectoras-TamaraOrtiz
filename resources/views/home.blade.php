@@ -108,10 +108,10 @@
                                     </div>
                                     @auth
                                     <div class="favorite-icon-container">
-                                        <form action="{{ route('favoritos.store') }}" method="POST">
+                                        <form>
                                             <input type="hidden" name="animal_id" value="{{ $animal->id }}">
-                                            <button class="favorite-icon-btn" type="submit">
-                                                <i class="favorite-icon fas fa-heart"></i>
+                                            <button class="favorite-icon-btn" type="button">
+                                                <i class="favorite-icon {{ Auth::user()->favoritos->contains($animal->id) ? 'fas fa-heart selected text-danger' : 'fas fa-heart' }}"></i>
                                             </button>
                                         </form>
                                     </div>
@@ -128,3 +128,6 @@
         </div>
     </div>
 @endsection
+
+
+

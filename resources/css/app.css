@@ -1464,7 +1464,7 @@ a {
 
 /* CORAZÓN TARJETA ANIMAL */
 .favorite-icon-btn {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: transparent;
     border: none;
     border-radius: 50%;
     padding: 0.25rem;
@@ -1485,14 +1485,15 @@ a {
     transition: none;
 }
 
+
 .favorite-icon-btn:hover .favorite-icon:not(.selected) {
     color: red;
     transition: color 0.5s ease-in-out;
 }
 
-.favorite-icon-btn.no-transition:hover .favorite-icon {
+/* .favorite-icon-btn.no-transition:hover .favorite-icon {
     transition: none;
-}
+} */
 
 .particle {
     position: absolute;
@@ -1513,3 +1514,4 @@ a {
         opacity: 0;
     }
 }
+

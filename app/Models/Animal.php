@@ -81,16 +81,10 @@ class Animal extends Model
         return $this->belongsTo(Protectora::class);
     }
 
-    public function usuariosFavoritos(): BelongsToMany
+    public function usuariosFavoritos()
     {
-        return $this->belongsToMany(Usuario::class, 'usuario_animal_favoritos', 'animal_id', 'usuario_id');
+        return $this->belongsToMany(Usuario::class, 'usuario_animal_favoritos', 'animal_id', 'usuario_id')
+                    ->withTimestamps();
     }
-    // public function getIsFavoriteAttribute()
-    // {
-    //     // Verificar si el usuario está autenticado y si este animal es favorito
-    //     if (Auth::check()) {
-    //         return Auth::user()->favoritos()->where('animal_id', $this->id)->exists();
-    //     }
-    //     return false;
-    // }
+
 }

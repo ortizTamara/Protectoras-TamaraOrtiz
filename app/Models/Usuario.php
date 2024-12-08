@@ -116,8 +116,9 @@ class Usuario extends Authenticatable
         return $this->belongsToMany(Permiso::class, 'permiso_roles');
     }
 
-    public function favoritos(): BelongsToMany
+    public function favoritos()
     {
-        return $this->belongsToMany(Animal::class, 'usuario_animal_favoritos', 'usuario_id', 'animal_id');
+        return $this->belongsToMany(Animal::class, 'usuario_animal_favoritos', 'usuario_id', 'animal_id')
+                    ->withTimestamps();
     }
 }

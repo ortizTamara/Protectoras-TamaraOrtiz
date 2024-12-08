@@ -13,7 +13,6 @@ use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\EspecieController;
 use App\Http\Controllers\EstadoAnimalController;
-use App\Http\Controllers\MiFavoritoController;
 use App\Http\Controllers\MiProtectoraController;
 use App\Http\Controllers\OpcionConsultaController;
 use App\Http\Controllers\OpcionEntregaController;
@@ -34,7 +33,6 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 // Route::get('contacto', [ContactoController::class, 'index'])->name('contacto');
 Route::get('contacto', [ConsultaController::class, 'index'])->name('contacto');
 
-Route::post('/favoritos/toggle', [MiFavoritoController::class, 'toggle']);
 
 // Route::resource('consulta', ConsultaController::class);
 Route::resource('/consulta', ConsultaController::class)->parameters([
@@ -82,18 +80,11 @@ Route::prefix('perfil')->group(function () {
     Route::resource('animal-temporal', AnimalTemporalController::class);
 
     // FAVORITOS
-    Route::get('/favoritos/{usuario}', [MiFavoritoController::class, 'index'])->name('favoritos.index');
+    Route::get('/favoritos', [UsuarioAnimalFavoritoController::class, 'index'])->name('favoritos');
 });
+Route::post('/favoritos/{animal}', [UsuarioAnimalFavoritoController::class, 'store'])->name('favoritos.store');
+Route::delete('/favoritos/{animal}', [UsuarioAnimalFavoritoController::class, 'destroy'])->name('favoritos.destroy');
 
-// Ruta para agregar un favorito
-Route::post('/favoritos', [MiFavoritoController::class, 'store'])->name('favoritos.store');
-
-// Ruta para eliminar un favorito
-Route::delete('/favoritos', [MiFavoritoController::class, 'destroy'])->name('favoritos.destroy');
-// // Ruta de perfil de protectora (Solo se muestra cuando el usuario es una protectora)
-// Route::resource('/perfil-protectora', PerfilProtectoraController::class);
-// // Mis protectoras (solo se muestra si el usuario es una protectora)
-// Route::resource('/perfil-miProtectora', MiProtectoraController::class);
 
 // Para la foto de perfil
 Route::post('/updateFoto', [UsuarioController::class, 'updateFoto'])->name('updateFoto');
