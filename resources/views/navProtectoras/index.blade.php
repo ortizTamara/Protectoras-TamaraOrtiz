@@ -3,12 +3,14 @@
 @section('content')
 <div class="protectora-page container my-5">
     <div class="protectora-page__search-bar mb-4 d-flex justify-content-center">
-        <div class="input-group protectora-page__search-group">
-            <input type="text" class="form-control protectora-page__search-input" placeholder="Buscar protectora o por ciudad..." aria-label="Buscar protectoras">
-            <button class="btn protectora-page__search-btn" type="button">
-                <i class="bi bi-search"></i> Buscar
-            </button>
-        </div>
+        <form class="d-flex w-50" action="{{ route('protectoras') }}" method="GET">
+            <div class="input-group protectora-page__search-group">
+                <input type="text" name="search" class="form-control protectora-page__search-input" placeholder="Buscar protectora o por ciudad..." aria-label="Buscar protectoras" value="{{ request()->input('search') }}">
+                <button class="btn protectora-page__search-btn" type="submit">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </div>
+        </form>
     </div>
 
     <div class="row g-5 mt-3">
@@ -37,7 +39,7 @@
                         </p>
 
                         <p class="protectora-card__cases text-muted">
-                            <i class="bi bi-people-fill me-1"></i>{{ $protectora->casos ?? 0 }} casos en adopción
+                            <i class="bi bi-people-fill me-1"></i>{{ $protectora->animales->count() }} casos en adopción
                         </p>
                     </div>
 

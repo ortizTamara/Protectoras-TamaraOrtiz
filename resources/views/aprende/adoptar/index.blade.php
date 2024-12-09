@@ -95,7 +95,7 @@
         </div>
     </div>
 
-    <div class="mt-3">
+    <div class="mt-5">
         <div class="card h-100 shadow-lg">
             <div class="card-body text-start">
                 <h2 class="text-3xl font-bold mb-4">Preguntas finales de reflexión</h2>

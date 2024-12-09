@@ -92,8 +92,6 @@
                             </div>
                         </div>
                     </a>
-
-                    <!-- Corazón para marcar como favorito -->
                     @auth
                     <div class="favorite-icon-container position-absolute top-0 end-0 p-1">
                         <form>

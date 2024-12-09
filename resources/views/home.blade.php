@@ -46,16 +46,20 @@
                                 name="edad"
                                 class="form-range"
                                 id="ageRange"
-                                min="{{ \Carbon\Carbon::now()->year - \Carbon\Carbon::parse($maxFechaNacimiento)->year }}"
-                                max="{{ \Carbon\Carbon::now()->year - \Carbon\Carbon::parse($minFechaNacimiento)->year }}"
-                                value="{{ request('edad') ?? '' }}">
-                            <input type="hidden" id="selectedAge" name="edad" value="{{ request('edad') ?? '' }}">
-                            <span id="rangeValue" class="position-absolute translate-middle d-none">20</span>
+                                min="{{ now()->year - \Carbon\Carbon::parse($maxFechaNacimiento)->year }}"
+                                max="{{ now()->year - \Carbon\Carbon::parse($minFechaNacimiento)->year }}"
+                                value="{{ $selectedEdad }}">
+                            <input type="hidden" id="selectedAge" name="edad" value="{{ $selectedEdad }}">
+
                         </div>
                         <div class="d-flex justify-content-between">
-                            <span>{{ \Carbon\Carbon::now()->year - \Carbon\Carbon::parse($maxFechaNacimiento)->year }}</span>
-                            <span>{{ \Carbon\Carbon::now()->year - \Carbon\Carbon::parse($minFechaNacimiento)->year }}</span>
+                            <span>{{ now()->year - \Carbon\Carbon::parse($maxFechaNacimiento)->year }}</span>
+                            <div class="d-flex justify-content-center">
+                                <span id="rangeValue" class="fs-5 fw-bold">{{ $selectedEdad }}</span>
+                            </div>
+                            <span>{{ now()->year - \Carbon\Carbon::parse($minFechaNacimiento)->year }}</span>
                         </div>
+
                     </div>
 
                     {{-- COLOR --}}

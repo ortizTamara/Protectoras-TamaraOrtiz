@@ -8,6 +8,7 @@ use App\Models\Especie;
 use App\Models\EstadoAnimal;
 use App\Models\GeneroAnimal;
 use App\Models\NivelActividad;
+use App\Models\Protectora;
 use App\Models\Raza;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -45,38 +46,44 @@ class AnimalSeeder extends Seeder
               'animales-temporales/gato5.jpg',
           ];
 
-          // Configurar Faker
           $faker = \Faker\Factory::create();
 
-          // Crear 10 animales (5 perros y 5 gatos)
+        $protectora1 = Protectora::where('nombre', 'Refugio Felino')->first();
+        $protectora2 = Protectora::where('nombre', 'La Bienvenida')->first();
+
+        if (!$protectora1 || !$protectora2) {
+            $this->command->error('Las protectoras no se encontraron.');
+            return;
+        }
+
+        $edad = rand(1, 20);
+
           for ($i = 0; $i < 10; $i++) {
-              $isPerro = $i < 5; // Los primeros 5 serán perros
+              $isPerro = $i < 5;
               $especieId = $isPerro ? $especiePerroId : $especieGatoId;
               $imagen = $isPerro ? $imagenesPerros[$i] : $imagenesGatos[$i - 5];
 
-              // Obtener una raza aleatoria para la especie
               $razaId = Raza::where('especie_id', $especieId)->inRandomOrder()->first()?->id;
 
-              // Obtener un color, género, nivel de actividad y estado aleatorio
               $colorId = Color::inRandomOrder()->first()?->id;
               $generoId = GeneroAnimal::inRandomOrder()->first()?->id;
               $nivelActividadId = NivelActividad::inRandomOrder()->first()?->id;
               $estadoAnimalId = EstadoAnimal::inRandomOrder()->first()?->id;
-
+              $protectoraId = rand(1, 2) == 1 ? $protectora1->id : $protectora2->id;
               // Crear un animal
               Animal::create([
                   'nombre' => $faker->firstName,
                   'descripcion' => $faker->text(200),
-                  'fecha_nacimiento' => $faker->date('Y-m-d', '-2 years'),
-                  'peso' => $faker->randomFloat(2, 2.0, 40.0), // Entre 2kg y 40kg
-                  'imagen' => $imagen, // Usar la imagen real
+                  'fecha_nacimiento' => $faker->date('Y-m-d', "-$edad years"),
+                  'peso' => $faker->randomFloat(2, 2.0, 40.0),
+                  'imagen' => $imagen,
                   'genero_animal_id' => $generoId,
                   'nivel_actividad_id' => $nivelActividadId,
                   'color_id' => $colorId,
                   'especie_id' => $especieId,
                   'raza_id' => $razaId,
                   'estado_animal_id' => $estadoAnimalId,
-                  'protectora_id' => 1,
+                  'protectora_id' => $protectoraId,
                   'marcado_para_eliminar' => false,
               ]);
           }

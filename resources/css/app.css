@@ -752,23 +752,9 @@ form fieldset {
     margin-top: 2rem;
 }
 
-.protectora-page__search-group {
-    max-width: 600px;
-}
 
 .protectora-page__search-input {
     border-radius: 0;
-}
-
-.protectora-page__search-btn {
-    border-radius: 0;
-    background-color: #333;
-    color: #fff;
-    transition: background-color 0.3s ease;
-}
-
-.protectora-page__search-btn:hover {
-    background-color: #555;
 }
 
 .protectora-page {
@@ -776,7 +762,7 @@ form fieldset {
 }
 
 .protectora-page__search-group {
-    max-width: 37.5rem;
+    max-width: 50rem;
 }
 
 .protectora-page__search-input {
@@ -791,7 +777,8 @@ form fieldset {
 }
 
 .protectora-page__search-btn:hover {
-    background-color: #555;
+    background-color: #000000;
+    color: white;
 }
 
 .protectora-page__grid {
@@ -852,7 +839,8 @@ form fieldset {
 }
 
 .protectora-card__info-btn:hover {
-    background-color: #555;
+    background-color: #1b1b1b;
+    color: #fff;
 }
 
 /* ADMINISTRADOR - PROTECTORAS/CONSULTAS */
@@ -1201,18 +1189,14 @@ a {
     }
 
     #rangeValue {
-        top: 2.65rem;
-        transform: translateX(-50%);
-        font-size: 0.9rem;
-        border: none;
-        background-color: transparent;
-        font-weight: bold;
-        padding: 0.2rem 0.5rem;
-        pointer-events: none;
-        white-space: nowrap;
         position: absolute;
-        transition: opacity 0.2s ease-in-out;
-        opacity: 1;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        color: #333;
+        padding: 0.01rem 0.1rem;
+        pointer-events: none;
     }
 
 

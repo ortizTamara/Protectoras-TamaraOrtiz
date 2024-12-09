@@ -32,12 +32,14 @@
                         <i class="bi bi-pencil"></i> Editar animal
                     </a>
                 @endif
+                @auth
                     <form>
                         <input type="hidden" name="animal_id" value="{{ $animal->id }}">
                         <button class="favorite-icon-btn" type="button">
                             <i class="favorite-icon {{ Auth::user()->favoritos->contains($animal->id) ? 'fas fa-heart selected text-danger' : 'fas fa-heart' }}"></i>
                         </button>
                     </form>
+                @endauth
                 </div>
 
                 <div class="animal-card__protectora-info d-flex gap-2 align-items-center mb-5">

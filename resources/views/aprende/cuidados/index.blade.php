@@ -78,7 +78,7 @@
     </div>
 
     <div class="mt-4 text-center">
-        <h2 class="text-3xl font-bold mb-6">Recuerda</h2>
+        <h2 class="text-4xl font-bold mb-8">Recuerda</h2>
         <p class="text-xl">
             Cada mascota es única y puede requerir cuidados específicos. Consulta siempre con un veterinario para obtener consejos personalizados para tu mascota.
         </p>

@@ -18,9 +18,10 @@ class UsuarioSeeder extends Seeder
 
       // Buscar la protectora creada en su Seeder
       $protectora = Protectora::where('nombre', 'Refugio Felino')->first();
+      $protectora2 = Protectora::where('nombre', 'La Bienvenida')->first();
 
       if (!$protectora) {
-          throw new \Exception("La protectora 'Refugio Felino' no existe. Asegúrate de correr el ProtectoraSeeder antes de este seeder.");
+          throw new \Exception("Las protectoras no existen. Asegúrate de correr el ProtectoraSeeder antes de este seeder.");
       }
 
         $usuarios = [
@@ -56,7 +57,22 @@ class UsuarioSeeder extends Seeder
                 'protectora_id' => $protectora->id,
                 'foto' => null,
             ],
-
+            [
+                'nombre' => 'Miguel',
+                'apellidos' => 'Diaz Villanueva',
+                'fecha_nacimiento' => '2002-08-12',
+                'genero_id' => 2,
+                'email' => 'migueldiaz@gmail.com',
+                'password' => Hash::make('user123'),
+                'numero_telefono' => '612345678',
+                'pais_id' => 1,
+                'comunidad_autonoma_id' => 8,
+                'provincia_id' => 34,
+                'codigo_postal' => '13670',
+                'rol_id' => 2,
+                'protectora_id' => $protectora2->id,
+                'foto' => null,
+            ],
         ];
 
         foreach ($usuarios as $usuario) {

@@ -30,22 +30,20 @@ use Illuminate\Support\Facades\Route;
 
 // Rutas publicas (puede acceder todo el mundo)
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::get('contacto', [ContactoController::class, 'index'])->name('contacto');
 Route::get('contacto', [ConsultaController::class, 'index'])->name('contacto');
 
 
-// Route::resource('consulta', ConsultaController::class);
 Route::resource('/consulta', ConsultaController::class)->parameters([
     'consulta' => 'consulta'
 ]);
 
 
-// Rutas de autenticación (login)
+// Rutas de autenticación
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-// Rutas de Registro (registrarse)
+// Rutas de Registro
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
@@ -120,7 +118,6 @@ Route::resource('/usuario', UsuarioController::class);
 
 // Dos formas de hacerlo para la ruta ProtectoraController
 Route::get('/protectoras', [ProtectoraController::class, 'index'])->name('protectoras');
-// Route::get('protectoras', [App\Http\Controllers\ProtectoraController::class, 'index'])->name('protectoras');
 
 // Ruta para poder obtener las razas
 Route::get('/especies/{especie}/razas', [RazaController::class, 'getRazasPorEspecie']);
