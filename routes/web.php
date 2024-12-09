@@ -126,6 +126,17 @@ Route::get('/protectoras', [ProtectoraController::class, 'index'])->name('protec
 Route::get('/especies/{especie}/razas', [RazaController::class, 'getRazasPorEspecie']);
 Route::get('/razas/{especieId?}', [RazaController::class, 'getRazas']);
 
+Route::get('/aprende/adoptar', function () {
+    return view('aprende.adoptar.index');
+})->name('aprende.adoptar');
+
+Route::get('/aprende/cuidados', function () {
+    return view('aprende.cuidados.index');
+})->name('aprende.cuidados');
+
+Route::get('/aprende/viviendo', function () {
+    return view('aprende.viviendo.index');
+})->name('aprende.viviendo');
 
 
 

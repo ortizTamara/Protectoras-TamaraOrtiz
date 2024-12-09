@@ -52,9 +52,9 @@
                                 Aprende
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Antes de adoptar</a></li>
-                                <li><a class="dropdown-item" href="#">Cuidados básicos</a></li>
-                                <li><a class="dropdown-item" href="#">Viviendo con tu mascota</a></li>
+                                <li><a class="dropdown-item" href="{{ route('aprende.adoptar') }}">Antes de adoptar</a></li>
+                                <li><a class="dropdown-item" href="{{ route('aprende.cuidados') }}">Cuidados básicos</a></li>
+                                <li><a class="dropdown-item" href="{{ route('aprende.viviendo') }}">Viviendo con tu mascota</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
