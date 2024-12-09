@@ -31,22 +31,18 @@ class HomeController extends Controller
     {
         $query = Animal::query();
 
-        // Filtrar solo animales con protectoras válidas
         $query->whereHas('protectora', function ($q) {
             $q->where('esValido', true);
         });
 
-        // Filtrar por nombre
         if ($request->filled('nombre')) {
             $query->where('nombre', 'like', '%' . $request->input('nombre') . '%');
         }
 
-        // Filtrar por especie
         if ($request->filled('especie')) {
             $query->where('especie_id', $request->input('especie'));
         }
 
-        // Filtrar por raza
         if ($request->filled('raza')) {
             $query->where('raza_id', $request->input('raza'));
         }
@@ -121,11 +117,5 @@ class HomeController extends Controller
             'selectedEdad' => $request->input('edad', '')
         ]);
 
-    //     return view('home', [
-    //         'animales' => $animales,
-    //         'especies' => $especies,
-    //         'razas' => $razas,
-    //         'colores' => $colores,
-    //     ]);
     }
 }

@@ -15,6 +15,7 @@ use App\Models\OpcionEntrega;
 use App\Models\Protectora;
 use App\Models\Raza;
 use App\Models\Usuario;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -106,7 +107,7 @@ class AnimalController extends Controller
      */
     public function show($id)
     {
-        $animal = Animal::with(['protectora.usuario.pais', 'protectora.usuario.comunidadAutonoma', 'color', 'especie', 'raza', 'comportamientos', 'opcionesEntrega', 'nivelActividad','estado'])
+        $animal = Animal::with(['protectora.usuario.pais', 'protectora.usuario.comunidadAutonoma', 'color', 'especie', 'raza', 'comportamientos', 'opcionesEntrega', 'nivelActividad','estado', 'genero'])
         ->findOrFail($id);
 
         return view('perfil.protectoras.animales.show', compact('animal'));
@@ -156,9 +157,21 @@ class AnimalController extends Controller
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string|max:5000',
-            'fecha_nacimiento' => 'required|date',
-            'peso' => 'required|numeric|min:0|max:999.99',
-            'genero_animal_id' => 'nullable|exists:genero_animals,id',
+            'fecha_nacimiento' => [
+                'required',
+                'date',
+                'before:today',
+                function ($attribute, $value, $fail) {
+                    $fechaSeleccionada = new DateTime($value);
+                    $hoy = new DateTime('today');
+
+                    if ($fechaSeleccionada == $hoy) {
+                        $fail('La fecha de nacimiento no puede ser hoy.');
+                    }
+                }
+            ],
+            'peso' => 'required|numeric|min:0.01|max:999.99',
+            'genero_animal_id' => 'required|exists:genero_animals,id',
             'especie_id' => 'nullable|exists:especies,id',
             'raza_id' => 'nullable|exists:razas,id',
             'comportamientos' => 'nullable|array',
@@ -221,20 +234,5 @@ class AnimalController extends Controller
 
         return redirect()->back()->with('info', 'El animal ha sido marcado para eliminar. Debes guardar los cambios para confirmar la eliminación.');
     }
-    // public function destroy(Animal $animal)
-    // {
-    //     $usuario = Auth::user();
-
-    //     // Verificar permisos
-    //     if ($usuario->rol_id != 1 && $usuario->protectora_id != $animal->protectora_id) {
-    //         return redirect()->back()->with('error', 'No tienes permisos para eliminar este animal.');
-    //     }
-
-    //     // Eliminar animal
-    //     $animal->delete();
-
-    //     return redirect()->back()->with('success', 'Animal eliminado correctamente.');
-    // }
-
 
 }

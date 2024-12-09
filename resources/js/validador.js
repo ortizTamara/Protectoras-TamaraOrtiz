@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // CONSULTA
         message:false
+
     };
 
     // RANGO DE CÓDIGOS POSTALES VÁLIDOS PARA CADA PROVINCIA

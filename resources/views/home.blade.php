@@ -95,6 +95,7 @@
                     <a href="{{ route('home') }}" class="btn btn-outline-secondary w-100">Resetear filtros</a>
                 </form>
             </div>
+            {{-- BUSCAR --}}
             <div class="col-md-10">
                 <div class="d-flex justify-content-between mb-4">
                     <form class="d-flex w-25" role="search" method="GET" action="{{ route('home') }}">
@@ -108,6 +109,7 @@
                             oninput="resetSearch(event)">
                         <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </form>
+                    {{-- BOTONES DE ORDENAR --}}
                     <div class="d-flex gap-2">
                         <a href="{{ route('home', array_merge(request()->all(), ['orden' => 'nuevo'])) }}" class="btn btn-secondary">Nuevo</a>
                         <a href="{{ route('home', array_merge(request()->all(), ['orden' => 'edad_asc'])) }}" class="btn btn-secondary">Edad Ascendente</a>
@@ -146,51 +148,6 @@
                         </div>
                     @endforelse
                 </div>
-                {{-- <div class="home__cards row row-cols-3 row-cols-sm-3 row-cols-md-5 g-4">
-                    @forelse ($animales as $animal)
-                        @if ($animal->protectora && $animal->protectora->esValido)
-                            <div class="col-3 text-decoration-none">
-                                <div class="protectora__case-card protectora__case-card--home position-relative">
-                                    <a href="{{ route('animal.show', $animal->id) }}" class="text-decoration-none">
-                                        <img src="{{ asset($animal->imagen) }}"
-                                             alt="{{ $animal->nombre }}"
-                                             class="protectora__case-image protectora__case-image--home">
-                                    </a>
-                                    <div class="protectora__case-body">
-                                        <h5 class="protectora__case-name">{{ $animal->nombre }}</h5>
-                                    </div>
-                                    @auth
-                                    <div class="favorite-icon-container">
-                                        <form>
-                                            <input type="hidden" name="animal_id" value="{{ $animal->id }}">
-                                            <button class="favorite-icon-btn" type="button">
-                                                <i class="favorite-icon {{ Auth::user()->favoritos->contains($animal->id) ? 'fas fa-heart selected text-danger' : 'fas fa-heart' }}"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                    @endauth
-                                </div>
-                            </div>
-                        @endif
-                    @empty
-                        <div class="col-12">
-                            <p class="protectora__no-cases text-center text-muted">No se encontraron animales registrados.</p>
-                        </div>
-                    @endforelse
-                </div> --}}
         </div>
     </div>
 @endsection
-
-
-{{--
-<script>
-    function resetSearch(event) {
-    const input = event.target;
-    const form = input.closest('form');
-
-    if (input.value === '') {
-        form.submit();
-    }
-}
-</script> --}}

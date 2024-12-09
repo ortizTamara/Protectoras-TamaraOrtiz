@@ -26,14 +26,22 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        // Eliminamos los espacios al inicio y al final del email
         $credentials['email'] = trim($credentials['email']);
 
         $usuario = Usuario::where('email', $credentials['email'])->first();
 
+        // if ($usuario && Hash::check($credentials['password'], $usuario->password)) {
+        //     Auth::login($usuario);
+        //     session(['is_admin' => $usuario->rol_id == 1]);
+        //     return redirect()->route('home')->with('success', 'Inicio de sesión exitoso');
+        // }
+
         if ($usuario && Hash::check($credentials['password'], $usuario->password)) {
-            Auth::login($usuario);
-            session(['is_admin' => $usuario->rol_id == 1]); // Guarda si es admin en sesión
+
+            Auth::login($usuario, $request->filled('remember'));
+
+            session(['is_admin' => $usuario->rol_id == 1]);
+
             return redirect()->route('home')->with('success', 'Inicio de sesión exitoso');
         }
 

@@ -55,7 +55,7 @@ class UsuarioSeeder extends Seeder
                 'codigo_postal' => '13670',
                 'rol_id' => 2,
                 'protectora_id' => $protectora->id,
-                'foto' => null,
+                'foto' => 'fotos/2_2024-11-26_13-00-54.jpg',
             ],
             [
                 'nombre' => 'Miguel',
@@ -71,7 +71,7 @@ class UsuarioSeeder extends Seeder
                 'codigo_postal' => '13670',
                 'rol_id' => 2,
                 'protectora_id' => $protectora2->id,
-                'foto' => null,
+                'foto' => 'fotos/3_2024-11-27_20-09-51.jpg',
             ],
         ];
 

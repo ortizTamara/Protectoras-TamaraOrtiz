@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @pushOnce('scripts')
-    @vite(['resources/js/perfil.js'])
+    @vite(['resources/js/perfil.js', 'resources/js/validadorAnimal.js'])
 @endPushOnce
 
 @section('content')
 <div class="container mt-5">
-    <form action="{{ route('animal.update', $animal->id) }}" method="POST" enctype="multipart/form-data">
+    <form class="create-animal__form" action="{{ route('animal.update', $animal->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -60,22 +60,6 @@
                                         Cancelar
                                     </a>
                                 </div>
-
-                                {{-- <div class="animal-card__protectora-info d-flex gap-2 align-items-center mb-5">
-                                    <a href="{{ route('perfil-miProtectora.show', $animal->protectora_id) }}" class="animal-card__protectora-link">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <i class="fa-solid fa-paw animal-card__protectora-icon"></i>
-                                            <div class="animal-card__protectora-text-wrapper">
-                                                <span class="animal-card__protectora-name">{{ $animal->protectora->nombre }}</span>
-                                                <p class="animal-card__protectora-text">Protectora</p>
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                    <button class="animal-card__contact-button btn btn-secondary">
-                                        <i class="bi bi-chat"></i> Contactar
-                                    </button>
-                                </div> --}}
                             </div>
                         </div>
 
@@ -109,14 +93,16 @@
                                 <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"
                                        class="animal-card__detail-text border-0 bg-transparent p-0 animal-card__detail-input animal-card__select-fecha"
                                        value="{{ old('fecha_nacimiento', $animal->fecha_nacimiento) }}" required>
+                                <div id="fechaNacimientoError" class="text-danger small mt-1"></div>
                             </div>
 
-                            <div class="animal-card__detail extra-gap mb-4">
+                            <div class="animal-card__detail mb-4">
                                 <h3 class="animal-card__detail-title text-muted">Peso (kg)</h3>
                                 <input type="number" name="peso"
-                                       class="animal-card__detail-text border-0 bg-transparent p-0 animal-card__detail-input animal-card__select-peso"
-                                       step="0.01"
-                                       value="{{ old('peso', $animal->peso) }}" required>
+                                    class="animal-card__detail-text border-0 bg-transparent p-0 animal-card__detail-input animal-card__select-peso"
+                                    id="peso" step="0.01"
+                                    value="{{ old('peso', $animal->peso) }}" required>
+                                <div id="pesoError" class="text-danger small mt-1"></div>
                             </div>
 
                             <div class="animal-card__detail">
@@ -126,6 +112,18 @@
                                     @foreach($colores as $color)
                                         <option value="{{ $color->id }}" @if($color->id == $animal->color_id) selected @endif>
                                             {{ $color->nombre }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="animal-card__detail">
+                                <h3 class="animal-card__detail-title text-muted">Genero</h3>
+                                <select name="genero_animal_id" id="genero_animal_id"
+                                        class="animal-card__detail-text form-select form-select-sm border-0 bg-transparent p-0 animal-card__detail-select animal-card__select-genero">
+                                    @foreach($generos as $genero)
+                                        <option value="{{ $genero->id }}" @if($genero->id == $animal->genero_animal_id) selected @endif>
+                                            {{ $genero->nombre }}
                                         </option>
                                     @endforeach
                                 </select>

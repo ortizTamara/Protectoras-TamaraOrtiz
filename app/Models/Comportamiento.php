@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Comportamiento extends Model
 {
@@ -15,8 +15,8 @@ class Comportamiento extends Model
         'categoria',
     ];
 
-    public function animals(): HasMany
+    public function animals(): BelongsToMany
     {
-        return $this->hasMany(Animal::class);
+        return $this->belongsToMany(Animal::class);
     }
 }

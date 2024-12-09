@@ -84,6 +84,11 @@
             </div>
 
             <div class="animal-card__detail">
+                <h3 class="animal-card__detail-title text-muted">Genero</h3>
+                <p class="animal-card__detail-text">{{ $animal->genero->nombre }}</p>
+            </div>
+
+            <div class="animal-card__detail">
                 <h3 class="animal-card__detail-title text-muted">Nivel Actividad</h3>
                 <p  id="animal-actividad" class="animal-card__detail-text">{{ $animal->nivelActividad->nombre}}</p>
             </div>

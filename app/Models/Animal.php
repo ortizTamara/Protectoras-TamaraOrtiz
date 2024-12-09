@@ -53,7 +53,7 @@ class Animal extends Model
 
     public function comportamientos(): BelongsToMany
     {
-        return $this->belongsToMany(Comportamiento::class);
+        return $this->belongsToMany(Comportamiento::class,'animal_comportamiento');
     }
 
     public function estado(): BelongsTo
@@ -68,7 +68,7 @@ class Animal extends Model
 
     public function genero(): BelongsTo
     {
-        return $this->belongsTo(GeneroAnimal::class);
+        return $this->belongsTo(GeneroAnimal::class, 'genero_animal_id');
     }
 
     public function nivelActividad(): BelongsTo

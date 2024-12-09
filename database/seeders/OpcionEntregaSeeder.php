@@ -15,7 +15,7 @@ class OpcionEntregaSeeder extends Seeder
     {
         $opciones = [
             'Desparasitado',
-            'Esterlizado',
+            'Esterelizado',
             'Vacunado',
             'Microchip',
             'Con cartilla sanitaria',

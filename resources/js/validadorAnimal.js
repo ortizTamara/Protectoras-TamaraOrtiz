@@ -103,39 +103,44 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
    // FECHA DE NACIMIENTO -> comprobamos que no sea futura
-    function validateFechaNacimiento() {
+   function validateFechaNacimiento() {
     const fechaNacimientoField = document.getElementById("fecha_nacimiento");
     const fechaNacimientoError = document.getElementById("fechaNacimientoError");
     const fechaActual = new Date();
 
     if (touchedFields.fechaNacimiento) {
-        // Comprobamos si el campo está vacío
         if (!fechaNacimientoField.value) {
-            fechaNacimientoError.textContent = "La fecha de nacimiento es obligatoria.";
+            fechaNacimientoError.textContent = "Fecha de nacimiento obligatoria.";
             return false;
         }
 
-        // Convertimos el valor del campo en un objeto de fecha
         const fechaSeleccionada = new Date(fechaNacimientoField.value);
 
-        // Validamos si es una fecha válida
-        if (isNaN(fechaSeleccionada)) {
+        if (isNaN(fechaSeleccionada.getTime())) {
             fechaNacimientoError.textContent = "Selecciona una fecha válida.";
             return false;
         }
 
-        // Verificamos si la fecha seleccionada es futura
         if (fechaSeleccionada > fechaActual) {
             fechaNacimientoError.textContent = "La fecha de nacimiento no puede ser futura.";
             return false;
         }
 
-        // Si todas las validaciones son correctas
+        const esMismoDía =
+            fechaSeleccionada.getFullYear() === fechaActual.getFullYear() &&
+            fechaSeleccionada.getMonth() === fechaActual.getMonth() &&
+            fechaSeleccionada.getDate() === fechaActual.getDate();
+
+        if (esMismoDía) {
+            fechaNacimientoError.textContent = "La fecha de nacimiento no puede ser hoy.";
+            return false;
+        }
+
         fechaNacimientoError.textContent = "";
     }
 
     return true;
-    }
+}
 
     // SELECCIÓN DE SEXO
     function validateGenero() {
@@ -160,13 +165,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const pesoError = document.getElementById("pesoError");
 
         const especieId = parseInt(especieField.value);
-        // const pesoValue = parseFloat(pesoField.value.replace(',', '.'));
         const pesoValue = parseFloat(pesoField.value);
 
 
         const pesoRangos = {
-            1: { min: 0.5, max: 10 }, // Gato
-            2: { min: 5, max: 50 },  // Perro
+            1: { min: 0.5, max: 10 },
+            2: { min: 5, max: 50 },
         };
 
         if (isNaN(pesoValue) || pesoValue <= 0) {
@@ -185,13 +189,13 @@ document.addEventListener("DOMContentLoaded", function () {
             return false;
         }
 
-        pesoError.textContent = ""; // Limpia errores si todo es válido
+        pesoError.textContent = "";
         return true;
     }
 
     // SELECCIÓN NIVEL DE ACTIVIDAD
     function validateNivelActividad() {
-        const nivelActividadField = document.getElementById("nivel_actividad_id"); // Cambiado aquí
+        const nivelActividadField = document.getElementById("nivel_actividad_id");
         const nivelActividadError = document.getElementById("nivelActividadError");
 
         if (touchedFields.nivelActividad) {
@@ -210,7 +214,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const checkboxes = document.querySelectorAll('input[name="comportamientos[]"]');
         const comportamientosError = document.getElementById("comportamientosError");
 
-        // Verificar si al menos un checkbox está seleccionado
         const isChecked = Array.from(checkboxes).some((checkbox) => checkbox.checked);
 
         if (!isChecked) {
@@ -243,7 +246,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const imagenField = document.getElementById("imagen");
         const imagenError = document.getElementById("imagenError");
 
-        // Verificar si se seleccionó una imagen
         if (!imagenField.files || imagenField.files.length === 0) {
             imagenError.textContent = "Es obligatorio subir una imagen.";
             imagenError.style.display = "block"; // Asegurar que el mensaje sea visible
@@ -253,27 +255,23 @@ document.addEventListener("DOMContentLoaded", function () {
         const file = imagenField.files[0];
         const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
 
-        // Verificar el tipo de archivo
         if (!allowedTypes.includes(file.type)) {
             imagenError.textContent = `El tipo de archivo no es válido. Solo se permiten: ${allowedTypes.join(", ")}.`;
             imagenError.style.display = "block";
             return false;
         }
 
-        // Verificar el tamaño del archivo
         if (file.size > 2 * 1024 * 1024) {
             imagenError.textContent = "La imagen no debe superar los 2 MB.";
             imagenError.style.display = "block";
             return false;
         }
 
-        // Si pasa todas las validaciones
         imagenError.textContent = "";
         imagenError.style.display = "none";
         return true;
     }
 
-    // Mostrar vista previa de la imagen
     document.getElementById("imagen").addEventListener("change", function () {
         const preview = document.getElementById("imagen_preview");
         const fileName = document.getElementById("imagenName");
@@ -287,11 +285,9 @@ document.addEventListener("DOMContentLoaded", function () {
             };
             reader.readAsDataURL(file);
 
-            // Mostrar el nombre del archivo
             fileName.textContent = `Archivo seleccionado: ${file.name}`;
             fileName.classList.remove("d-none");
         } else {
-            // Resetear vista previa y nombre del archivo
             preview.src = "#";
             preview.classList.add("d-none");
             fileName.textContent = "";
