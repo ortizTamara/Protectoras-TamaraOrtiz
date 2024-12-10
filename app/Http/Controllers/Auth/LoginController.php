@@ -37,13 +37,15 @@ class LoginController extends Controller
         // }
 
         if ($usuario && Hash::check($credentials['password'], $usuario->password)) {
+            $remember = $request->has('remember');
 
-            Auth::login($usuario, $request->filled('remember'));
+
+            Auth::login($usuario, $remember);
 
             session(['is_admin' => $usuario->rol_id == 1]);
-
             return redirect()->route('home')->with('success', 'Inicio de sesión exitoso');
         }
+
 
         return back()->withErrors([
             'email' => 'Las credenciales no coinciden con nuestros registros.',
@@ -53,7 +55,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        session()->forget('is_admin'); // Borra la sesión de admin al salir
+        session()->forget('is_admin');
         return redirect()->route('login')->with('success', 'Has cerrado sesión exitosamente.');
     }
 }

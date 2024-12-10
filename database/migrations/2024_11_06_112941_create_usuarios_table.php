@@ -29,6 +29,7 @@ return new class extends Migration
             // Por defecto null, a no ser que el usuario se registre como Protectora y también si el Usuario recibe el rol de Ayudante.
             $table->foreignId('protectora_id')->nullable()->constrained()->onDelete('set null'); //OnDelete, por si se borra la protectora, este se vuelva null
             $table->string('foto')->nullable();
+            $table->string('remember_token', 100)->nullable();
             $table->timestamps();
         });
     }

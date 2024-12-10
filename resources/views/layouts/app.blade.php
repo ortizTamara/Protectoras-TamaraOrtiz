@@ -26,17 +26,16 @@
 
     <div id="app">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-
             <div class="container-fluid">
+                <a class="navbar-brand" href="{{ route('home') }}">
+                    <img src="{{ asset('imagenes/logo5.png') }}" height="50" alt="">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                    <a class="navbar-brand" href="{{ route('home') }}">
-                        <img src="{{ asset('imagenes/logo5.png') }}" height="50" alt="">
-                    </a>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 nav-underline">
                         <li class="nav-item">
                             <a class="nav-link @if (request()->is('/')) active @endif" aria-current="page"
@@ -66,6 +65,11 @@
                             @if (Auth::user()->rol_id == 1)
                                 <li class="nav-item">
                                     <a class="nav-link @if (request()->is('administracion')) active @endif" href="{{ route('administracion') }}">Administrador</a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->rol_id == 2)
+                                <li class="nav-item">
+                                    <a class="nav-link @if (request()->is('gestionar-adopcion')) active @endif" href="">Gestionar Visitas</a>
                                 </li>
                             @endif
                         @endauth

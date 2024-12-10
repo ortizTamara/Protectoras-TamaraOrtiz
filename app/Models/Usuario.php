@@ -51,7 +51,6 @@ class Usuario extends Authenticatable
 
     }
 
-    // Asigna el rol por defecto al usuario
     protected static function boot()
     {
         parent::boot();
@@ -63,43 +62,36 @@ class Usuario extends Authenticatable
         });
     }
 
-    // Relación con el modelo ROL
     public function rol(): BelongsTo
     {
         return $this->belongsTo(Rol::class)->withDefault();
     }
 
-    // Relación con el modelo GENERO
     public function genero(): BelongsTo
     {
         return $this->belongsTo(Genero::class);
     }
 
-    // Relación con el modelo PAIS
     public function pais(): BelongsTo
     {
         return $this->belongsTo(Pais::class);
     }
 
-    // Relación con el modelo COMUNIDAD AUTONOMA
     public function comunidadAutonoma(): BelongsTo
     {
         return $this->belongsTo(ComunidadAutonoma::class);
     }
 
-    // Relacion con el modelo PROVINCIA
     public function provincia(): BelongsTo
     {
     return $this->belongsTo(Provincia::class);
     }
 
-    // Relación con el modelo Protectora
     public function protectora(): BelongsTo
     {
         return $this->belongsTo(Protectora::class)->withDefault();
     }
 
-    // Verifica si el usuario tiene un rol específico
     public function hasRole($roleName)
     {
         return optional($this->rol)->nombre === $roleName;

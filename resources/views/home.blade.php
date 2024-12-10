@@ -116,7 +116,7 @@
                         <a href="{{ route('home', array_merge(request()->all(), ['orden' => 'edad_desc'])) }}" class="btn btn-secondary">Edad Descendente</a>
                     </div>
                 </div>
-                <div class="home__cards row row-cols-3 row-cols-sm-3 row-cols-md-5 g-4">
+                <div class="home__cards row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
                     @forelse ($animales as $animal)
                         @if ($animal->protectora && $animal->protectora->esValido)
                             <div class="col-3 text-decoration-none">
