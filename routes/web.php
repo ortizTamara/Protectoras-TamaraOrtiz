@@ -23,6 +23,7 @@ use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\RazaController;
 use App\Http\Controllers\UsuarioAnimalFavoritoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\VisitaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -135,7 +136,10 @@ Route::get('/aprende/viviendo', function () {
     return view('aprende.viviendo.index');
 })->name('aprende.viviendo');
 
-
+Route::post('/visitas', [VisitaController::class, 'store'])->name('visitas.store');
+Route::get('/visitas', [VisitaController::class, 'index'])->name('visitas.index');
+Route::patch('/visitas/{id}/aceptar', [VisitaController::class, 'aceptar'])->name('visitas.aceptar');
+Route::patch('/visitas/{id}/rechazar', [VisitaController::class, 'rechazar'])->name('visitas.rechazar');
 
 Auth::routes();
 // Rutas para recuperar contraseñas

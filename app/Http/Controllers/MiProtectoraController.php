@@ -60,31 +60,6 @@ class MiProtectoraController extends Controller
         return view('perfil.protectoras.show', compact('protectora', 'animales', 'enAdopcion', 'urgentes', 'enAcogida'));
     }
 
-    /*
-    public function show($id)
-    {
-        $protectora = Protectora::with('animales')->findOrFail($id);
-
-        if (!$protectora->esValido) {
-            // Si no está logueado, denegar acceso
-            if (!auth()->check()) {
-                abort(403, 'No tienes permiso para ver esta protectora.');
-            }
-
-            $usuario = auth()->user();
-
-            if ($usuario->protectora_id === $protectora->id) {
-                // Permitir acceso si el usuario es el propietario
-                return view('perfil.protectoras.show', compact('protectora'));
-            }
-
-            abort(403, 'No tienes permiso para ver esta protectora.');
-        }
-
-        return view('perfil.protectoras.show', compact('protectora'));
-    }
-    */
-
     public function edit($id)
     {
         $user = Auth::user();
@@ -102,163 +77,101 @@ class MiProtectoraController extends Controller
     {
         $protectora = Protectora::findOrFail($id);
 
-    $usuario = Auth::user();
-    if ($usuario->protectora_id != $protectora->id) {
-        return redirect()->route('perfil')->with('error', 'No tienes acceso a esta protectora.');
-    }
+        $usuario = Auth::user();
+        if ($usuario->protectora_id != $protectora->id) {
+            return redirect()->route('perfil')->with('error', 'No tienes acceso a esta protectora.');
+        }
 
-    $validatedData = $request->validate([
-        'nombre' => 'required|string|max:255',
-        'direccion' => 'required|string|max:255',
-        'nuestra_historia' => 'nullable|string|max:5000',
-        'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
-
-    DB::beginTransaction();
-
-    try {
-        $protectora->update([
-            'nombre' => $validatedData['nombre'],
-            'direccion' => $validatedData['direccion'],
-            'nuestra_historia' => $validatedData['nuestra_historia'],
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'nuestra_historia' => 'nullable|string|max:5000',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($request->hasFile('logo')) {
-            if ($protectora->logo && Storage::disk('public')->exists($protectora->logo)) {
-                Storage::disk('public')->delete($protectora->logo);
-            }
+        DB::beginTransaction();
 
-            $fileName = 'protectora_' . $protectora->id . '_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('logo')->getClientOriginalExtension();
+        try {
+            $protectora->update([
+                'nombre' => $validatedData['nombre'],
+                'direccion' => $validatedData['direccion'],
+                'nuestra_historia' => $validatedData['nuestra_historia'],
+            ]);
 
-            $path = $request->file('logo')->storeAs('logos', $fileName, 'public');
-
-            if ($path) {
-                $protectora->update(['logo' => $path]);
-            }
-        }
-
-        if ($request->input('action') === 'save') {
-
-            $animalTemporales = $protectora->animalTemporales;
-
-            foreach ($animalTemporales as $animalTemporal) {
-                $animal = Animal::create([
-                    'nombre' => $animalTemporal->nombre,
-                    'fecha_nacimiento' => $animalTemporal->fecha_nacimiento,
-                    'peso' => $animalTemporal->peso,
-                    'estado_animal_id' => $animalTemporal->estado_animal_id,
-                    'especie_id' => $animalTemporal->especie_id,
-                    'raza_id' => $animalTemporal->raza_id,
-                    'color_id' => $animalTemporal->color_id,
-                    'genero_animal_id' => $animalTemporal->genero_animal_id,
-                    'nivel_actividad_id' => $animalTemporal->nivel_actividad_id,
-                    'descripcion' => $animalTemporal->descripcion,
-                    'imagen' => $animalTemporal->imagen,
-                    'protectora_id' => $animalTemporal->protectora_id,
-                ]);
-
-                if ($animalTemporal->comportamientos) {
-                    $animal->comportamientos()->sync($animalTemporal->comportamientos->pluck('id')->toArray());
+            if ($request->hasFile('logo')) {
+                if ($protectora->logo && Storage::disk('public')->exists($protectora->logo)) {
+                    Storage::disk('public')->delete($protectora->logo);
                 }
 
-                if ($animalTemporal->opcionesEntrega) {
-                    $animal->opcionesEntrega()->sync($animalTemporal->opcionesEntrega->pluck('id')->toArray());
+                $fileName = 'protectora_' . $protectora->id . '_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('logo')->getClientOriginalExtension();
+
+                $path = $request->file('logo')->storeAs('logos', $fileName, 'public');
+
+                if ($path) {
+                    $protectora->update(['logo' => $path]);
+                }
+            }
+
+            if ($request->input('action') === 'save') {
+
+                $animalTemporales = $protectora->animalTemporales;
+
+                foreach ($animalTemporales as $animalTemporal) {
+                    $animal = Animal::create([
+                        'nombre' => $animalTemporal->nombre,
+                        'fecha_nacimiento' => $animalTemporal->fecha_nacimiento,
+                        'peso' => $animalTemporal->peso,
+                        'estado_animal_id' => $animalTemporal->estado_animal_id,
+                        'especie_id' => $animalTemporal->especie_id,
+                        'raza_id' => $animalTemporal->raza_id,
+                        'color_id' => $animalTemporal->color_id,
+                        'genero_animal_id' => $animalTemporal->genero_animal_id,
+                        'nivel_actividad_id' => $animalTemporal->nivel_actividad_id,
+                        'descripcion' => $animalTemporal->descripcion,
+                        'imagen' => $animalTemporal->imagen,
+                        'protectora_id' => $animalTemporal->protectora_id,
+                    ]);
+
+                    if ($animalTemporal->comportamientos) {
+                        $animal->comportamientos()->sync($animalTemporal->comportamientos->pluck('id')->toArray());
+                    }
+
+                    if ($animalTemporal->opcionesEntrega) {
+                        $animal->opcionesEntrega()->sync($animalTemporal->opcionesEntrega->pluck('id')->toArray());
+                    }
+
+                    $animalTemporal->delete();
+
                 }
 
-                $animalTemporal->delete();
+                $animalesParaEliminar = $protectora->animales()->where('marcado_para_eliminar', true)->get();
 
+                foreach ($animalesParaEliminar as $animal) {
+                    $animal->delete();
+                }
+
+                DB::commit();
+
+                return redirect()->route('perfil-miProtectora.show', $protectora->id)
+                    ->with('success', 'Protectora y animales actualizados correctamente.');
+            } elseif ($request->input('action') === 'cancel') {
+
+                $protectora->animalTemporales()->delete();
+
+                $protectora->animales()->where('marcado_para_eliminar', true)->update(['marcado_para_eliminar' => false]);
+
+                DB::commit();
+
+                return redirect()->route('perfil-miProtectora.show', $protectora->id)
+                    ->with('info', 'Los cambios han sido descartados y los animales temporales han sido eliminados.');
             }
 
-            $animalesParaEliminar = $protectora->animales()->where('marcado_para_eliminar', true)->get();
+            throw new \Exception('Acción no válida.');
+            } catch (\Exception $e) {
+                DB::rollBack();
 
-            foreach ($animalesParaEliminar as $animal) {
-                $animal->delete();
-            }
-
-            DB::commit();
-
-            return redirect()->route('perfil-miProtectora.show', $protectora->id)
-                ->with('success', 'Protectora y animales actualizados correctamente.');
-        } elseif ($request->input('action') === 'cancel') {
-
-            $protectora->animalTemporales()->delete();
-
-            $protectora->animales()->where('marcado_para_eliminar', true)->update(['marcado_para_eliminar' => false]);
-
-            DB::commit();
-
-            return redirect()->route('perfil-miProtectora.show', $protectora->id)
-                ->with('info', 'Los cambios han sido descartados y los animales temporales han sido eliminados.');
+            return redirect()->back()->with('error', 'Ocurrió un error al procesar tu solicitud.');
         }
-
-        throw new \Exception('Acción no válida.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-        return redirect()->back()->with('error', 'Ocurrió un error al procesar tu solicitud.');
-    }
-    //     $protectora = Protectora::findOrFail($id);
-
-    //     $validatedData = $request->validate([
-    //         'nombre' => 'required|string|max:255',
-    //         'direccion' => 'required|string|max:255',
-    //         'nuestra_historia' => 'nullable|string|max:5000',
-    //         'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'added_animals' => 'nullable|array',
-    //         'removed_animals' => 'nullable|array',
-    //     ]);
-
-    //     $protectora->update([
-    //         'nombre' => $validatedData['nombre'],
-    //         'direccion' => $validatedData['direccion'],
-    //         'nuestra_historia' => $validatedData['nuestra_historia'],
-    //     ]);
-
-    //     if ($request->hasFile('logo')) {
-    //         if ($protectora->logo && Storage::disk('public')->exists($protectora->logo)) {
-    //             Storage::disk('public')->delete($protectora->logo);
-    //         }
-
-    //         $fileName = 'protectora_' . $protectora->id . '_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('logo')->getClientOriginalExtension();
-
-    //         $path = $request->file('logo')->storeAs('logos', $fileName, 'public');
-
-    //         if ($path) {
-    //             $protectora->update(['logo' => $path]);
-    //         }
-    //     }
-
-    //     $animalTemporales = $protectora->animalTemporales;
-
-    //     foreach ($animalTemporales as $animalTemporal) {
-    //         $animal = Animal::create([
-    //             'nombre' => $animalTemporal->nombre,
-    //             'fecha_nacimiento' => $animalTemporal->fecha_nacimiento,
-    //             'peso' => $animalTemporal->peso,
-    //             'estado_animal_id' => $animalTemporal->estado_animal_id,
-    //             'especie_id' => $animalTemporal->especie_id,
-    //             'raza_id' => $animalTemporal->raza_id,
-    //             'color_id' => $animalTemporal->color_id,
-    //             'genero_animal_id' => $animalTemporal->genero_animal_id,
-    //             'nivel_actividad_id' => $animalTemporal->nivel_actividad_id,
-    //             'descripcion' => $animalTemporal->descripcion,
-    //             'imagen' => $animalTemporal->imagen,
-    //             'protectora_id' => $animalTemporal->protectora_id,
-    //         ]);
-
-    //         if ($animalTemporal->comportamientos) {
-    //             $animal->comportamientos()->sync($animalTemporal->comportamientos->pluck('id')->toArray());
-    //         }
-
-    //         if ($animalTemporal->opcionesEntrega) {
-    //             $animal->opcionesEntrega()->sync($animalTemporal->opcionesEntrega->pluck('id')->toArray());
-    //         }
-
-    //         $animalTemporal->delete();
-    // }
-
-    //     return redirect()->route('perfil-miProtectora.show', $protectora->id)
-    //         ->with('success', 'Protectora actualizada correctamente.');
     }
 
     public function deleteLogo($id)

@@ -53,9 +53,11 @@
                         </div>
                     </a>
 
-                    <button class="animal-card__contact-button btn btn-secondary" data-bs-toggle="modal" data-bs-target="#contactModal">
-                        <i class="bi bi-chat"></i> Solicitar visita
-                    </button>
+                    @auth
+                        <button class="animal-card__contact-button btn btn-secondary" data-bs-toggle="modal" data-bs-target="#contactModal">
+                            <i class="bi bi-chat"></i> Solicitar visita
+                        </button>
+                    @endauth
                 </div>
             </div>
         </div>
@@ -128,7 +130,7 @@
     </div>
 
     <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered"> <!-- Añadido modal-dialog-centered -->
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="contactModalLabel">Solicitar Visita para {{ $animal->nombre }}</h5>
@@ -137,7 +139,7 @@
                 <div class="modal-body">
                     <form action="{{ route('visitas.store') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="mascota_id" value="{{ $animal->id }}">
+                        <input type="hidden" name="animal_id" value="{{ $animal->id }}">
                         <div class="mb-3">
                             <label for="mensaje" class="form-label">¿Por qué quieres visitar a {{ $animal->nombre }}?</label>
                             <textarea name="mensaje" id="mensaje" class="form-control" rows="5" required></textarea>

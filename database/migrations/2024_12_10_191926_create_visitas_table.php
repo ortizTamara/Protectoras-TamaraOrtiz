@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('visitas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('animal_id')->constrained()->onDelete('cascade');
-            $table->foreignId('usuario_id')->constrained()->onDelete('cascade');
+            $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
+            $table->foreignId('animal_id')->constrained('animals')->onDelete('cascade');
             $table->text('mensaje');
+            $table->enum('estado', ['pendiente', 'aceptada', 'rechazada'])->default('pendiente');
             $table->timestamps();
         });
     }

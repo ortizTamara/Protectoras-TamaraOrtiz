@@ -69,7 +69,7 @@
                             @endif
                             @if (Auth::user()->rol_id == 2)
                                 <li class="nav-item">
-                                    <a class="nav-link @if (request()->is('gestionar-adopcion')) active @endif" href="">Gestionar Visitas</a>
+                                    <a class="nav-link @if (request()->is('visitas')) active @endif" href="{{ route('visitas.index') }}">Gestionar Visitas</a>
                                 </li>
                             @endif
                         @endauth
