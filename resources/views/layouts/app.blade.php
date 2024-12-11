@@ -67,7 +67,7 @@
                                     <a class="nav-link @if (request()->is('administracion')) active @endif" href="{{ route('administracion') }}">Administrador</a>
                                 </li>
                             @endif
-                            @if (Auth::user()->rol_id == 2)
+                            @if (auth()->user()->protectora_id)
                                 <li class="nav-item">
                                     <a class="nav-link @if (request()->is('visitas')) active @endif" href="{{ route('visitas.index') }}">Gestionar Visitas</a>
                                 </li>

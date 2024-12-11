@@ -140,6 +140,7 @@
                     <form action="{{ route('visitas.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="animal_id" value="{{ $animal->id }}">
+                        <input type="hidden" name="protectora_id" value="{{ $animal->protectora_id }}">
                         <div class="mb-3">
                             <label for="mensaje" class="form-label">¿Por qué quieres visitar a {{ $animal->nombre }}?</label>
                             <textarea name="mensaje" id="mensaje" class="form-control" rows="5" required></textarea>

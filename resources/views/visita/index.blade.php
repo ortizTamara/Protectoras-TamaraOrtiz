@@ -22,7 +22,7 @@
                 <tr class="manage-visitas__table-row">
                     <td class="manage-visitas__table-cell">{{ $index++ }}</td>
                     <td class="manage-visitas__table-cell">{{ $visita->animal->nombre }}</td>
-                    <td class="manage-visitas__table-cell">{{ $visita->usuario->email }}</td>
+                    <td class="manage-visitas__table-cell">{{ $visita->usuario->nombre }}</td>
                     <td class="manage-visitas__table-cell">{{ $visita->mensaje }}</td>
                     <td class="manage-visitas__table-cell">
                         @if ($visita->estado == 'pendiente')
@@ -104,4 +104,5 @@
         </div>
     </div>
     @endforeach
+
 @endsection

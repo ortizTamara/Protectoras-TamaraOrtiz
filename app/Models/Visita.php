@@ -11,6 +11,7 @@ class Visita extends Model
 
     protected $fillable = [
         'usuario_id',
+        'protectora_id',
         'animal_id',
         'mensaje',
         'estado',
@@ -24,5 +25,10 @@ class Visita extends Model
    public function animal()
    {
        return $this->belongsTo(Animal::class);
+   }
+
+   public function protectora()
+   {
+       return $this->belongsTo(Protectora::class);
    }
 }
