@@ -3,19 +3,29 @@
 @section('content')
 <div class="protectora-page container my-5">
     <div class="protectora-page__search-bar mb-4 d-flex justify-content-center">
-        <form class="d-flex w-50" action="{{ route('protectoras') }}" method="GET">
-            <div class="input-group protectora-page__search-group">
-                <input type="text" name="search" class="form-control protectora-page__search-input" placeholder="Buscar protectora o por ciudad..." aria-label="Buscar protectoras" value="{{ request()->input('search') }}">
-                <button class="btn protectora-page__search-btn" type="submit">
+        <form class="d-flex w-75" action="{{ route('protectoras') }}" method="GET" style="max-width: 800px;">
+            <div class="input-group protectora-page__search-group" style="width: 100%;">
+                <input
+                    type="text"
+                    name="search"
+                    class="form-control protectora-page__search-input"
+                    placeholder="Buscar protectora o por ciudad..."
+                    aria-label="Buscar protectoras"
+                    value="{{ request()->input('search') }}"
+                    style="width:50%;"
+                >
+                <button
+                    class="btn protectora-page__search-btn"
+                    type="submit">
                     <i class="bi bi-search"></i> Buscar
                 </button>
             </div>
         </form>
     </div>
 
-    <div class="row g-5 mt-3">
+     <div class="row g-5 mt-3 justify-content-center">
         @forelse ($protectoras as $protectora)
-            <div class="col-5 col-md-4 col-lg-4 col-xl-3">
+            <div class="col-12 col-md-4 col-lg-4 col-xl-3 d-flex justify-content-center">
                 <div class="card protectora-card h-100 shadow-sm">
                     <div class="card-body text-center">
                         <div class="protectora-card__logo mb-3">

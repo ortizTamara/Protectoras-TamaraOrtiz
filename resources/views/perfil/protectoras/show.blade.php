@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="container protectora">
+<div class="container protectora overflow-hidden">
     <div class="protectora__header d-flex justify-content-between align-items-center">
         <div class="protectora__info d-flex align-items-center">
             <div class="protectora__logo-container">
@@ -108,25 +108,5 @@
             @endforelse
         </div>
     </section>
-    {{-- <section class="animal__cases mt-5">
-        <div class="d-flex align-items-center">
-            <h2 class="animal__section-title mb-0 me-2">Nuestros casos en adopción</h2>
-        </div>
-        <div class="animal__cards-grid">
-            @forelse ($protectora->animales as $animal)
-                <a href="{{ route('animal.show', $animal->id) }}" class="animal__case">
-                    <div class="animal__card position-relative">
-                        <img src="{{ $animal->imagen ? asset('storage/' . $animal->imagen) : '/images/placeholder.jpg' }}"
-                             alt="{{ $animal->nombre }}" class="animal__card-image">
-                        <div class="animal__card-body">
-                            <h5 class="animal__card-name">{{ $animal->nombre }}</h5>
-                        </div>
-                    </div>
-                </a>
-            @empty
-                <p class="animal__no-cards">No hay casos en adopción actualmente.</p>
-            @endforelse
-        </div>
-    </section> --}}
 </div>
 @endsection

@@ -67,7 +67,7 @@ class HomeController extends Controller
                     $q->orWhere('peso', '<', 5);
                 }
                 if (in_array('mediano', $tamanios)) {
-                    $q->orWhereBetween('peso', [5, 10]);
+                    $q->orWhereBetween('peso', [5, 20]);
                 }
                 if (in_array('grande', $tamanios)) {
                     $q->orWhere('peso', '>', 20);

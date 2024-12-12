@@ -14,54 +14,56 @@
         </div>
 
         <div class="animal-card__info-section col-lg-8 col-md-6">
-          <div class="animal-card__header d-flex justify-content-between">
-            <div class="animal-card__title text-start">
-              <h1 class="animal-card__name mb-0 h3">{{ $animal->nombre }} {{ $animal->genero == 'F' ? '♀' : '♂' }}</h1>
-              <p class="animal-card__location text-muted">
-                @if ($animal->protectora && $animal->protectora->usuario)
-                    {{ $animal->protectora->usuario->pais->nombre . ', ' . $animal->protectora->usuario->comunidadAutonoma->nombre }}
-                @else
-                    Ubicación no disponible
-                @endif
-            </p>
-            </div>
-            <div class="animal-card__actions d-flex flex-column align-items-end gap-0 mb-0">
-                <div class="d-flex align-items-center big-gap mb-2">
-                    @if(auth()->check() && (auth()->user()->rol_id == 1 || auth()->user()->protectora_id == $animal->protectora_id))
-                    <a href="{{ route('animal.edit', $animal->id) }}" class="btn btn-secondary">
-                        <i class="bi bi-pencil"></i> Editar animal
-                    </a>
-                @endif
+            <div class="animal-card__header d-flex justify-content-between">
+                <div class="animal-card__title text-start">
+                    <h1 class="animal-card__name mb-0 h3">
+                        {{ $animal->nombre }} {{ $animal->genero == 'F' ? '♀' : '♂' }}
+                    </h1>
+                    <p class="animal-card__location text-muted">
+                        @if ($animal->protectora && $animal->protectora->usuario)
+                            {{ $animal->protectora->usuario->pais->nombre . ', ' . $animal->protectora->usuario->comunidadAutonoma->nombre }}
+                        @else
+                            Ubicación no disponible
+                        @endif
+                    </p>
+                </div>
                 @auth
+                <div class="favorite-icon-container">
                     <form>
                         <input type="hidden" name="animal_id" value="{{ $animal->id }}">
                         <button class="favorite-icon-btn" type="button">
                             <i class="favorite-icon {{ Auth::user()->favoritos->contains($animal->id) ? 'fas fa-heart selected text-danger' : 'fas fa-heart' }}"></i>
                         </button>
                     </form>
-                @endauth
                 </div>
+                @endauth
+                <div class="animal-card__actions d-flex flex-column align-items-end gap-2 mb-5">
 
-                <div class="animal-card__protectora-info d-flex gap-2 align-items-center mb-5">
-                    <a href="{{ route('perfil-miProtectora.show', $animal->protectora_id) }}" class="animal-card__protectora-link">
-                        <div class="d-flex align-items-center gap-3">
-                            <i class="fa-solid fa-paw animal-card__protectora-icon"></i>
-                            <div class="animal-card__protectora-text-wrapper">
-                                <span class="animal-card__protectora-name">{{ $animal->protectora->nombre }}</span>
-                                <p class="animal-card__protectora-text">Protectora</p>
+                    @if(auth()->check() && (auth()->user()->rol_id == 1 || auth()->user()->protectora_id == $animal->protectora_id))
+                        <a href="{{ route('animal.edit', $animal->id) }}" class="btn btn-secondary">
+                            <i class="bi bi-pencil"></i> Editar animal
+                        </a>
+                    @endif
+
+                    <div class="animal-card__protectora-info d-flex align-items-center gap-2">
+                        <a href="{{ route('perfil-miProtectora.show', $animal->protectora_id) }}" class="animal-card__protectora-link">
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="fa-solid fa-paw animal-card__protectora-icon"></i>
+                                <div class="animal-card__protectora-text-wrapper">
+                                    <span class="animal-card__protectora-name">{{ $animal->protectora->nombre }}</span>
+                                    <p class="animal-card__protectora-text">Protectora</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
 
-                    @auth
-                        <button class="animal-card__contact-button btn btn-secondary" data-bs-toggle="modal" data-bs-target="#contactModal">
-                            <i class="bi bi-chat"></i> Solicitar visita
-                        </button>
-                    @endauth
+                        @auth
+                            <button class="animal-card__contact-button btn btn-secondary" data-bs-toggle="modal" data-bs-target="#contactModal">
+                                <i class="bi bi-chat"></i> Solicitar visita
+                            </button>
+                        @endauth
+                    </div>
                 </div>
             </div>
-        </div>
-
           <div class="animal-card__details-section grid sm:grid-cols-2 md:grid-cols-5 gap-0 mb-4 text-start">
             <div class="animal-card__detail">
                 <h3 class="animal-card__detail-title text-muted">Especie</h3>

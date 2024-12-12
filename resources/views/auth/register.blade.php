@@ -215,7 +215,7 @@
                     </div>
 
                     <div class="card-footer text-center">
-                        <button type="submit" class="btn btn-primary w-100" id="submitBtn">Registrarse como
+                        <button type="submit" class="btn btn-secondary w-100" id="submitBtn">Registrarse como
                             Usuario</button>
                     </div>
                 </form>

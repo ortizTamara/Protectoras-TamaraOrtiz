@@ -114,7 +114,7 @@
                                 </div>
                             </div>
                             <div class="d-grid mt-4">
-                                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                <button type="submit" class="btn btn-secondary">Guardar cambios</button>
                             </div>
                         </form>
                     @else

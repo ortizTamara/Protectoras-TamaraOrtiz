@@ -44,7 +44,7 @@
                     </div>
                     <a href="{{ route('password.request') }}" class="text-primary">¿Olvidaste tu contraseña?</a>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                <button type="submit" class="btn btn-secondary w-100">Iniciar Sesión</button>
             </form>
         </div>
     </div>

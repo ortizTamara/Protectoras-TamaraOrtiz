@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Función para calcular el tamaño del animal según el peso
     function calcularTamaño(peso) {
+        console.log(peso);
         if (peso <= 5) {
             return 'Pequeño';
         } else if (peso > 5 && peso <= 20) {

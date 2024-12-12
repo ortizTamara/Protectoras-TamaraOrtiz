@@ -103,7 +103,6 @@ class UsuarioController extends Controller
     // FOTO USUARIO
     public function updateFoto(Request $request)
     {
-        // Validamos la foto
         $request->validate([
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);

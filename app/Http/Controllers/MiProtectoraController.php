@@ -70,7 +70,7 @@ class MiProtectoraController extends Controller
 
         $protectora = Protectora::findOrFail($id);
 
-        return view('perfil.protectoras.edit', compact('protectora'));
+        return view('perfil.protectoras.index', compact('protectora'));
     }
 
     public function update(Request $request, $id)

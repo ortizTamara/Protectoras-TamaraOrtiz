@@ -173,10 +173,11 @@
             </div>
 
             <div class="create-animal__actions d-flex justify-content-end gap-2 mt-4">
-                <a href="{{ route('animal.index') }}" class="btn btn-outline-secondary create-animal__cancel">
+                 <button type="submit" name="action" value="cancel" class="btn btn-secondary">Cancelar</button>
+                {{-- <a href="{{ route('perfil-miProtectora.edit', $protectora_id) }}" class="btn btn-outline-secondary create-animal__cancel">
                     Cancelar
-                </a>
-                <button type="submit" class="btn btn-primary create-animal__submit">
+                </a> --}}
+                <button type="submit" class="btn btn-secondary create-animal__submit">
                     Publicar
                 </button>
             </div>
