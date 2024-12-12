@@ -7,6 +7,7 @@ use App\Models\Protectora;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class MiProtectoraController extends Controller
@@ -53,7 +54,7 @@ class MiProtectoraController extends Controller
 
         $animales = $protectora->animales;
 
-        $enAdopcion = $animales->where('estado_animal_id', 1)->count(); // Ajusta según tus valores
+        $enAdopcion = $animales->where('estado_animal_id', 1)->count();
         $urgentes = $animales->where('estado_animal_id', 2)->count();
         $enAcogida = $animales->where('estado_animal_id', 3)->count();
 
@@ -70,8 +71,23 @@ class MiProtectoraController extends Controller
 
         $protectora = Protectora::findOrFail($id);
 
-        return view('perfil.protectoras.index', compact('protectora'));
+        // Log::info('Editando protectora:', $protectora->toArray());
+
+        return view('perfil.protectoras.edit', compact('protectora'));
     }
+
+    // public function edit($id)
+    // {
+    //     $user = Auth::user();
+
+    //     if ($user->protectora_id != $id) {
+    //         return redirect()->route('perfil')->with('error', 'No tienes acceso a esta protectora.');
+    //     }
+
+    //     $protectora = Protectora::findOrFail($id);
+
+    //     return view('perfil.protectoras.index', compact('protectora'));
+    // }
 
     public function update(Request $request, $id)
     {

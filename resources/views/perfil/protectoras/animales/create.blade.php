@@ -163,7 +163,7 @@
                         <i class="bi bi-upload create-animal__icon"></i>
                         <p class="create-animal__text">Seleccionar imagen</p>
                     </label>
-                    <input type="file" name="imagen" id="imagen" class="create-animal__input d-none" accept="image/jpeg,image/png,image/gif" required>
+                    <input type="file" name="imagen" id="imagen" class="create-animal__input d-none" accept="image/jpeg,image/png,image/gif">
                     <div id="imagenError" class="create-animal__error"></div>
                     <div class="create-animal__preview">
                         <img id="imagen_preview" src="#" alt="Vista previa" class="d-none">

@@ -42,7 +42,7 @@ class Protectora extends Model
 
     public function animales(): HasMany
     {
-        return $this->hasMany(Animal::class, 'protectora_id');
+        return $this->hasMany(Animal::class);
     }
 
     protected $attributes = [

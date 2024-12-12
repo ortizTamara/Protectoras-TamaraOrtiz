@@ -10,7 +10,7 @@
     <form action="{{ route('perfil-miProtectora.update', $protectora->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-
+        {{-- @dd($protectora) --}}
         <div class="protectora__header">
             <div class="protectora__info d-flex justify-content-between align-items-center">
                 <div class="protectora__logo-container d-flex align-items-center">
@@ -74,7 +74,7 @@
         @forelse ($protectora->animalTemporales as $animalTemporal)
             <div class="animal__case animal__case-temporal">
                 <div class="animal__card position-relative">
-                    <a href="{{ route('animal.edit', $animal->id) }}">
+                    <a href="{{ route('animal.edit', $animalTemporal->id) }}">
                         <img src="{{ $animalTemporal->imagen ? asset('storage/' . $animalTemporal->imagen) : '/images/placeholder.jpg' }}"
                             alt="{{ $animalTemporal->nombre }}" class="animal__card-image">
                     </a>

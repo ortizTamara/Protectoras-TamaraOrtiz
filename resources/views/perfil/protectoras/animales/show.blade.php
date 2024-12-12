@@ -28,7 +28,7 @@
                     </p>
                 </div>
                 @auth
-                <div class="favorite-icon-container">
+                <div class="animal-card__favorite-icon">
                     <form>
                         <input type="hidden" name="animal_id" value="{{ $animal->id }}">
                         <button class="favorite-icon-btn" type="button">
