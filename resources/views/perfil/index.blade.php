@@ -121,7 +121,7 @@
                             <a href="#" class="text-muted" onclick="return false;" title="Esta funcionalidad está deshabilitada temporalmente.">¿Quieres cambiar la contraseña?</a>
                         </div>
                         <div class="d-grid mt-1">
-                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                            <button type="submit" class="btn btn-secondary">Guardar cambios</button>
                         </div>
                     </form>
                 </div>
