@@ -615,7 +615,7 @@ form fieldset {
 }
 
 /* TARJETAS ANIMALES */
-.protectora__cases-grid {
+.protectora__cases-grid, .animal__cards-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;

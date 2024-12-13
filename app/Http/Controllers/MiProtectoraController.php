@@ -36,24 +36,29 @@ class MiProtectoraController extends Controller
 
     public function show($id)
     {
-        // $user = Auth::user();
-
-        // $protectora = Protectora::with('animales')->findOrFail($id);
         $protectora = Protectora::with(['animales', 'animalTemporales'])->findOrFail($id);
+        $usuario = Auth::user();
 
-
+        // Si la protectora no está validada
         if (!$protectora->esValido) {
-            $usuario = Auth::user();
-
-            if ($usuario->protectora_id === $protectora->id) {
-                return view('perfil.protectoras.show', compact('protectora'));
+            // Permitir acceso solo si el usuario es dueño de la protectora
+            if ($usuario->protectora_id !== $protectora->id) {
+                abort(403, 'No tienes permiso para ver esta protectora.');
             }
 
-            abort(403, 'No tienes permiso para ver esta protectora.');
+            // Si es el dueño, mostrar la vista con un mensaje
+            return view('perfil.protectoras.show', [
+                'protectora' => $protectora,
+                'animales' => $protectora->animales,
+                'enAdopcion' => 0,
+                'urgentes' => 0,
+                'enAcogida' => 0,
+                'mensaje' => 'Tu protectora aún no ha sido aprobada por el administrador.',
+            ]);
         }
 
+        // Si está validada, calcular estadísticas normalmente
         $animales = $protectora->animales;
-
         $enAdopcion = $animales->where('estado_animal_id', 1)->count();
         $urgentes = $animales->where('estado_animal_id', 2)->count();
         $enAcogida = $animales->where('estado_animal_id', 3)->count();
@@ -75,19 +80,6 @@ class MiProtectoraController extends Controller
 
         return view('perfil.protectoras.edit', compact('protectora'));
     }
-
-    // public function edit($id)
-    // {
-    //     $user = Auth::user();
-
-    //     if ($user->protectora_id != $id) {
-    //         return redirect()->route('perfil')->with('error', 'No tienes acceso a esta protectora.');
-    //     }
-
-    //     $protectora = Protectora::findOrFail($id);
-
-    //     return view('perfil.protectoras.index', compact('protectora'));
-    // }
 
     public function update(Request $request, $id)
     {

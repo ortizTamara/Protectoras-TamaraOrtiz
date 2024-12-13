@@ -87,12 +87,21 @@
 
                     <div class="form-group mb-3">
                         <label for="usuario" class="form-label fw-bold">Usuario</label>
+                        <input type="text" id="usuario" class="form-control" value="{{ $visita->usuario->nombre }}" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="usuario" class="form-label fw-bold">Email</label>
                         <input type="text" id="usuario" class="form-control" value="{{ $visita->usuario->email }}" readonly>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="mensaje" class="form-label fw-bold">Mensaje</label>
                         <textarea id="mensaje" class="form-control" rows="4" readonly>{{ $visita->mensaje }}</textarea>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="fecha" class="form-label fw-bold">Fecha</label>
+                        <input type="text" id="fecha" class="form-control" value="{{ $visita->created_at->format('d/m/Y H:i') }}" readonly>
                     </div>
 
                     <div class="form-group mb-3">

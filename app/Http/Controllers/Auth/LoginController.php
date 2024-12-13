@@ -30,11 +30,6 @@ class LoginController extends Controller
 
         $usuario = Usuario::where('email', $credentials['email'])->first();
 
-        // if ($usuario && Hash::check($credentials['password'], $usuario->password)) {
-        //     Auth::login($usuario);
-        //     session(['is_admin' => $usuario->rol_id == 1]);
-        //     return redirect()->route('home')->with('success', 'Inicio de sesión exitoso');
-        // }
 
         if ($usuario && Hash::check($credentials['password'], $usuario->password)) {
             $remember = $request->has('remember');
